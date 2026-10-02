@@ -146,7 +146,8 @@
           "kind": {
             "enum": [
               "sandbag",
-              "crate"
+              "crate",
+              "building"
             ]
           },
           "position": {
@@ -168,12 +169,12 @@
               {
                 "type": "number",
                 "minimum": 0.035,
-                "maximum": 0.09
+                "maximum": 0.28
               },
               {
                 "type": "number",
                 "minimum": 0.035,
-                "maximum": 0.16
+                "maximum": 0.3
               }
             ],
             "minItems": 3,
@@ -185,7 +186,36 @@
               90
             ]
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "sandbag",
+                    "crate"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "size": {
+                  "prefixItems": [
+                    {},
+                    {
+                      "maximum": 0.09
+                    },
+                    {
+                      "maximum": 0.16
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

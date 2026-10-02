@@ -1,0 +1,3090 @@
+[
+  {
+    "name": "stationery_variant_0",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_2"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_0"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_3"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.12,
+          -0.89,
+          0.22,
+          0.14,
+          "tissues",
+          0.12
+        ],
+        [
+          0.48,
+          -0.51,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.18,
+          -0.48,
+          0.28,
+          0.04,
+          "ruler",
+          0.012
+        ],
+        [
+          0.48,
+          -0.9,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.74,
+          0.5,
+          0.23,
+          0.055,
+          "desk_divider",
+          0.25
+        ],
+        [
+          0.645,
+          0.4,
+          0.05,
+          0.07,
+          "concrete",
+          0.13
+        ],
+        [
+          1.08,
+          0.91,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          0.72,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.31,
+          0.5,
+          0.19,
+          0.16,
+          "novel",
+          0.08
+        ],
+        [
+          1.63,
+          0.89,
+          0.3,
+          0.21,
+          "laptop",
+          0.17
+        ],
+        [
+          1.32,
+          0.9,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_1",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_3"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_1"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_4"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.11,
+          -0.9,
+          0.19,
+          0.16,
+          "novel",
+          0.08
+        ],
+        [
+          0.43,
+          -0.51,
+          0.3,
+          0.21,
+          "laptop",
+          0.17
+        ],
+        [
+          0.12,
+          -0.5,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.76,
+          0.5,
+          0.3,
+          0.22,
+          "printer",
+          0.16
+        ],
+        [
+          1.08,
+          0.9,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.72,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          0.5,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          1.68,
+          0.9,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          1.31,
+          0.88,
+          0.18,
+          0.13,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.52,
+          0.48,
+          0.11,
+          0.055,
+          "stapler",
+          0.05
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_2",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_4"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_2"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_5"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.12,
+          -0.9,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          0.48,
+          -0.5,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          0.11,
+          -0.52,
+          0.18,
+          0.13,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.32,
+          -0.92,
+          0.11,
+          0.055,
+          "stapler",
+          0.05
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          0.51,
+          0.22,
+          0.14,
+          "tissues",
+          0.12
+        ],
+        [
+          1.08,
+          0.89,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.78,
+          0.92,
+          0.28,
+          0.04,
+          "ruler",
+          0.012
+        ],
+        [
+          1.08,
+          0.5,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          0.5,
+          0.2,
+          0.1,
+          "pipe",
+          0.055
+        ],
+        [
+          1.68,
+          0.9,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          1.3,
+          0.91,
+          0.09,
+          0.09,
+          "tape",
+          0.055
+        ],
+        [
+          1.68,
+          0.5,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_3",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_5"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_3"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.12,
+          -0.9,
+          0.2,
+          0.1,
+          "pipe",
+          0.055
+        ],
+        [
+          0.48,
+          -0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.1,
+          -0.49,
+          0.09,
+          0.09,
+          "tape",
+          0.055
+        ],
+        [
+          0.48,
+          -0.9,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.71,
+          0.5,
+          0.19,
+          0.16,
+          "novel",
+          0.08
+        ],
+        [
+          1.03,
+          0.89,
+          0.3,
+          0.21,
+          "laptop",
+          0.17
+        ],
+        [
+          0.72,
+          0.9,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.34,
+          0.5,
+          0.23,
+          0.055,
+          "desk_divider",
+          0.25
+        ],
+        [
+          1.245,
+          0.4,
+          0.05,
+          0.07,
+          "concrete",
+          0.13
+        ],
+        [
+          1.68,
+          0.91,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          1.32,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_4",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_0"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_4"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.14,
+          -0.9,
+          0.23,
+          0.055,
+          "desk_divider",
+          0.25
+        ],
+        [
+          0.045,
+          -1.0,
+          0.05,
+          0.07,
+          "concrete",
+          0.13
+        ],
+        [
+          0.48,
+          -0.49,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          0.12,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          0.5,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          1.08,
+          0.9,
+          0.2,
+          0.07,
+          "gabion",
+          0.07
+        ],
+        [
+          0.71,
+          0.88,
+          0.18,
+          0.13,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.92,
+          0.48,
+          0.11,
+          0.055,
+          "stapler",
+          0.05
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.36,
+          0.5,
+          0.3,
+          0.22,
+          "printer",
+          0.16
+        ],
+        [
+          1.68,
+          0.9,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          1.32,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_5",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_1"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_5"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.16,
+          -0.9,
+          0.3,
+          0.22,
+          "printer",
+          0.16
+        ],
+        [
+          0.48,
+          -0.5,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.12,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          0.5,
+          0.2,
+          0.1,
+          "pipe",
+          0.055
+        ],
+        [
+          1.08,
+          0.9,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.7,
+          0.91,
+          0.09,
+          0.09,
+          "tape",
+          0.055
+        ],
+        [
+          1.08,
+          0.5,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          0.51,
+          0.22,
+          0.14,
+          "tissues",
+          0.12
+        ],
+        [
+          1.68,
+          0.89,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          1.38,
+          0.92,
+          0.28,
+          0.04,
+          "ruler",
+          0.012
+        ],
+        [
+          1.68,
+          0.5,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "stationery_variant_6",
+    "operations": [
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "workshop_screen_15_2"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "crates"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "books"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "workshop_screen_15_0"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "empty"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open"
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "workshop_screen_15_3"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "deploy",
+        "module": "rear"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.12,
+          -0.89,
+          0.22,
+          0.14,
+          "tissues",
+          0.12
+        ],
+        [
+          0.48,
+          -0.51,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.18,
+          -0.48,
+          0.28,
+          0.04,
+          "ruler",
+          0.012
+        ],
+        [
+          0.48,
+          -0.9,
+          0.16,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.3,
+          0.5,
+          0.22,
+          0.11,
+          "crate",
+          0.08
+        ],
+        [
+          0.12,
+          0.84,
+          0.18,
+          0.1,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.9,
+          -0.9,
+          0.24,
+          0.15,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.72,
+          -0.56,
+          0.16,
+          0.1,
+          "book_city",
+          0.08
+        ],
+        [
+          1.08,
+          -0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.74,
+          0.5,
+          0.23,
+          0.055,
+          "desk_divider",
+          0.25
+        ],
+        [
+          0.645,
+          0.4,
+          0.05,
+          0.07,
+          "concrete",
+          0.13
+        ],
+        [
+          1.08,
+          0.91,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ],
+        [
+          0.72,
+          0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.5,
+          -0.7,
+          0.38,
+          0.34,
+          "warehouse",
+          0.18
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.31,
+          0.5,
+          0.19,
+          0.16,
+          "novel",
+          0.08
+        ],
+        [
+          1.63,
+          0.89,
+          0.3,
+          0.21,
+          "laptop",
+          0.17
+        ],
+        [
+          1.32,
+          0.9,
+          0.12,
+          0.08,
+          "mouse",
+          0.045
+        ]
+      ],
+      "defender_slots": [
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.32,
+          -0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.68,
+          0.27,
+          "smg",
+          "后场守备"
+        ],
+        [
+          1.32,
+          0.27,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.28,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          0.28,
+          "rifle",
+          "后场守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.9,
+          0.7
+        ],
+        [
+          1.5,
+          0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  },
+  {
+    "name": "rotated_template_component_replacement",
+    "operations": [
+      {
+        "op": "set_ports",
+        "entry": "c0r1",
+        "exit": "c2r1"
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r0",
+        "module": "books",
+        "rotation": 90
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r1",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c0r2",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r0",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r1",
+        "module": "workshop_advance_1_1",
+        "rotation": 90
+      },
+      {
+        "op": "place_region",
+        "cell": "c1r2",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r0",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r1",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "place_region",
+        "cell": "c2r2",
+        "module": "open",
+        "rotation": 0
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c1r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r0__c0r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r1__c0r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c0r2__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c2r0"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r0__c1r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r1__c1r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c1r2__c2r2"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r0__c2r1"
+      },
+      {
+        "op": "connect_regions",
+        "edge": "c2r1__c2r2"
+      },
+      {
+        "op": "edit_component",
+        "cell": "c1r1",
+        "index": 0,
+        "action": "replace",
+        "asset": "mouse",
+        "x": 1.05,
+        "z": -0.18,
+        "rotation": 90
+      },
+      {
+        "op": "deploy",
+        "module": "layered"
+      }
+    ],
+    "expected": {
+      "floors": [
+        [
+          0,
+          -1.05,
+          1.8,
+          1.05
+        ]
+      ],
+      "covers": [
+        [
+          0.5,
+          -0.7,
+          0.15,
+          0.24,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.16,
+          -0.88,
+          0.1,
+          0.16,
+          "book_city",
+          0.08
+        ],
+        [
+          0.1,
+          -0.52,
+          0.1,
+          0.16,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.12,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.12,
+          0.56,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          0.48,
+          0.84,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          0.48,
+          0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          -0.84,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          -0.56,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          -0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.05,
+          -0.18,
+          0.08,
+          0.12,
+          "mouse",
+          0.045
+        ],
+        [
+          0.7,
+          0.18,
+          0.09,
+          0.09,
+          "mug",
+          0.11
+        ],
+        [
+          0.7,
+          -0.18,
+          0.1,
+          0.16,
+          "file_rack",
+          0.23
+        ],
+        [
+          0.72,
+          0.56,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.08,
+          0.84,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.08,
+          0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          -0.84,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          -0.56,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.9,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          -0.14,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.14,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          -0.2,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ],
+        [
+          1.32,
+          0.56,
+          0.16,
+          0.08,
+          "bookstack",
+          0.14
+        ],
+        [
+          1.68,
+          0.84,
+          0.16,
+          0.08,
+          "crate",
+          0.08
+        ],
+        [
+          1.68,
+          0.5,
+          0.16,
+          0.1,
+          "file_rack",
+          0.23
+        ]
+      ],
+      "defender_slots": [
+        [
+          0.3,
+          -0.7,
+          "rifle",
+          "分区守备"
+        ],
+        [
+          1.5,
+          0.0,
+          "rifle",
+          "后场守备"
+        ],
+        [
+          1.5,
+          -0.7,
+          "rifle",
+          "分区守备"
+        ],
+        [
+          1.5,
+          0.7,
+          "rifle",
+          "分区守备"
+        ],
+        [
+          0.9,
+          -0.7,
+          "rifle",
+          "分区守备"
+        ],
+        [
+          0.9,
+          0.0,
+          "rifle",
+          "分区守备"
+        ]
+      ],
+      "flank": [
+        [
+          0.3,
+          0.0
+        ],
+        [
+          0.3,
+          -0.7
+        ],
+        [
+          0.9,
+          -0.7
+        ],
+        [
+          1.5,
+          -0.7
+        ],
+        [
+          1.5,
+          0.0
+        ]
+      ]
+    }
+  }
+]

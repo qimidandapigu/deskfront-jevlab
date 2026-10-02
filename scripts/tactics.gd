@@ -20,6 +20,7 @@ func enemies(team: String) -> Array:
 	return game.living().filter(func(u):return u.faction!=team)
 
 func threat_points(team: String) -> Array:
+	if game.human_squad and game.human_squads:return game.human_squads.threat_points(team)
 	var points: Array=[]
 	for enemy in enemies(team):points.append(enemy.pos())
 	return points
@@ -69,7 +70,7 @@ func publish(team: String, action: String) -> void:
 	game.decisions[team]={"action":action,"phase":s.phase,"reason":s.reason,"candidates":[],"tick":game.tick_id,"source":"squad_coordinator","confidence":0.0}
 
 func can_support(u) -> bool:
-	return u.hp>0 and u.ammo>0 and u.route.is_empty() and u.reload_timer<=0 and u.suppression<.72 and u.cqb_stance!="hide" and game.elapsed-u.last_shot_at<game.config.tactics.support_memory and game.find_target(u)!=null
+	return str(u.get_meta("fire_block_reason","")).is_empty() and u.hp>0 and u.ammo>0 and u.route.is_empty() and u.reload_timer<=0 and u.suppression<.72 and u.cqb_stance!="hide" and game.elapsed-u.last_shot_at<game.config.tactics.support_memory and game.find_target(u)!=null
 
 func stop_formation(team: String) -> void:
 	if not formations.has(team):return

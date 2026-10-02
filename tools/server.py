@@ -3,36 +3,17 @@
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 import argparse, json, time, threading, uuid, collections, urllib.parse, math
+from command_protocol import validate_command as _validate_command
 
 ROOT=Path(__file__).resolve().parents[1]
 SERVICE_VERSION=json.loads((ROOT/'package.json').read_text())['version']
-ALLOWED={'demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
-TACTICS={'move','capture','flank','cover','hold','retreat','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
+ALLOWED={'soldier_order','unit_emotion','squad_order','demo_step','debug_visualize','scenario','control','move','capture','flank','cover','hold','retreat','attack','pause','speed','camera','reinforce','config','reset','map','equip','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
+TACTICS={'soldier_order','unit_emotion','squad_order','move','capture','flank','cover','hold','retreat','attack','grenade','posture','man_at_gun','leave_gun','garrison','leave_building'}
 TEAMS={'green','blue','red'}
 
 def validate_command(c, agent=False):
-    if not isinstance(c,dict):return 'command_must_be_object'
-    if c.get('action') not in (TACTICS if agent else ALLOWED):return 'unknown_or_forbidden_action'
-    if c.get('faction','green') not in TEAMS:return 'unknown_faction'
-    if 'unit_ids' in c and (not isinstance(c['unit_ids'],list) or len(c['unit_ids'])>10 or not all(isinstance(x,str) for x in c['unit_ids'])):return 'invalid_unit_ids'
-    if 'position' in c:
-        p=c['position']
-        if not isinstance(p,list) or len(p)!=2 or not all(type(x) in (int,float) and math.isfinite(x) for x in p):return 'invalid_position'
-    if c['action']=='demo_step' and (not isinstance(c.get('step_id'),str) or len(c['step_id'])>100):return 'invalid_demo_step'
-    if c['action']=='move' and 'position' not in c:return 'position_required'
-    if c['action'] in {'speed','config'} and (type(c.get('value')) not in (int,float) or not math.isfinite(c['value'])):return 'invalid_value'
-    if c['action']=='pause' and 'value' in c and type(c['value']) is not bool:return 'invalid_pause'
-    if c['action']=='debug_visualize' and (type(c.get('value')) is not bool or not isinstance(c.get('unit',''),str)):return 'invalid_debug_options'
-    if c['action']=='control' and c.get('mode') not in {'game_ai','player','agent','lm'}:return 'invalid_mode'
-    if 'floor' in c and (type(c['floor']) is not int or c['floor'] not in (1,2)):return 'invalid_floor'
-    if 'gun_id' in c and not isinstance(c['gun_id'],str):return 'invalid_gun_id'
-    if c['action']=='attack' and not isinstance(c.get('target_id'),str):return 'target_required'
-    if c['action']=='scenario' and (not isinstance(c.get('level'),dict) or not isinstance(c.get('modes',{}),dict)):return 'invalid_scenario'
-    if c['action']=='map' and (type(c.get('index')) is not int or c['index'] not in range(len(json.loads((ROOT/'data/sandbox-maps.json').read_text())['levels']))):return 'invalid_map'
-    if c['action']=='posture' and c.get('posture') not in {'auto','stand','crouch','prone'}:return 'invalid_posture'
-    if c['action']=='equip' and c.get('weapon') not in {'rifle','smg','rocket','pistol'}:return 'invalid_weapon'
-    if agent and (not isinstance(c.get('run_id'),str) or type(c.get('seen_tick')) is not int):return 'observation_required'
-    return None
+    """Compatibility entry point; protocol rules live in command_protocol."""
+    return _validate_command(c, agent, allowed=ALLOWED, tactics=TACTICS, teams=TEAMS, root=ROOT)
 
 class State:
     def __init__(self):
@@ -64,7 +45,10 @@ class State:
             if source=='lm':
                 team=c.get('faction','green')
                 if self.state.get('control',{}).get(team)!='lm' or c.get('control_epoch')!=self.state.get('control_epochs',{}).get(team,0):return 409,{'error':'lm_authority_changed'}
-                if len(c.get('unit_ids',[]))!=1:return 400,{'error':'lm_single_unit_required'}
+                if c['action']!='squad_order' and len(c.get('unit_ids',[]))!=1:return 400,{'error':'lm_single_unit_required'}
+                alive={u['id'] for u in self.state.get('units',[]) if u.get('faction')==team and u.get('hp',0)>0}
+                if any(uid not in alive for uid in c.get('unit_ids',[])):return 400,{'error':'invalid_unit_authority'}
+                if c['action']=='squad_order' and not self.state.get('squad_behavior',{}).get('enabled'):return 409,{'error':'human_squad_disabled'}
             c['id']=str(uuid.uuid4());c['_queued']=time.monotonic();c['_run']=self.state.get('run_id')
             self.pending[c['id']]=c
             self.record('command',c)

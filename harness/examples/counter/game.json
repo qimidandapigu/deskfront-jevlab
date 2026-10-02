@@ -1,0 +1,11 @@
+{
+  "protocol": "quickplay-game/v1",
+  "id": "counter-demo",
+  "name": "最小接入示例",
+  "description": "模型选择前进一步，达到目标即获胜。用于验证完整接入链路。",
+  "command": ["python", "game.py"],
+  "capabilities": { "human": false, "ai": true, "seed": false },
+  "options": {
+    "target": { "type": "integer", "default": 4, "min": 1, "max": 20, "description": "目标步数" }
+  }
+}

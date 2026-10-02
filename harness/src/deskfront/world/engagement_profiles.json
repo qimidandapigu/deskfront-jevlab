@@ -1,0 +1,5 @@
+{
+  "fire_support": {"preferred_min": 0.80, "preferred_max": 0.94, "minimum_fraction": 0.30, "screen_gap": 0.12},
+  "establish_fire": {"preferred_min": 0.58, "preferred_max": 0.83, "minimum_fraction": 0.20, "screen_gap": 0.0},
+  "maneuver": {"preferred_min": 0.42, "preferred_max": 0.74, "minimum_fraction": 0.12, "screen_gap": 0.0}
+}

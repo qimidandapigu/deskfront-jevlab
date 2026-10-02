@@ -1,0 +1,67 @@
+[
+  {
+    "op": "place_region",
+    "cell": "c0r0",
+    "module": "workshop_advance_9_0"
+  },
+  {
+    "op": "place_region",
+    "cell": "c0r1",
+    "module": "open"
+  },
+  {
+    "op": "place_region",
+    "cell": "c0r2",
+    "module": "empty"
+  },
+  {
+    "op": "place_region",
+    "cell": "c1r0",
+    "module": "workshop_advance_10_3"
+  },
+  {
+    "op": "place_region",
+    "cell": "c1r1",
+    "module": "workshop_defense_5_4"
+  },
+  {
+    "op": "place_region",
+    "cell": "c1r2",
+    "module": "empty"
+  },
+  {
+    "op": "place_region",
+    "cell": "c2r0",
+    "module": "empty"
+  },
+  {
+    "op": "place_region",
+    "cell": "c2r1",
+    "module": "fortress_base"
+  },
+  {
+    "op": "place_region",
+    "cell": "c2r2",
+    "module": "empty"
+  },
+  {
+    "op": "connect_regions",
+    "edge": "c0r0__c1r0"
+  },
+  {
+    "op": "connect_regions",
+    "edge": "c0r0__c0r1"
+  },
+  {
+    "op": "connect_regions",
+    "edge": "c1r0__c1r1"
+  },
+  {
+    "op": "connect_regions",
+    "edge": "c1r1__c2r1"
+  },
+  {
+    "op": "deploy",
+    "module": "distributed"
+  }
+]

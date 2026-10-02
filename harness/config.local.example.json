@@ -1,0 +1,18 @@
+{
+  "defaultModel": "jev",
+  "jev": {
+    "provider": "typesafe",
+    "apiKey": "",
+    "model": "jev-latest"
+  },
+  "deepseek": {
+    "provider": "ark",
+    "apiKey": "",
+    "model": "deepseek-v4-1-flash-260910"
+  },
+  "analyst": {
+    "provider": "ark",
+    "apiKey": "",
+    "model": "deepseek-v4-1-flash-260910"
+  }
+}

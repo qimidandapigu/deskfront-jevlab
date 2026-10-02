@@ -1,0 +1,31 @@
+{
+  "name": "quickplay-harness",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "bench": "tsx src/bench.ts",
+    "test": "node --import tsx --test test/*.test.ts",
+    "start": "tsx src/cli.ts",
+    "play": "tsx src/cli.ts",
+    "jev": "tsx src/cli.ts",
+    "serve": "tsx src/serve.ts",
+    "dev": "tsx src/serve.ts",
+    "preview": "tsx src/preview.ts",
+    "typecheck": "tsc --noEmit",
+    "demo": "tsx src/jgp/demo.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@typesafe-ai/sdk": "^0.6.0",
+    "kaplay": "^3001.0.19",
+    "undici": "^8.10.2"
+  }
+}

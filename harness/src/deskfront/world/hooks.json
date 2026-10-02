@@ -1,0 +1,47 @@
+[
+  {
+    "name": "growth_field",
+    "before": "var arena\n",
+    "after": "var arena\nvar growth\n"
+  },
+  {
+    "name": "growth_setup",
+    "before": "\tbridge=Bridge.new();add_child(bridge);bridge.setup(self)\n",
+    "after": "\tbridge=Bridge.new();add_child(bridge);bridge.setup(self)\n\tif get_tree().get_meta(\"infinite_world\",false) or \"--infinite-world\" in OS.get_cmdline_user_args():\n\t\tgrowth=preload(\"res://scripts/world_growth.gd\").new();add_child(growth);growth.setup(self)\n"
+  },
+  {
+    "name": "growth_tick",
+    "before": "\telapsed+=dt\n",
+    "after": "\telapsed+=dt\n\tif growth:growth.tick(dt)\n"
+  },
+  {
+    "name": "disable_flag_timeout",
+    "before": "\tif elapsed>=config.rules.match_seconds:",
+    "after": "\tif not growth and elapsed>=config.rules.match_seconds:"
+  },
+  {
+    "name": "disable_flag_emergency",
+    "before": "func flag_emergency(team: String) -> bool:\n",
+    "after": "func flag_emergency(team: String) -> bool:\n\tif growth:return false\n"
+  },
+  {
+    "name": "disable_flag_capture",
+    "before": "func update_flag(dt: float) -> void:\n",
+    "after": "func update_flag(dt: float) -> void:\n\tif growth:return\n"
+  },
+  {
+    "name": "growth_command_after_validation",
+    "before": "\tif rejected!=\"\":return ack(c,false,rejected)\n",
+    "after": "\tif rejected!=\"\":return ack(c,false,rejected)\n\tif action==\"grow_world\":\n\t\tif not growth:return ack(c,false,\"infinite_world_not_enabled\")\n\t\tvar result: String=growth.execute(c)\n\t\treturn ack(c,result==\"growth_started\",result)\n\tif action==\"showcase_clear_opening\":\n\t\tif not growth:return ack(c,false,\"infinite_world_not_enabled\")\n\t\tvar result: String=growth.showcase_clear_opening(c)\n\t\treturn ack(c,result==\"showcase_opening_cleared\",result)\n"
+  },
+  {
+    "name": "world_mode",
+    "before": "\telif action==\"scenario\":\n",
+    "after": "\telif action==\"world_mode\":\n\t\tif c.get(\"mode\",\"\") not in [\"fixed\",\"infinite\"]:return ack(c,false,\"invalid_world_mode\")\n\t\tget_tree().set_meta(\"infinite_world\",c.mode==\"infinite\")\n\t\tvar result=ack(c,true,\"world_mode_loading\");get_tree().call_deferred(\"reload_current_scene\");return result\n\telif action==\"scenario\":\n"
+  },
+  {
+    "name": "world_snapshot",
+    "before": "func snapshot() -> Dictionary:\n",
+    "after": "func snapshot() -> Dictionary:\n\tvar result: Dictionary=_snapshot_raw()\n\tresult[\"world_growth\"]=growth.snapshot() if growth else {\"enabled\":false}\n\treturn result\n\nfunc _snapshot_raw() -> Dictionary:\n"
+  }
+]

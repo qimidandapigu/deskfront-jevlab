@@ -36,6 +36,22 @@
 
 Godot 是唯一战斗状态来源。Blender 原稿、骨骼、动画、素材来源和许可随源码提供。
 
+## Quickplay Harness
+
+本仓库的 `harness/` 子目录包含配套的统一 AI Harness：会话服务、DeepSeek/JEV 路由、无尽推进导演、解说/弹幕和 Python/JavaScript SDK。它与 Godot 共用本仓库的引擎源码，Godot 仍是战斗状态真相源。
+
+```powershell
+cd harness
+npm install
+$env:DESKFRONT_ROOT = '..'
+$env:GODOT_BIN = 'C:\game\.artifacts\godot-4.5.1\Godot_v4.5.1-stable_win64_console.exe'
+npm run typecheck
+npm test
+npm run serve
+```
+
+然后打开 `http://127.0.0.1:3777/runtime/deskfront`。模型密钥只放在 `harness/.env` 或 `harness/config.local.json`，不要提交。
+
 ## 快速开始
 
 从源码运行需要 **Python 3.9+、Godot 4.5.1 和对应版本 Web 导出模板**。浏览器需要 WebGL2。编辑美术才需要 Blender；已验证资源工具版本为 Blender 5.2.1 LTS。Node.js 仅用于可选浏览器测试。

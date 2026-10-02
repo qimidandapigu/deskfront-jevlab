@@ -6,6 +6,7 @@ const Unit = preload("res://scripts/unit.gd")
 const Tactics = preload("res://scripts/tactics.gd")
 const CombatFX = preload("res://scripts/combat_fx.gd")
 const Bridge = preload("res://scripts/bridge.gd")
+const HarnessCommand = preload("res://scripts/harness_command.gd")
 var config: Dictionary
 var field
 var units: Array=[]
@@ -48,6 +49,9 @@ var phase_label: Label
 var bridge
 var fx
 var tactics_ai
+var human_squads
+var harness_command
+var human_squad: bool=false
 var drag_start := Vector2.ZERO
 var drag_current := Vector2.ZERO
 var pan_cursor := Vector2.ZERO
@@ -77,6 +81,7 @@ var rendered_frames: int=0
 
 func _ready() -> void:
 	config=JSON.parse_string(FileAccess.get_file_as_string("res://data/battle.json"))
+	human_squad=OS.get_environment("HARNESS_HUMAN_SQUAD")=="1" or bool(get_tree().get_meta("human_squad",config.get("human_squad",false)))
 	if use_legacy_fixture:
 		for team in control:control[team]="game_ai"
 	if not use_legacy_fixture:
@@ -126,6 +131,8 @@ func _ready() -> void:
 		for spec in map_data.get("at_guns",[]):
 			var gun=preload("res://scripts/field_gun.gd").new();add_child(gun);gun.setup(self,spec);at_guns.append(gun)
 	tactics_ai=Tactics.new();add_child(tactics_ai);tactics_ai.setup(self)
+	human_squads=preload("res://scripts/human_squads.gd").new();add_child(human_squads);human_squads.setup(self)
+	harness_command=HarnessCommand.new();harness_command.setup(self)
 	if not use_legacy_fixture:prepare_reserve_tank()
 	camera=Camera3D.new();add_child(camera);camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.near=.02;camera.far=30;camera.current=true
 	set_camera("office",true);make_hud()
@@ -158,6 +165,7 @@ func living(team: String="") -> Array:
 	return units.filter(func(u):return u.hp>0 and u.deployment_phase=="active" and (team=="" or u.faction==team))
 
 func closest_enemy(u):
+	if human_squad and human_squads:return human_squads.visible_enemy(u)
 	var best=null;var distance: float=INF
 	for other in living():
 		if other.faction==u.faction:continue
@@ -169,9 +177,11 @@ func find_target(u, requested: String=""):
 	var best=null;var distance: float=config.weapons[u.weapon].range
 	var best_score: float=-INF
 	for enemy in units:
-		if enemy.faction==u.faction or enemy.hp<=0:continue
+		if enemy.faction==u.faction or enemy.hp<=0 or enemy.deployment_phase!="active":continue
 		if enemy.tank and u.weapon not in ["rocket","cannon"]:continue
 		var d: float=u.pos().distance_to(enemy.pos())
+		if d>=distance:continue
+		if human_squad and human_squads and not human_squads.visible_to(u.faction,enemy):continue
 		if d<distance and u.can_engage(enemy):
 			if enemy.id==requested:return enemy
 			var score: float=-d+(1.5 if u.weapon=="rocket" and enemy.tank else 0.0)
@@ -180,6 +190,13 @@ func find_target(u, requested: String=""):
 			if enemy.tank and u.weapon in ["rifle","smg"]:score-=1.0
 			if score>best_score:best=enemy;best_score=score
 	return best
+
+var execution_profile: Dictionary={}
+
+func record_cost(section: String, started: int) -> void:
+	var us: int=Time.get_ticks_usec()-started
+	var row: Dictionary=execution_profile.get(section,{"calls":0,"total_us":0,"max_us":0})
+	row.calls+=1;row.total_us+=us;row.max_us=maxi(row.max_us,us);execution_profile[section]=row
 
 func _physics_process(delta: float) -> void:
 	tick_id+=1
@@ -192,12 +209,18 @@ func _physics_process(delta: float) -> void:
 	if building:building.tick(dt)
 	field.simulation_time=elapsed
 	if worker_anim:worker_anim.speed_scale=.6*speed
+	var measured: int=Time.get_ticks_usec()
 	fx.physics_tick(dt)
+	record_cost("projectiles",measured);measured=Time.get_ticks_usec()
+	if human_squads:human_squads.tick(dt)
+	record_cost("squad",measured);measured=Time.get_ticks_usec()
 	tactics_ai.tick(dt)
+	record_cost("tactics",measured);measured=Time.get_ticks_usec()
 	for u in units:
 		if demo and u.deployment_phase!="active":continue
 		u.tick(dt)
 		u.presentation_tick(dt)
+	record_cost("units",measured)
 	update_flag(dt)
 	if not demo and not tank_spawned and elapsed>config.rules.reinforce_after:
 		var red_hp: float=0
@@ -208,7 +231,7 @@ func _physics_process(delta: float) -> void:
 	if elapsed>=config.rules.match_seconds:finish_match("draw","时间结束，无阵营完成连续守旗")
 
 func flag_emergency(team: String) -> bool:
-	return winner=="" and flag_objective!=null and flag_objective.emergency_for(team)
+	return not human_squad and winner=="" and flag_objective!=null and flag_objective.emergency_for(team)
 
 func update_flag(dt: float) -> void:
 	var present: Array=[]
@@ -342,7 +365,7 @@ func selected_ids() -> Array:
 
 func command(c: Dictionary) -> Dictionary:
 	var action: String=str(c.get("action",""));var source: String=str(c.get("source","console"));var team: String=str(c.get("faction",selected_faction))
-	var rejected: String="";var tactics: Array=["move","capture","flank","cover","hold","retreat","attack","grenade","posture","man_at_gun","leave_gun","garrison","leave_building"]
+	var rejected: String="";var tactics: Array=harness_command.tactical_actions()
 	if not control.has(team):rejected="unknown_faction"
 	elif source in ["agent","lm"] and (not tactics.has(action) or control[team]!=source):rejected="authority_denied"
 	elif source in ["agent","lm"] and str(c.get("run_id",""))!=run_id:rejected="stale_run"
@@ -357,7 +380,7 @@ func command(c: Dictionary) -> Dictionary:
 		demo.running=not bool(c.get("value",demo.running));return ack(c,true,"applied")
 	if demo and demo.phase not in ["battle","finished"] and action in tactics:return ack(c,false,"demo_setup_in_progress")
 	var ids: Array=c.get("unit_ids",[])
-	if source=="lm" and ids.size()!=1:return ack(c,false,"lm_single_unit_required")
+	if source=="lm" and action!="squad_order" and ids.size()!=1:return ack(c,false,"lm_single_unit_required")
 	for unit_id in ids:
 		var found: bool=false
 		for u in units:
@@ -370,6 +393,9 @@ func command(c: Dictionary) -> Dictionary:
 		if not (p[0] is float or p[0] is int) or not (p[1] is float or p[1] is int):return ack(c,false,"invalid_position")
 		dest=Vector2(float(p[0]),float(p[1]))
 		if not is_finite(dest.x) or not is_finite(dest.y) or dest.x<config.bounds[0] or dest.x>config.bounds[2] or dest.y<config.bounds[1] or dest.y>config.bounds[3]:return ack(c,false,"position_out_of_bounds")
+	var harness_result: Dictionary=harness_command.handle_special(c,team,ids)
+	if harness_result.get("handled",false):return ack(c,bool(harness_result.get("accepted",false)),str(harness_result.get("message","")))
+	if tactics.has(action) and human_squads:human_squads.cancel(team,ids)
 	if tactics.has(action):
 		if winner!="":return ack(c,false,"match_finished")
 		if source=="lm":
@@ -487,6 +513,8 @@ func command(c: Dictionary) -> Dictionary:
 	elif action=="reinforce":
 		if not spawn_tank():return ack(c,false,"reinforcement_already_used")
 	elif action=="config":
+		var harness_config: Dictionary=harness_command.handle_config(c)
+		if harness_config.get("handled",false):return ack(c,bool(harness_config.get("accepted",false)),str(harness_config.get("message","")))
 		var key: String=str(c.get("key",""));var value: float=float(c.get("value",0))
 		var ranges: Dictionary={"damage":[1,30],"speed":[.04,.30],"accuracy":[.1,1],"cooldown":[.3,4]}
 		if not ranges.has(key) or not is_finite(value):return ack(c,false,"invalid_parameter")
@@ -519,6 +547,7 @@ func command(c: Dictionary) -> Dictionary:
 	return ack(c,true,"applied")
 
 func set_control_mode(team: String, mode: String) -> void:
+	if harness_command:harness_command.on_control_mode_changed(team,mode)
 	if control[team]!=mode:control_epochs[team]+=1
 	control[team]=mode
 
@@ -532,12 +561,15 @@ func ack(c: Dictionary, ok: bool, message: String) -> Dictionary:
 	last_action={"id":c.get("id","local"),"accepted":ok,"message":message,"tick":tick_id,"action":c.get("action","")};return last_action.duplicate()
 
 func snapshot() -> Dictionary:
+	var snapshot_started: int=Time.get_ticks_usec()
+	var engagement_queries: Dictionary={}
 	var unit_states: Array=[]
 	for u in units:
-		var state: Dictionary=u.snapshot()
+		var state: Dictionary=u.snapshot(engagement_queries)
 		var pixel: Vector2=camera.unproject_position(u.position+Vector3(0,.05,0))
 		state["screen_position"]=[pixel.x,pixel.y];unit_states.append(state)
-	return {"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_objective.snapshot()},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
+	record_cost("snapshot_units",snapshot_started)
+	return {"squad_behavior":harness_command.squad_snapshot() if harness_command else {},"demo":demo.snapshot() if demo else {},"debug_visualize":debug_view.snapshot() if debug_view else {},"scenario":{"id":map_data.get("scenario_id",""),"name":map_data.get("name",""),"briefing":map_data.get("briefing",""),"tactical_plan":map_data.get("tactical_plan",[])},"schema_version":1,"version":"0.6.5-flag.1","build_id":build_info.id,"resource_hash":build_info.assets_sha256,"map":map_data.get("id","legacy"),"map_index":map_index,"maps":arena.data.levels.map(func(level):return level.name) if arena else [],"viewport":[get_viewport().get_visible_rect().size.x,get_viewport().get_visible_rect().size.y],"run_id":run_id,"tick":tick_id,"time":snappedf(elapsed,.1),"paused":paused,"speed":speed,"winner":winner,"at_guns":at_guns.map(func(g):return g.snapshot()),"building":building.snapshot() if building else {},"units":unit_states,"factions":config.factions,"control":control,"control_epochs":control_epochs,"scores":scores,"objective":{"position":[objective.x,objective.y],"screen_position":[camera.unproject_position(Vector3(objective.x,field.height,objective.y)).x,camera.unproject_position(Vector3(objective.x,field.height,objective.y)).y],"radius":config.rules.capture_radius,"score_to_win":flag_objective.required_seconds,"flag":flag_objective.snapshot()},"covers":field.snapshot(),"obstacles":config.obstacles,"bounds":config.bounds,"decisions":decisions,"events":events,"tank_spawned":tank_spawned,"tank_reserve":reserve_tank.snapshot() if reserve_tank else {},"shots":shots,"destruction_count":field.destruction_count,"navigation_revision":field.revision,"reservations":field.reservations,"selected_faction":selected_faction,"camera":camera_mode,"camera_target":[camera_target.x,camera_target.z],"camera_size":camera_size,"edge_pan":edge_pan,"combat_fx":{"projectiles":fx.projectiles.size(),"visuals":fx.visuals.size(),"impacts":fx.impacts,"audio_events":fx.audio_events,"muted":fx.muted,"budgets":fx.metrics(),"collision_counts":fx.collision_counts,"launched":fx.launched},"weapons":config.weapons,"tactical":tactics_ai.snapshot(),"command_feedback":command_feedback,"last_action":last_action,"parameters":config.soldier,"execution_profile":execution_profile.duplicate(true),"navigation_profile":field.tactical_profile.duplicate(),"fps":Engine.get_frames_per_second(),"worker_animation_time":worker_anim.current_animation_position if worker_anim and worker_anim.is_playing() else 0.0}
 
 func screen_point(p: Vector2) -> Vector2:
 	var origin: Vector3=camera.project_ray_origin(p);var ray: Vector3=camera.project_ray_normal(p)
@@ -655,6 +687,8 @@ func label(value: String, size: int, color: Color=Color(.86,.88,.80)) -> Label:
 
 func make_hud() -> void:
 	ui=CanvasLayer.new();add_child(ui)
+	var tactical=preload("res://scripts/tactical_overlay.gd").new();tactical.game=self;ui.add_child(tactical)
+	var bubbles=preload("res://scripts/emotion_bubbles.gd").new();bubbles.game=self;ui.add_child(bubbles)
 	selection_box=Panel.new();ui.add_child(selection_box);selection_box.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var box_style := StyleBoxFlat.new();box_style.bg_color=Color(.4,.8,.6,.12);box_style.border_color=Color(.6,1,.75,.9);box_style.set_border_width_all(1)
 	selection_box.add_theme_stylebox_override("panel",box_style);selection_box.visible=false

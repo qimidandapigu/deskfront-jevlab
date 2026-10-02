@@ -1,0 +1,12 @@
+export * from "./protocol.js";
+export * from "./jev-types.js";
+export { createJevClient } from "./jev-real.js";
+export { createFakeJevClient, type FakeJevOptions } from "./jev-fake.js";
+export { createEngine, DEFAULT_ENGINE_CONFIG, type EngineConfig, type EngineDeps, type Engine } from "./engine.js";
+export { createContextBuilder, type TrimmedState } from "./context.js";
+export { createMemory, type Memory } from "./memory.js";
+export { createDisabledStrategist, DEFAULT_MISSION, type Strategist, type Directive } from "./strategist.js";
+export { createDecisionLogger, createMemoryLogger, type DecisionLogger, type DecisionRecord } from "./logger.js";
+export { boidsSteer, fallbackAction, withBoids, norm, DEFAULT_RULES, type RulesConfig } from "./rules.js";
+export { createSimAdapter, renderAscii, DEFAULT_SIM, type SimConfig, type SimAdapter } from "./sim.js";
+export { createStdioAdapter, type StdioAdapter } from "./stdio.js";

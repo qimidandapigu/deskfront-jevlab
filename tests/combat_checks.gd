@@ -33,7 +33,11 @@ static func run(game, check: Callable) -> void:
 	tank.hp=0;target.hp=100
 	var neighbour=game.units[7];neighbour.hp=100;neighbour.position=target.position+Vector3(.06,0,0)
 	var friendly=game.units[3];friendly.faction="green";friendly.hp=100;friendly.position=neighbour.position
-	game.fx.launch(rocket,target,"rocket",true);game.fx.physics_tick(2)
+	check.call(not game.fx.launch(rocket,target,"rocket",true),"explosive refuses friendly beside impact")
+	friendly.position=Vector3(.1,game.field.height,.43)
+	game.fx.launch(rocket,target,"rocket",true)
+	friendly.position=neighbour.position
+	game.fx.physics_tick(2)
 	check.call(target.hp<100 and neighbour.hp<100,"explosive damages both direct target and splash neighbour")
 	check.call(friendly.hp==100,"explosion respects friendly-fire policy")
 	for u in game.units:u.hp=0

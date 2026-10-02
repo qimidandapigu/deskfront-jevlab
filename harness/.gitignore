@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+logs/
+config.local.json
+games.local.json
+__pycache__/
+*.uid
+output/

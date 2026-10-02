@@ -22,6 +22,7 @@ var proxy:Dictionary
 var retry_at:float=0
 var stalled:float=0
 var last_crew_pos:=Vector2.INF
+const AIM_DOT_THRESHOLD:float=.97
 
 func setup(g,s:Dictionary):
 	set_meta("nav_radius",.095)
@@ -95,12 +96,14 @@ func tick(dt:float):
 		target_id=target.id
 		var delta:Vector2=target.pos()-pos();var distance:float=delta.length()
 		# Carriage is fixed after deployment; reposition/recrew for another firing arc.
-		if forward().dot(delta.normalized())<.8 or distance>game.config.weapons.at_cannon.range:
+		# A team weapon cannot fire through a sideways carriage.  The old .8
+		# gate allowed roughly 37 degrees of visual/ballistic mismatch.
+		if forward().dot(delta.normalized())<AIM_DOT_THRESHOLD or distance>game.config.weapons.at_cannon.range:
 			release("目标离开射界，需要重新牵引部署");return
 		if cooldown<=0 and distance>=game.config.equipment.gun_min_range and distance<=game.config.weapons.at_cannon.range:
 			var obstruction:Dictionary=game.field.trace_cover(muzzle_position(target.aim_point()),target.aim_point())
 			if not obstruction.is_empty() and obstruction.get("cover_id","")==id:return
-			game.fx.launch(self,target,"at_cannon",true);game.shots+=1;shots+=1;cooldown=game.config.weapons.at_cannon.cooldown;crew.fire_until=game.elapsed+.2
+			if game.fx.launch(self,target,"at_cannon",true):game.shots+=1;shots+=1;cooldown=game.config.weapons.at_cannon.cooldown;crew.fire_until=game.elapsed+.2
 func drive(u,dt:float):
 	if phase in ["approaching","towing"]:
 		if u.pos().distance_to(last_crew_pos)<.00005:stalled+=dt

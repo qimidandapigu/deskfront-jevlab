@@ -1,5 +1,7 @@
 extends Node3D
 
+const BattlefieldNavigation = preload("res://scripts/battlefield_navigation.gd")
+
 var config: Dictionary
 var covers: Array = []
 var obstacles: Array = []
@@ -17,12 +19,17 @@ var ray_queries: int=0
 var reserved_positions: Dictionary={}
 var unavailable_until: Dictionary={}
 var simulation_time: float=0
+var tactical_cache: Dictionary={}
+var cover_misses: Dictionary={}
+var tactical_profile: Dictionary={"calls":0,"rebuilds":0,"rebuild_us":0,"max_rebuild_us":0,"cover_calls":0,"cover_us":0,"max_cover_us":0}
+var navigation
 
 func setup(data: Dictionary, arena=null) -> void:
 	config = data
 	height = data.table_height
 	cell = data.cell_size
 	base = Vector2(data.bounds[0], data.bounds[1])
+	_ensure_navigation()
 	for source in data.covers:
 		var c: Dictionary = source.duplicate(true)
 		c["alive"] = true
@@ -38,6 +45,11 @@ func setup(data: Dictionary, arena=null) -> void:
 	for o in obstacles:
 		covers.append({"id":"hard_"+o.id,"position":o.position,"size":o.size,"normal":[1,0],"height":.18,"hp":-1,"kind":"hard","alive":true,"node":null})
 	rebuild()
+
+func _ensure_navigation() -> void:
+	if navigation == null:
+		navigation=BattlefieldNavigation.new()
+		navigation.setup(self)
 
 func mat(color: Color, roughness: float = 0.8) -> StandardMaterial3D:
 	var m := StandardMaterial3D.new()
@@ -104,106 +116,41 @@ func to_world(p: Vector2i) -> Vector2:
 	return base + Vector2(p)*cell
 
 func rebuild() -> void:
-	# update() does not clear solids when region/cell size are unchanged.
-	grid.clear();tank_grid.clear()
-	grid.region = Rect2i(0,0, int((config.bounds[2]-base.x)/cell)+1,int((config.bounds[3]-base.y)/cell)+1)
-	grid.cell_size = Vector2.ONE * cell
-	grid.offset = base
-	grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
-	grid.update()
-	tank_grid.region=grid.region
-	tank_grid.cell_size=grid.cell_size
-	tank_grid.offset=base
-	tank_grid.diagonal_mode=grid.diagonal_mode
-	tank_grid.update()
-	for c in covers + obstacles:
-		if not c.get("alive",true) or not c.get("nav_block",true): continue
-		var center := Vector2(c.position[0],c.position[1])
-		var half := Vector2(c.size[0],c.size[1])/2 + Vector2.ONE*.018
-		for x in range(grid.region.size.x):
-			for y in range(grid.region.size.y):
-				var pos := to_world(Vector2i(x,y))
-				if absf(pos.x-center.x)<half.x and absf(pos.y-center.y)<half.y:
-					grid.set_point_solid(Vector2i(x,y))
-				if absf(pos.x-center.x)<half.x+.075 and absf(pos.y-center.y)<half.y+.075:
-					tank_grid.set_point_solid(Vector2i(x,y))
-	for x in range(grid.region.size.x):
-		for y in range(grid.region.size.y):
-			var p=to_world(Vector2i(x,y))
-			for water in config.get("water",[]):
-				if inside_object(p,water):
-					var bridge=false
-					for b in config.get("bridges",[]):
-						if inside_object(p,b):bridge=true
-					if not bridge:grid.set_point_solid(Vector2i(x,y));tank_grid.set_point_solid(Vector2i(x,y))
-	revision += 1
+	_ensure_navigation()
+	navigation.rebuild()
 
 func nearest(p: Vector2, tank: bool=false) -> Vector2i:
-	var nav: AStarGrid2D=tank_grid if tank else grid
-	var id := to_cell(p)
-	id.x = clampi(id.x,0,grid.region.size.x-1)
-	id.y = clampi(id.y,0,grid.region.size.y-1)
-	if not nav.is_point_solid(id): return id
-	for radius in range(1,16):
-		for x in range(-radius,radius+1):
-			for y in range(-radius,radius+1):
-				var q := id+Vector2i(x,y)
-				if nav.is_in_boundsv(q) and not nav.is_point_solid(q): return q
-	return id
+	_ensure_navigation()
+	return navigation.nearest(p,tank)
 
 func path(from: Vector2, dest: Vector2, tank: bool=false) -> PackedVector2Array:
-	path_queries+=1
-	var nav: AStarGrid2D=tank_grid if tank else grid
-	return nav.get_point_path(nearest(from,tank),nearest(dest,tank))
+	_ensure_navigation()
+	return navigation.path(from,dest,tank)
+
+# 与选位共用威胁信息的加权寻路；缓存短时战场快照，避免每帧抖动。
+func tactical_path(from: Vector2, dest: Vector2, threats: Array, cache_key: String="cover", occupants: Array=[], blockers: Array=[]) -> PackedVector2Array:
+	_ensure_navigation()
+	return navigation.tactical_path(from,dest,threats,cache_key,occupants,blockers)
 
 func walkable(p: Vector2, tank: bool=false) -> bool:
-	var id := to_cell(p)
-	var nav: AStarGrid2D=tank_grid if tank else grid
-	return nav.is_in_boundsv(id) and not nav.is_point_solid(id)
+	_ensure_navigation()
+	return navigation.walkable(p,tank)
 
 func segment_walkable(a: Vector2,b: Vector2,tank: bool=false) -> bool:
-	if not walkable(a,tank) or not walkable(b,tank):return false
-	var nav: AStarGrid2D=tank_grid if tank else grid
-	var first:=to_cell(a);var last:=to_cell(b)
-	# Exact touched-cell test: regular point samples can miss a sub-millimetre
-	# sliver at a cell corner, which the root's next physics step still hits.
-	for x in range(mini(first.x,last.x)-1,maxi(first.x,last.x)+2):
-		for y in range(mini(first.y,last.y)-1,maxi(first.y,last.y)+2):
-			var id:=Vector2i(x,y)
-			if not nav.is_in_boundsv(id) or not nav.is_point_solid(id):continue
-			var center:=to_world(id)
-			if not ray_box(Vector3(a.x,0,a.y),Vector3(b.x,0,b.y),Vector3(center.x,0,center.y),Vector3(cell-.000001,1,cell-.000001)).is_empty():return false
-	return true
+	_ensure_navigation()
+	return navigation.segment_walkable(a,b,tank)
 
 func path_around_units(from: Vector2,dest: Vector2,occupants: Array) -> PackedVector2Array:
-	var saved: Array=[];var start:=nearest(from)
-	for occupant in occupants:
-		var center:=to_cell(occupant.pos())
-		var radius: float=float(occupant.get_meta("nav_radius",.14 if occupant.tank else .034))
-		var cells: int=ceili(radius/cell)
-		for x in range(center.x-cells,center.x+cells+1):
-			for y in range(center.y-cells,center.y+cells+1):
-				var id:=Vector2i(x,y)
-				if id==start or not grid.is_in_boundsv(id) or grid.is_point_solid(id):continue
-				if to_world(id).distance_to(occupant.pos())<radius:saved.append(id);grid.set_point_solid(id,true)
-	path_queries+=1
-	var result:=grid.get_point_path(start,nearest(dest))
-	for id in saved:grid.set_point_solid(id,false)
-	return result
+	_ensure_navigation()
+	return navigation.path_around_units(from,dest,occupants)
 
 func route_length(points: PackedVector2Array) -> float:
-	var length: float=0
-	for i in range(1,points.size()):length+=points[i-1].distance_to(points[i])
-	return length
+	_ensure_navigation()
+	return navigation.route_length(points)
 
 func soft_offset(anchor: Vector2, ideal: Vector2, max_detour: float=.20) -> Vector2:
-	# Local reachable offset search: avoid sending a follower around a long obstacle.
-	var candidates: Array=[ideal,anchor.lerp(ideal,.66),anchor.lerp(ideal,.33),anchor]
-	for candidate in candidates:
-		var p: Vector2=to_world(nearest(candidate))
-		var route := path(anchor,p)
-		if not route.is_empty() and route_length(route)<=max_detour:return p
-	return to_world(nearest(anchor))
+	_ensure_navigation()
+	return navigation.soft_offset(anchor,ideal,max_detour)
 
 func release(unit_id: String) -> void:
 	reserved_positions.erase(unit_id)
@@ -240,6 +187,25 @@ func reserve_slot(id: String, slot: Dictionary) -> void:
 	release(id);reservations[slot.key]=id;reserved_positions[id]=slot.position
 
 func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2, options: Dictionary={}) -> Dictionary:
+	# Keep the public cover-planning entry stable while reusing a recent failed
+	# query. The failure cache is intentionally short and keyed by the complete
+	# tactical input, so it cannot hide a meaningful battlefield change.
+	var started: int=Time.get_ticks_usec()
+	var key: String=str([id,revision,from.snapped(Vector2(.025,.025)),goal.snapped(Vector2(.05,.05)),threat.snapped(Vector2(.05,.05)),options.get("threats",[]),options.get("max_travel"),options.get("max_exposure"),options.get("range"),options.get("require_fire_arc"),options.get("survival"),options.get("allow_same"),options.get("goal_leash"),reservations])
+	var cached: Dictionary=cover_misses.get(id,{})
+	if options.get("tactical_path",false) and cached.get("key")==key and simulation_time<float(cached.get("until",0)):
+		return {}
+	var result: Dictionary=choose_cover_uncached(id,from,threat,goal,options)
+	if options.get("tactical_path",false):
+		if result.is_empty():cover_misses[id]={"key":key,"until":simulation_time+1.5}
+		else:cover_misses.erase(id)
+	var elapsed_us: int=Time.get_ticks_usec()-started
+	tactical_profile["cover_calls"]=int(tactical_profile.get("cover_calls",0))+1
+	tactical_profile["cover_us"]=int(tactical_profile.get("cover_us",0))+elapsed_us
+	tactical_profile["max_cover_us"]=maxi(int(tactical_profile.get("max_cover_us",0)),elapsed_us)
+	return result
+
+func choose_cover_uncached(id: String, from: Vector2, threat: Vector2, goal: Vector2, options: Dictionary={}) -> Dictionary:
 	var candidates: Array=[]
 	var threats: Array=options.get("threats",[threat])
 	var max_travel: float=options.get("max_travel",.70)
@@ -277,7 +243,7 @@ func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2, opt
 	# Bound expensive A* work to the best candidates, not every station every frame.
 	var best: Dictionary={};var best_cost: float=INF
 	for candidate in candidates.slice(0,8):
-		var route := path(from,candidate.position)
+		var route: PackedVector2Array=tactical_path(from,candidate.position,threats,str(options.get("tactical_cache_key","cover"))) if options.get("tactical_path",false) else path(from,candidate.position)
 		if route.is_empty():continue
 		var length: float=route_length(route)
 		if length>maxf(.15,from.distance_to(candidate.position)*float(options.get("detour",1.8))+.05):continue
@@ -289,6 +255,7 @@ func choose_cover(id: String, from: Vector2, threat: Vector2, goal: Vector2, opt
 		if cost<best_cost:best_cost=cost;best=candidate;best["path_length"]=length
 	if not best.is_empty() and options.get("reserve",true):reserve_slot(id,best)
 	return best
+
 
 func protection(p: Vector2, attacker: Vector2) -> float:
 	for c in covers:

@@ -45,9 +45,9 @@ static func validate(level) -> Dictionary:
    for key in o:
     if key not in ["id","kind","position","size","yaw","color","collision","destructible"]:errors.append("unsupported_cover_field")
    if o.get("id")!="studio-cover-"+str(count-1):errors.append("invalid_cover_id")
-   if not o.get("id") is String or o.get("kind") not in ["sandbag","crate"] or not vec(o.get("position"),2) or not vec(o.get("size"),3):errors.append("invalid_cover");continue
+   if not o.get("id") is String or o.get("kind") not in ["sandbag","crate","building"] or not vec(o.get("position"),2) or not vec(o.get("size"),3):errors.append("invalid_cover");continue
    if (not (o.get("yaw") is float or o.get("yaw") is int) or float(o.get("yaw")) not in [0.0,90.0]) or o.get("color") not in ["#b1aa83","#898775"] or o.get("collision")!=true or o.get("destructible")!=true:errors.append("invalid_cover_material")
-   if o.size[0]<.08 or o.size[0]>.4 or o.size[1]<.035 or o.size[1]>.09 or o.size[2]<.035 or o.size[2]>.16:errors.append("invalid_cover_size")
+   if o.size[0]<.08 or o.size[0]>.4 or o.size[1]<.035 or o.size[1]>(.28 if o.kind=="building" else .09) or o.size[2]<.035 or o.size[2]>(.30 if o.kind=="building" else .16):errors.append("invalid_cover_size")
   if count<4 or count>14:errors.append("cover_count_4_to_14")
  if not errors.is_empty():return {"passed":false,"errors":errors}
  var b=level.bounds;var target=Vector2(level.objective[0],level.objective[1])

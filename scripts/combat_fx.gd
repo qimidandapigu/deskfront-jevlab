@@ -1,6 +1,9 @@
 extends Node3D
 ## Bounded visual/audio layer. Projectiles resolve damage only on arrival.
+const CombatBallistics = preload("res://scripts/combat_ballistics.gd")
+
 var game
+var ballistics = CombatBallistics.new()
 var projectiles: Array=[]
 var visuals: Array=[]
 var voices: Array=[]
@@ -22,9 +25,10 @@ var reused_visuals=0
 var peak_visuals=0
 var peak_voices=0
 var random := RandomNumberGenerator.new()
+var dispersion_rng := RandomNumberGenerator.new()
 
 func setup(g) -> void:
-	game=g;random.seed=2918
+	game=g;random.seed=2918;dispersion_rng.seed=73129;ballistics.rng=dispersion_rng
 	for key in ["rifle","smg","rocket","cannon","explosion","impact","bayonet","order","reload","pistol","grenade","rocket_blast","tank_impact","grenade_blast"]:
 		sounds[key]=load("res://assets/audio/"+{"rocket":"rocket_launch","cannon":"tank_cannon","grenade":"reload"}.get(key,key)+".wav")
 
@@ -121,18 +125,64 @@ func set_muted(value: bool) -> void:
 			if is_instance_valid(v):v.stop();v.stream=null;v.queue_free()
 		voices.clear()
 
-func launch(shooter, target, weapon: String, landed: bool) -> void:
-	var cfg: Dictionary=game.config.weapons[weapon]
-	launched[weapon]=int(launched.get(weapon,0))+1
+func dispersed_endpoint(origin: Vector3, aim: Vector3, accuracy: float, pressure: float, weapon: String="rifle") -> Vector3:
+	return ballistics.dispersed_endpoint(origin,aim,accuracy,pressure,weapon)
+
+# 用实际将发射的散射轨迹检查首个碰撞，拒绝枪口前障碍和友军附近爆炸。
+func firing_solution(shooter, origin: Vector3, target: Vector3, cfg: Dictionary, weapon: String) -> Dictionary:
+	var hit: Dictionary=trace(origin,target,shooter.id)
+	var reason: String=""
+	if hit.get("kind","")=="cover":reason="muzzle_cover" if origin.distance_to(hit.point)<.20 else "target_occluded"
+	elif hit.get("kind","")=="unit" and hit.unit.faction==shooter.faction:reason="friendly_in_firing_lane"
+	if reason=="":reason=explosive_fire_block(shooter,origin,target,cfg,weapon)
+	return {"clear":reason=="","reason":reason,"blocker_id":hit.get("cover_id",hit.unit.id if hit.has("unit") else ""),"distance":origin.distance_to(hit.point) if hit.has("point") else -1.0}
+
+func explosive_fire_block(shooter, origin: Vector3, end: Vector3, cfg: Dictionary, weapon: String) -> String:
+	if weapon not in ["rocket","cannon","at_cannon","grenade"]:return ""
+	var collision: Dictionary={}
+	var previous: Vector3=origin
+	for i in range(1,17):
+		var t: float=float(i)/16
+		var point: Vector3=origin.lerp(end,t)
+		if weapon=="grenade":point.y+=sin(t*PI)*.20
+		collision=trace(previous,point,shooter.id)
+		if not collision.is_empty():break
+		previous=point
+	var impact: Vector3=collision.get("point",end)
+	if collision.get("kind","")=="unit" and collision.unit.faction==shooter.faction:return "friendly_in_firing_lane"
+	var margin: float=float(cfg.get("splash",0))+.04
+	if origin.distance_to(impact)<margin:return "muzzle_obstructed_or_blast_too_close"
+	for ally in game.living(shooter.faction):
+		if ally.aim_point().distance_to(impact)<margin:return "friendly_near_impact"
+	return ""
+
+func launch(shooter, target, weapon: String, landed: bool, override_cfg: Dictionary={}) -> bool:
+	var cfg: Dictionary=game.config.weapons[weapon] if override_cfg.is_empty() else override_cfg
 	var end: Vector3=target.aim_point()
 	var from: Vector3=shooter.muzzle_position(end)
 	var dir: Vector3=(end-from).normalized()
-	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	if weapon=="bayonet":
+		launched[weapon]=int(launched.get(weapon,0))+1
+		sound(weapon,from)
 		beam(from,end,.007,Color(.84,.91,.95),.14)
 		target.hit(float(cfg.damage),float(cfg.pressure),from,.10);impacts+=1
-		return
-	if not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
+		return true
+	if game.human_squad:
+		var pressure: float=float(shooter.get("suppression")) if shooter.get("suppression")!=null else 0.0
+		end=dispersed_endpoint(from,end,float(cfg.accuracy),pressure,weapon)
+		dir=(end-from).normalized()
+	elif weapon in ["cannon","at_cannon"]:
+		# Direct-fire guns retain a finite, distance-scaled cone even in the
+		# native controller.  `landed` remains the damage roll; it no longer
+		# makes the rendered shell perfectly exact.
+		end=dispersed_endpoint(from,end,float(cfg.accuracy),0.0,weapon)
+		dir=(end-from).normalized()
+	elif not landed:end+=Vector3(random.randf_range(.026,.065),random.randf_range(-.025,.04),random.randf_range(-.06,.06))
+	var blocked: String=explosive_fire_block(shooter,from,end,cfg,weapon)
+	shooter.set_meta("fire_block_reason",blocked)
+	if blocked!="":return false
+	launched[weapon]=int(launched.get(weapon,0))+1
+	sound("cannon" if weapon=="at_cannon" else weapon,from)
 	var explosive: bool=weapon in ["rocket","cannon","at_cannon","grenade"]
 	puff(from,.048 if explosive else .027,.20,false)
 	beam(from,from+dir*.045,.009 if explosive else .006,Color(1,.91,.53),.10)
@@ -142,6 +192,8 @@ func launch(shooter, target, weapon: String, landed: bool) -> void:
 		var shell=load("res://assets/models/grenade.glb").instantiate();n.add_child(shell);shell.scale=Vector3.ONE*.075;n.mesh=null
 		for part in shell.find_children("*","MeshInstance3D",true,false):part.material_override=game.field.mat(game.colors[shooter.faction],.32)
 	projectiles.append({"node":n,"from":from,"to":end,"age":0.0,"duration":maxf(.09,from.distance_to(end)/float(cfg.projectile_speed)),"cfg":cfg.duplicate(),"weapon":weapon,"team":shooter.faction,"target":target,"shooter":shooter.id,"suppressed":[],"landed":landed,"trail":0.0})
+
+	return true
 
 func trace(a: Vector3,b: Vector3,shooter_id: String) -> Dictionary:
 	var best: Dictionary=game.field.trace_cover(a,b)
@@ -153,6 +205,24 @@ func trace(a: Vector3,b: Vector3,shooter_id: String) -> Dictionary:
 			best=hit;best["unit"]=unit;best["kind"]="unit"
 	return best
 
+# 每发爆炸物以 10Hz 做局部预警；只通知能看到来袭物且位于预测危险走廊的人。
+func warn_explosive(p: Dictionary) -> void:
+	if not game.human_squad or p.weapon not in ["rocket","cannon","at_cannon","grenade"]:return
+	if float(p.age)<float(p.get("warning_at",0)):return
+	p.warning_at=float(p.age)+.10
+	var remaining: float=ballistics.warning_remaining(float(p.duration),float(p.age))
+	if remaining<=.08 or remaining>1.0:return
+	if not p.has("warned"):p.warned=[]
+	var current: Vector3=p.node.position
+	var estimate: Vector2=ballistics.warning_estimate(p.to)
+	var radius: float=ballistics.warning_radius(float(p.cfg.get("splash",0)))
+	for u in game.living():
+		if u.tank or u.faction==p.team or p.warned.has(u.id):continue
+		if current.distance_to(u.aim_point())>.9 or not game.field.trace_cover(u.aim_point(),current).is_empty():continue
+		if not ballistics.warning_corridor_contains(u.aim_point(),u.pos(),current,p.to,radius):continue
+		p.warned.append(u.id)
+		u.evade_explosive(estimate,Vector2(p.from.x,p.from.z),remaining,radius)
+
 func physics_tick(dt: float) -> void:
 	if dt>.034:
 		var substeps: int=ceili(dt/.03333333)
@@ -160,6 +230,7 @@ func physics_tick(dt: float) -> void:
 		return
 	for p in projectiles.duplicate():
 		p.age+=dt
+		warn_explosive(p)
 		var previous: Vector3=p.node.position
 		var next: Vector3=p.from.lerp(p.to,clampf(p.age/p.duration,0,1))
 		if p.weapon=="grenade":next.y+=sin(clampf(p.age/p.duration,0,1)*PI)*.20

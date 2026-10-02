@@ -48,8 +48,8 @@ def compile_scenario(spec,id):
     if not isinstance(covers,list) or not 4<=len(covers)<=14:raise ValueError('cover_count_4_to_14')
     level['objects']=[o for o in level['objects'] if o['kind'] not in ['sandbag','crate']]
     for i,c in enumerate(covers):
-        if not isinstance(c,dict) or set(c)!= {'kind','position','size','yaw'} or c.get('kind') not in ['sandbag','crate'] or not position(c.get('position')) or not vector(c.get('size'),3) or type(c.get('yaw')) not in [int,float] or c['yaw'] not in [0,90]:raise ValueError('invalid_cover')
-        if not all(lo<=v<=hi for v,(lo,hi) in zip(c['size'],[(.08,.4),(.035,.09),(.035,.16)])):raise ValueError('invalid_cover_size')
+        if not isinstance(c,dict) or set(c)!= {'kind','position','size','yaw'} or c.get('kind') not in ['sandbag','crate','building'] or not position(c.get('position')) or not vector(c.get('size'),3) or type(c.get('yaw')) not in [int,float] or c['yaw'] not in [0,90]:raise ValueError('invalid_cover')
+        if not all(lo<=v<=hi for v,(lo,hi) in zip(c['size'],[(.08,.4),(.035,.28 if c['kind']=='building' else .09),(.035,.30 if c['kind']=='building' else .16)])):raise ValueError('invalid_cover_size')
         sx,_,sz=c['size'];sx,sz=(sz,sx) if c['yaw']==90 else (sx,sz)
         if not (b[0]+.02<=c['position'][0]-sx/2 and c['position'][0]+sx/2<=b[2]-.02 and b[1]+.02<=c['position'][1]-sz/2 and c['position'][1]+sz/2<=b[3]-.02):raise ValueError('cover_out_of_bounds')
         level['objects'].append(dict(c,id='studio-cover-'+str(i),color='#b1aa83' if c['kind']=='sandbag' else '#898775',collision=True,destructible=True))
