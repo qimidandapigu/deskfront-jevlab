@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "mode": "godot-web",
+  "pin": {
+    "game": "output/releases/Deskfront-Windows-20261020-scene-design/Deskfront.exe",
+    "publicHarness": "output/module-exports/deskfront-annie-child-character-20261020/deskfront-sdk-harness",
+    "privateGenerator": "output/module-exports/deskfront-scene-design-20261020/deskfront-level-generator-private/provider.py",
+    "gameSha256": "9fb140d400354d863af481225ae94aff8cf77acad014021ba03c8a45639cc581",
+    "pckSha256": "d88475a91776f9d0531a42cb90365be40efe0f1a32ec7f73e9c2c97d4da61c28",
+    "source": "build-provenance/quickplay-harness/output/scene-design-native-20261020/engine",
+    "webOnlyAdaptations": {
+      "board_preferences.gd": {
+        "before": "d3526e5064260d50b12ced83c8ff5067b4ed7dc7731ee15f34d9dc601b29d74b",
+        "after": "cbffee29fb0c5bf35741960e33100797f74f44cc3727bda2c03fc673879cdf96"
+      },
+      "bridge.gd": {
+        "before": "f06a27b7c6426be13cef6f7a57066e469535070f2efc2b03d1e69f31a098c629",
+        "after": "f4b91d42dd53319658dd3b01ddf25af12d4190faa5194e38329c3c0a0f7c30c3"
+      },
+      "game.gd": {
+        "before": "6d3c3a678c6f73a64641d31f2e9827f06398d6b6bc6fea7b0ccd63506cbe5ef2",
+        "after": "eee84275a6937d08d0d6a2f8a0abdfb65d280874e5bea71178160dabcbfccb37"
+      },
+      "harness_status.gd": {
+        "before": "28c39d33de6af1297f99ef218b5c04b972e043140c3df08d2dace0ac110ce4c7",
+        "after": "cb4c72b08560f3f86ec234c73bec2dff98f31d1ef9892fa1c27bd6a37558f7de"
+      },
+      "opening_roster.gd": {
+        "before": "b789e8b87a1e104ac740473077183f103bbe493d4148d2635d61daab8d4c7e3d",
+        "after": "1d63124aa17940b40e4de4326ab514aa7048f13030a32be62f19130acf2b9acc"
+      },
+      "perception_overlay.gd": {
+        "before": "d056daa698b85e8a2bfa459fb0ab1913448adbaa8d4b315e8ca139ab44441e2f",
+        "after": "36bf83f9735be533c42e0316af70e80c986316d8e1f2bbdfb4e090337eb66133"
+      },
+      "tech_panels.gd": {
+        "before": "6345450c65d72466c45a8c627c8c869e5af56b915bd0066cfb094ad8a34bf9c1",
+        "after": "a47750b7d36f05db2f36e47371c47a3fe7260a77ca021fa4bfb8987e4511d804"
+      }
+    },
+    "unchangedGameScripts": 117,
+    "webOnlyAdditions": {
+      "web_boot.gd": "709bbca1430b36bcc9b994d9ada7a4221f18aa8a4e5d0c7cac158c03db713e52",
+      "web_render.gd": "3f13c81f7148aea1751ba347b01e4813b2f5f05e9510cc600440ac9551b93880"
+    },
+    "displayBinding": "SDK capture projected after frame_post_draw; browser map follows the rendered instance/run/tick/stage",
+    "renderProjection": "30Hz read-only current-node positions, revision-cached terrain and native shot timestamps; no tactical snapshot or model calls",
+    "sceneDesignUpdate": {
+      "date": "2026-10-20",
+      "evidence": "output/scene-design-fix-20261020/report.html",
+      "scope": "JEV selected region-route sequences preserved through compilation; compatible scene choices; no recent-skeleton deletion cycle; actual spatial repetition evidence; varied and legacy blueprint no longer force dual routes. Existing geometry acceptance retained."
+    },
+    "sceneDesignNativeEvidence": "output/scene-design-native-20261020/evidence.json",
+    "componentMergeEvidence": "output/process-consolidation-20261020/evidence.json"
+  },
+  "files": {
+    "game.apple-touch-icon.png": {
+      "sha256": "9b374ecbc8558f480421e646f38aaa8a69d5b1d65ff7b48d0735da214c46773a",
+      "bytes": 11952
+    },
+    "game.audio.position.worklet.js": {
+      "sha256": "be33985bc7160d6bf9646f259cd86b259cd67b02ccb297ee5c44f8ac84327bc8",
+      "bytes": 2973
+    },
+    "game.audio.worklet.js": {
+      "sha256": "5b476a9c9ce642c0ee4256436d1bc31d9c38f868aca0f9a8e2a57c18d2dec2a3",
+      "bytes": 7298
+    },
+    "game.html": {
+      "sha256": "ad22ccd598835ec77139b6c7a6eda6e389ce27ebe8fed41f9dbf658ecccabcd5",
+      "bytes": 5449
+    },
+    "game.icon.png": {
+      "sha256": "08808dd5397e9a502cb3624944151f87a9705b5b66b5c365c5ca4c6ab51525f5",
+      "bytes": 5702
+    },
+    "game.js": {
+      "sha256": "6f74d38f35066e0fd6e9b9f265af4c88a36f113726de9fbba9b50dd939bf7b2e",
+      "bytes": 358024
+    },
+    "game.pck": {
+      "sha256": "b407818ec517f22287f81b4a0a448199beb49891f84f005eac7fd68f251f730c",
+      "bytes": 26506800
+    },
+    "game.png": {
+      "sha256": "3cb4495c0b98dfbe4b663cbf2b6836473572339beb66d902367893162a70be0e",
+      "bytes": 21443
+    },
+    "game.wasm": {
+      "sha256": "6156c355cd6b358ce315493382786db794a13ae4d48e89918407e6e504e2f1bf",
+      "bytes": 37322260
+    },
+    "NotoSansCJKsc-LICENSE.txt": {
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+      "bytes": 4301
+    }
+  },
+  "fastMapEvidence": "output/web-fast-map-20261020/evidence.json",
+  "sceneDesignNativeEvidence": "output/scene-design-native-20261020/evidence.json"
+}

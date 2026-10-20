@@ -1,0 +1,7 @@
+{
+  "sdkVersion": "1.0.3856.49",
+  "dependencySHA256": "bc0f76eb911b569838dc4aa8f8d325269b966bedb592863d26211aef3a099f1a",
+  "executable": "DeskfrontAnnieHost.exe",
+  "kind": "native-game-child-window",
+  "requires": "Windows .NET Framework 4.6.2+ and Edge WebView2 Runtime"
+}

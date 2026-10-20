@@ -1,0 +1,11 @@
+node_modules/
+.env
+config.local.json
+games.local.json
+logs/
+output/web-game-20261020/sessions/
+output/web-game-20261020/replays/
+output/web-game-20261020/server*.json
+output/web-game-20261020/*registry.json
+output/web-game-20261020/*.log
+__pycache__/

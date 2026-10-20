@@ -1,0 +1,22 @@
+{
+  "cleanInstall": true,
+  "typecheck": true,
+  "pythonRuntimeImport": true,
+  "levelRuntimeImport": true,
+  "httpGameAssets": {
+    "game.js": {
+      "bytes": 358024,
+      "sha256": "6f74d38f35066e0fd6e9b9f265af4c88a36f113726de9fbba9b50dd939bf7b2e"
+    },
+    "game.pck": {
+      "bytes": 26506800,
+      "sha256": "b407818ec517f22287f81b4a0a448199beb49891f84f005eac7fd68f251f730c"
+    },
+    "game.wasm": {
+      "bytes": 37322260,
+      "sha256": "6156c355cd6b358ce315493382786db794a13ae4d48e89918407e6e504e2f1bf"
+    }
+  },
+  "beginnerReplayUI": true,
+  "modelCalls": 0
+}

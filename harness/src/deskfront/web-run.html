@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>桌面前线 · Web</title>
+<style>html,body{margin:0;height:100%;background:#0b140e;color:#edeedd;font-family:system-ui}#loading{position:fixed;inset:0;display:grid;place-content:center;text-align:center}#slot{position:fixed;left:0;top:0;width:960px;height:540px;visibility:hidden}#dashboard{position:fixed;inset:0;width:100%;height:100%;border:0}#message{padding:20px;background:#0b140e;position:fixed;left:16px;bottom:16px;z-index:30;max-width:40em}#message[hidden],#loading[hidden]{display:none}</style>
+<div id="loading">正在启动浏览器游戏和 AI…</div><canvas id="slot"></canvas><div id="message" role="status">游戏载入后，正在连接双方 AI 和关卡生成器…</div>
+<script type="module">
+import {webSurface} from '/web/surface.js';
+const jobId='__JOB_ID__',owner={canvas:document.getElementById('slot'),viewport:document.getElementById('slot'),present:false,active:true,hasFrame:false,notify(){}};
+webSurface(owner).connect('/play/'+jobId+'/index.html?instance_id=__INSTANCE_ID__');
+let shown=false;
+async function poll(){try{const response=await fetch('/api/deskfront/web');const {job}=await response.json();
+ if(job?.id!==jobId)throw Error('当前对局已变化，请从开局页面重新进入。');
+ if(job.error){document.getElementById('message').textContent=job.error;return;}
+ if(job.session&&!shown){shown=true;const frame=document.createElement('iframe');frame.id='dashboard';frame.title='策划看板';frame.src='/?view=lab&tab=combat&session='+encodeURIComponent(job.session);document.body.append(frame);document.getElementById('message').hidden=true;document.getElementById('loading').hidden=true;}
+ }catch(error){document.getElementById('message').textContent=error.message;}setTimeout(poll,700);}
+poll();
+</script></html>

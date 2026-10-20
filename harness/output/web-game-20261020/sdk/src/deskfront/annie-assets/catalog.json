@@ -1,0 +1,38 @@
+{
+  "faces": {
+    "neutral": "no particular feeling; calm attention",
+    "happy": "warm pleasure, friendly greeting, liking what was said",
+    "joyful": "big delight, celebration, great news",
+    "amused": "finding something funny or cheeky; laughing at a joke",
+    "relieved": "a worry just went away; things turned out fine",
+    "proud": "pleased with an achievement, confident self-presentation",
+    "tender": "affection, gentle care, comforting someone",
+    "playful": "teasing, mischief, light banter, joking refusal",
+    "sad": "own sadness, loss, disappointment",
+    "concerned": "worry for the other person; hearing about their trouble or illness",
+    "hurt": "feelings hurt by something said to her",
+    "angry": "real anger at an insult or injustice",
+    "annoyed": "mild irritation, exasperation, sulking",
+    "skeptical": "doubt, suspicion that a claim is wrong",
+    "surprised": "sudden unexpected news or being interrupted",
+    "shocked": "stunned by alarming news",
+    "afraid": "fear, feeling threatened or scared",
+    "curious": "interest in a question, wanting to know more",
+    "thinking": "working something out, explaining how something works",
+    "embarrassed": "bashful, flattered, caught out",
+    "sleepy": "tired, drowsy, winding down",
+    "bored": "uninterested, waiting"
+  },
+  "clips": {
+    "wave": "greeting hello or goodbye with a raised hand",
+    "excited_bounce": "hyped, can't contain excitement, 'yes!'",
+    "clap": "applause, great news, celebrating what someone said",
+    "sad_slump": "deflated by bad news, grief, feeling low",
+    "shrug": "not knowing, 'who knows', playful 'oh well'",
+    "think": "pondering, working out an answer, explaining how something works",
+    "laugh": "laughing out loud at something funny",
+    "surprised_recoil": "startled, taken aback, interrupted",
+    "bow": "polite bow, thank you, apology",
+    "point_self": "talking about herself, 'me?', 'I'm Annie'"
+  }
+}

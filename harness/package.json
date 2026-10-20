@@ -1,0 +1,28 @@
+{
+  "name": "@quickplay/deskfront-web-runtime",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx tools/deskfront-attach.ts",
+    "typecheck": "tsc --noEmit",
+    "sdk:build": "npm run build --prefix packages/game-sdk",
+    "web": "node tools/start-web.mjs",
+    "web:check": "node tools/start-web.mjs --check"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "dependencies": {
+    "@pixiv/three-vrm": "3.5.5",
+    "@typesafe-ai/sdk": "^0.6.0",
+    "three": "0.186.1",
+    "undici": "^8.10.2"
+  },
+  "description": "Deskfront complete browser runtime, SDK, AI level runtime and replay"
+}

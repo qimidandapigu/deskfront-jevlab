@@ -1,0 +1,28 @@
+{
+  "name": "@quickplay/game-sdk",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "description": "Game observation, intent and presentation client for quickplay-bridge/v1",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "example": "npm run build && node examples/local-demo.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

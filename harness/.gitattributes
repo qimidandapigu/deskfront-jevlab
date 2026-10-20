@@ -1,0 +1,12 @@
+* text=auto eol=lf
+*.wasm -text
+*.pck -text
+*.pyc -text
+*.vrm -text
+*.exe -text
+*.dll -text
+*.mp4 -text
+*.png -text
+*.jpg -text
+*.otf -text
+*.ttf -text

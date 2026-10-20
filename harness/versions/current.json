@@ -1,0 +1,12 @@
+{
+  "active": [
+    {
+      "id": "split-full",
+      "name": "Deskfront Web 20261020",
+      "game": "runtime/browser-only/Deskfront.exe",
+      "publicHarness": "output/web-game-20261020/sdk",
+      "privateGenerator": "output/web-game-20261020/level-runtime/provider.pyc",
+      "levels": "ai"
+    }
+  ]
+}

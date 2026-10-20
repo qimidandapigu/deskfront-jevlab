@@ -1,0 +1,1071 @@
+{
+  "kind": "public-harness-candidate",
+  "privateGenerationIncluded": false,
+  "gameSourceIncluded": false,
+  "pythonModules": [
+    "actor_roster",
+    "affect_appraisal",
+    "ammunition_rules",
+    "assignment_fire_review",
+    "attached_display",
+    "attached_entry",
+    "attached_host",
+    "attached_state",
+    "auto_regions",
+    "background_query",
+    "battle_map_recording",
+    "battlefield_equipment",
+    "battlefield_map",
+    "choice_contract",
+    "close_engagement",
+    "combat_command_validation",
+    "combat_coordination_candidates",
+    "combat_prompt",
+    "command_presentation",
+    "commander_tactical_brief",
+    "contact_memory",
+    "cooperation_frontier",
+    "cooperation_prompt",
+    "cooperation_value",
+    "coordinate_prompt",
+    "coordination_handover",
+    "director_display",
+    "engagement",
+    "engagement_feedback",
+    "equipment_assignment",
+    "equipment_review",
+    "execution_feedback",
+    "fire_effectiveness",
+    "firing_position_contract",
+    "human_squad",
+    "human_squad_autonomy",
+    "human_squad_context",
+    "human_squad_contract",
+    "human_squad_model",
+    "human_squad_orders",
+    "human_squad_receipts",
+    "human_squad_records",
+    "human_squad_snapshot",
+    "human_squad_support",
+    "human_squad_validation",
+    "lease_keepalive",
+    "level_provider",
+    "local_behavior",
+    "map_packet",
+    "merged_map",
+    "movement_stall_episode",
+    "navigation_access",
+    "perception_view",
+    "prompt_cases",
+    "prompt_inspect",
+    "route_choice_evidence",
+    "soldier_agents",
+    "soldier_candidate_query",
+    "soldier_emotion_scheduler",
+    "soldier_emotions",
+    "squad_cooperation",
+    "squad_region_choices",
+    "squad_task_contract",
+    "story_prompt",
+    "strategic_regions",
+    "survival_review",
+    "tactical_map_view",
+    "task_modes",
+    "vehicle_agents",
+    "wall_bypass_routes",
+    "weapon_affordance",
+    "weapon_behavior"
+  ],
+  "typescriptModules": 71,
+  "files": {
+    ".env.example": "3fe5a5aba4f5ec4487033e265a45f0ab49e86d1275d4b73223c8e896c9e2f0d2",
+    ".gitignore": "817a306ac2b94a7888ffd3633cb0e199892b453e991157eb1f0cb8de55016216",
+    "AGENTS.md": "13ed4af227d87e5f6f30f1a73f83b0092c0f2e1a9a337cf7b58f02e1daa122a2",
+    "BATTLE_LAB.md": "bb4abe9b5ce66d9e0f4743af5c8a12e82e2eda089d34c85aa6c08a88df172823",
+    "MODULES.md": "dc267a0dc217afc0d51a638236f1b41af31bbc50bab8fc1e8637cb0099caefbe",
+    "README.md": "66d07cd34a482735e183a0046c9791b08e28814aa5d93836a723b6a9a8ba9ab3",
+    "config.local.example.json": "8e90fa47032859a2cc269f44792dd9c9a1e3ef39204e9fbcba5568a254223a28",
+    "docs/deskfront-commentary.md": "7b13db88bcaa1bf14c5fbd1a2a369a02e8de645a8c8070ae6dd79c6dac553c2a",
+    "docs/model-led-coordination.md": "f742473111f56291c75153cfa81604a265a768d00d071190df137b94ad512e26",
+    "docs/open-source/deskfront-module-packaging.md": "18a30109617501820bf62d2e9588a96d22d235517a930a740bd03c9190f3bf5c",
+    "docs/squad-task-coherence.md": "9a69ff1b6eb780e18f2b9ee9f2ab22325505f7c4afb7f4900aa733984f600613",
+    "docs/tactical-no-wait.md": "41891762f27251f71d33c42b60b18ef1bdb90f2228bbefb1664cb2538a20d0eb",
+    "package.json": "67f5463c5e67bbbe98000a3a8d145aafaf614d39a740851b9e17562b16c5726e",
+    "packages/game-sdk/README.md": "6e67d201e2c1f5cfacddb0f84987c46db3a8e3388085be6a12eef9bfd90bb164",
+    "packages/game-sdk/dist/client.d.ts": "3c5208f805fcf9ed75b8394ee5aaa30f3ef6b59dcc087b820bdddd589a2c257d",
+    "packages/game-sdk/dist/client.js": "af9d0b14a855b518c1b95fea127565401be385d09baa0cfbbded00edbdb8b305",
+    "packages/game-sdk/dist/contracts.d.ts": "452e18c9b867ac8c7200bc9f1c174afd42ba0d5b8b8b0c0d91b62ecb4c62bc1c",
+    "packages/game-sdk/dist/contracts.js": "a0f77af390c8eaf7c67304f8f0c4c23a31c06f1d3ab3a2c68c33f8c66141f88f",
+    "packages/game-sdk/dist/deskfront.d.ts": "3f484bf3ed2218dcd1e422658185bf1c9fa70467d86ff1730dacfcfa42dd215e",
+    "packages/game-sdk/dist/deskfront.js": "b0711fd74082a4d3fe23d7ce162f351dc442129d76c2ee1fac359aa1d34a1d6f",
+    "packages/game-sdk/dist/index.d.ts": "5b6fbb07648b73d5df51f1149e10550d2e73d55b4d645df3786a43bc20e34b1f",
+    "packages/game-sdk/dist/index.js": "5b6fbb07648b73d5df51f1149e10550d2e73d55b4d645df3786a43bc20e34b1f",
+    "packages/game-sdk/dist/transport.d.ts": "b54cfb2174ab173efffe3f3588e3dc0cbbacecec6368ad8e1a52a2a73905c76f",
+    "packages/game-sdk/dist/transport.js": "9ad5d609a491666fd399bff59a75a413f55abbc7cd7c4288ca44a62bbc7a4654",
+    "packages/game-sdk/examples/local-demo.mjs": "e5196eb3da0bf9597b38677f9ad48df933f4dd2508a9e1d01c7ea1c750c50e1f",
+    "packages/game-sdk/examples/reference-service.mjs": "ea9f963eb9470b1f8cf920a82a7adac139d57c3e9df39764bdee486cb3cdcf33",
+    "packages/game-sdk/package.json": "ff11e7e88dae4880851dbb150ad548a021746aaaedb420f9363c9a43b808bd6e",
+    "packages/game-sdk/src/client.ts": "512e364fd151e1c80633bd52d14b47c5bfd402469af3e4e001a0af9685d8751b",
+    "packages/game-sdk/src/contracts.ts": "8e847af5bdc8122b9f3009842259efb8bbeac788be9210046484ee251cd36010",
+    "packages/game-sdk/src/deskfront.ts": "e8d7cd7e9a4b4c164482157c140602885e3e8145cad25457b55106008d6eaa4b",
+    "packages/game-sdk/src/index.ts": "5b6fbb07648b73d5df51f1149e10550d2e73d55b4d645df3786a43bc20e34b1f",
+    "packages/game-sdk/src/transport.ts": "5b9e8d394b43d136c03ce97f913e7689c28619b69a201e8a1b631eb4cc513a71",
+    "packages/game-sdk/test/client.test.mjs": "fd1f0516c49721d469f500df148f89da6ef8f83bdee32ae9ebde6dfeb15242ab",
+    "packages/game-sdk/test/isolation.test.mjs": "1346a906759f0267fa5e902da6bf50db6ea612611bcccefe215ec4411ecd9ca1",
+    "packages/game-sdk/tsconfig.json": "8df485a92cac853214ff8ca3e7e660b8939cb225a32f4682af2331c4946ca82e",
+    "scripts/build-deskfront-presenter.py": "77053d7a92b6e56eb98bad30c4d3c1db96c9154598b08ae801da06cc3c242d04",
+    "sdk/python/deskfront_bridge.py": "1b4eb08ea4a7312ee0dd4ed70c5c738df3265d9373a845cd7787efce13dc3941",
+    "sdk/python/quickplay.py": "36c66ba454ec1e081e96fcc5a25e195459165d5eb186950acd53478a82776f8a",
+    "src/arena/assistance.ts": "a769797222fcaf56b80cdb45c85a107aa6933053ca4c7777bc81cd4939ae62d5",
+    "src/arena/confidence.ts": "1e0d71748d4e77e88f0371d12c9e5832ab659da239506fea7bc3dddb9b2e7226",
+    "src/arena/decision.ts": "518106bd6d0bcbead993f3a131ecf6f933cc28d4f7a580fce5a1c71a151f4fa8",
+    "src/arena/logger.ts": "c2cfdfde256fb1b4257b06e578dcbda9085a20f12f58e68b221566c2bb000ae0",
+    "src/arena/plugin.ts": "ec3d218d7386d942a2b2659fc661eef66c9bdfdcba5c44b99b113ff1b8e8bf07",
+    "src/arena/realtime.ts": "6433538faaea675de9cbd16167e94646c8a5ef50fa5357ad53a1d584bc884cd8",
+    "src/arena/registry.ts": "a825f17149b619e1530302b19f61f636e0288615d57315c3632ae54fee4ac81d",
+    "src/arena/runner.ts": "6faad91e2482c775f5d2e9398d9359469c0835f59f34052e780deeed2d0af83f",
+    "src/arena/runtime.ts": "a078ad5022c01edd2219b5dbc284056d30d7837a49a4cd6c8d14bcdf1cfdf7a5",
+    "src/arena/session-config.ts": "d17e39a451b82d15769be72cdb77aa87089d23561e8faafda7cbc6673ece8fd7",
+    "src/arena/sessions.ts": "a79737f4e9b452e6f16fce3a7f93254f6c785bffa9066b9d663850667b35c0c5",
+    "src/config.ts": "7613503e14a42d61fa50a034db3b59d70d76f8290807f09e7863072eb83da092",
+    "src/deskfront/actor_roster.py": "39319a9794b4af0363786ea3885fc6750b748c7df4e933beaaa3eab382089e97",
+    "src/deskfront/affect_appraisal.py": "7ed1583222e5ee7512e3d70463cce706bd0d92c0daa3020836880c006640ff08",
+    "src/deskfront/ammunition_rules.py": "03be041942e45f75d81108d9b8eb113cd15bdac19ddbf39fb9d9930105c77f5e",
+    "src/deskfront/annie-assets/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "src/deskfront/annie-assets/NOTICE": "c5a7b114bacac191b014e5ee5db21321c2a4c6a8c034b38419970c5441c8bb48",
+    "src/deskfront/annie-assets/UPSTREAM.json": "e816062718f4358de8a4ee7336b7bc8ab7794e968e47257c1924e0564537da9f",
+    "src/deskfront/annie-assets/assets/README.md": "53813e2f5b6ed1ef74125638b65d656d4ae093c7baaaac20be0dcddb307e8151",
+    "src/deskfront/annie-assets/assets/avatars/annie-b/avatar.json": "5a401eb7b04956f7b3f0dc9fc60694a64dda4aabe176a9c3f56da59ee4887f5f",
+    "src/deskfront/annie-assets/assets/avatars/annie-b/model.vrm": "4a271bd3b5a3d19e054fd113ee154635b72e7141f4a8ccbcdba3c7f9cea6ee8d",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/bow.json": "f2f90b3895bc519271c843696d86a878cccb8170435f725f23661e8c78b04053",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/clap.json": "11679f577583456960bdeebc6cbc1bb6eb2a48a301792a6cb0494926922f3ec3",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/dance.json": "3f35beaddc6173640e7b4e7510177cf5f68b2eea9a88954f41c5e63fbb620e9b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/excited_bounce.json": "04beec1d66eb2824f39747db5fb284622a7e79f42b52934b6c8812a0ed643ff4",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_clasp.json": "5b0469c08fda8c271f02518c70a6e3f069dfa27ebd82cfb81876d11ebffabdfc",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_glance.json": "6652e321455e5d92644b88cc211a37fc48fd63a08f47d6e9e315fa97d0fc1aa2",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_hair.json": "d1ae1817fdcee8fa12a59363e3c929b015ba0cc2a732dd2fc40f421092f429da",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_hips.json": "f920d875610c353c8b3277857ac66175418b45890b7242c7d1bc431211fd6a60",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_rock.json": "2aa446b73b9003ee5b4f3dd101b9a7157d8bb3b8ceac3a80dd9acd1b8593b3eb",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_sleeve.json": "459fbba1c08e53b2cb8486152bd2c9be98a07f730546645a5d122c0a1ee5556c",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/fidget_stretch.json": "ae4f9220d14ccd9fc60e8d9789504848ad0fc60225c2e26becbb6462a7a2ae2f",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beat_both.json": "0f41cd276bcea8e187edf2c6cddea36750e66902e0102ddb6985fb05e0038a1c",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beat_excited_r.json": "9a6fe362e5565a776cb5fdc119395914b49177016c1bef23c10bbdbdcde67372",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beat_l.json": "498f8fe321f45fcd631db8b40ec2be48174d6b61027da9871ce401609b16cc02",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beat_r.json": "3e68ecedb5031debfe1396d3313b06cd88ba0929172a9bea194723fc0885ba15",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beats2_both.json": "025d97eeefd0e14440859115d7f4c4749ee68173dfbd2ae88ecfd38c814532a0",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beats3_l.json": "c9e61476fea3548ac3448a5da6403126746154b2b756cae2cf3a2e8a016effe7",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_beats3_r.json": "596802fd1da1e22978c7443a44f27e13a96ba6525d6a8c61b270196dbacc173f",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_chest_both.json": "e0efbee871e32126db8a39d213b5ab522a2c3cc64736480fdf1fe38b9ecc7958",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_chest_r.json": "be7d1ca5178f5914ea7fe94fd6b5fd0b5e4ff28ebd5050f894d22794774e4153",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_clasp_excited.json": "5c543bcbaddb7aa3f48dddf58e78a9fd51b74024614edc87c2635440da1a6c3b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_count_l.json": "f31dac3bbdb35513e58e6fb775702796a71b34ae7d688f6e360f31ad4b01e203",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_flick_r.json": "ff7ffb214f40b8add555ebbd7bec36b15cb86557240b3ddfade7d8bb9a6881cf",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_flick_small_r.json": "bd2af0f6ca52b4c1d21d12d0233f70829d4a538a2ffd2ef570e6aba988d920a0",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_frame_both.json": "4c1dcc3f923d4159a04d11ecc75147053d9d00e98df8d3d94f94ccd3bb9823f2",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_list3_l.json": "60f0c7568b98c286588346dca6a2664f87a72085a31b838ae47feb2f16df3d20",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_minishrug.json": "015872decf16f9b8de1e9f8fbd69ffd7e796bce1e6c71100f831497b979ff335",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_offer_both.json": "70ec6e20dc5c4ed0e2e4ea9dbf0c9c74361e10c8437769372e6b5d1a812c7cd1",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_offer_l.json": "62143126d9368fe0fb27a6f474107930ff63ed64d28d619d9c20a4d85faf7931",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_offer_r.json": "c6d999e06af0ac42d7cb4b5fb1c6a4df99c98080990f1ac2bdebc8eb76c18276",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_open_both.json": "54a45e85292498d106c4a0e74de0649b6848a665a3f5b3a0eedadb2c7e82a1c0",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_pinch_r.json": "577c34de0c5352d1fbe663ef9c2c75ff78f9b10c6498b415e3316d9dd19786ce",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_point_l.json": "dce55ff21e4b03bd5b65572434bace5fbbe1df96ce2679ab2569741f5c824561",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_point_r.json": "2006b7a9ce30b78a6534ea98a34821398aa933f5b552ca745a8c1183760fbf90",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_roll_both.json": "f959e0ac541de9924988496e12383bfd0d86814cabb33707acbb0efe78313ab7",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_roll_r.json": "4d0ba5b4c9262f9c00e8538d3a37a86599baf4c78a517467be35ccb99d258a96",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_sweep_both.json": "1ddb9172d05f9279f2fb9a2084ae8af9d45588ac5670592578b160fc27509579",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_tap_both.json": "6370b88ba8d5dd8a71a4701634ca713cc11263d807fb935354d71af4b3ca5e6b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_tap_l.json": "360877257d17cd195b51c965465273a9aca881c964946f071ea2c92d41bc9166",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_tap_r.json": "919c9e71541e87afe6e1978ddcdbd8f577448681f3843aedd52899e878101ac6",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_waveaway_r.json": "34e497ab77eff5651275ddbc26f7b4e8348caf8e9f3e5c9c6c15e1806f09b9ee",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_youknow_l.json": "47fc185bffa2609ee2e6c3e067782eaa42851b5cbe8fa716eba5d06d20827c65",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/g_youknow_r.json": "17e545f1f8f5d7ccd937ceb4fb10423f708abce1781eaf3231de5c89a11ff66d",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/idle_a.json": "df11b143af218373d2b08ae8258018901676ffd6691dc105c6de4d20302eda99",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/idle_b.json": "ed05d3e478c5c87623941be886dcef2b960f79308e671c091acaed0c239ded8f",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/idle_c.json": "16e767fdf737c8654a888fbf16e68ec7e1a9f634c6969db6b587957c8e22f896",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/laugh.json": "a88db26f355f01311b982bc105c0c7e6a0a12e73151a59a1fe60ccc246d2808b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/listen_a.json": "6be6d803443930d80b49c1d2d4c41fa41e607c1e1bfe40f7d08ca013b1793441",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/listen_b.json": "d9da960934d83e8e9a625c4df4de68f18f0fba6e2bfdd38a51f44f47340414c1",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/pack.json": "396d7420e9c44ade6d630de6ca755cb17a286701a72d60871d56712ff1821598",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/point_self.json": "55a9d9aa35c9a4d3e0951200aa8d8681eb32af6284f7cabaf8c345da059a3032",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/sad_slump.json": "59748901f3ef4123802053a96e76a1c7244addb7bfc525680219660e9c4ba3b8",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/shrug.json": "18193aca10cf450eb4cc73ea31937eca9360eb9d69a87d6bbbc0719589bf5d29",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/surprised_recoil.json": "f97ff1e9333391a284e41afd884996a9908b2c2b8d02366ece0f99f7d146a6ce",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_animated_1.json": "474d2c71e50f3ce4a47611ad1a0081ae9139aa0f3aa8e51d223536b7b580162b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_animated_2.json": "bd740011742dac1818ef3a0f55d5f099c63c4a2a553db0ba5a3f7b3f48983fa8",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_animated_3.json": "3dfcfb1ffcaa8a6a883698a3e8142f1435a67f3ecd30ef866f925722593f2781",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_calm_1.json": "4be95730a7b7197dfc30ade0c23a77305ebf3c31e5841925f2858645de28f894",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_calm_2.json": "0b043c6f178da2e2723f41e7e8c9cac1e6c48f5b927514e005f39f7b033b61c9",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_calm_3.json": "405459f4260f9bd7af54d147acf83af651ee4752cce362fbc5cfd2f9242aeff9",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_excited_1.json": "93c326518855c8ac16033485d800b7e5d0958fe18a25b44a1159cfc431e7af41",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/talk_excited_2.json": "b27afbb36def0abcd9f5ae4c9073ca0b70194c8a22e6094d39eb44638ce40936",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/think.json": "5142a9d32d04cd03e395f5a6d49e4f9cf4bc000d835a53cc2cb8de6abd3ca66b",
+    "src/deskfront/annie-assets/assets/clips/annie-blender/wave.json": "5b70931750f8cf152ba9e5bdf3867f23d1218756a6dd2c5d319755e2149f2c3b",
+    "src/deskfront/annie-assets/assets/clips/index.json": "f86cba58cf54e004fab439e07b6121a0d7b5b8ec94ba00192c73deb0ee2e7308",
+    "src/deskfront/annie-assets/catalog.json": "0f14a081b4d85df15268a1a45358fa529a58405fb37965d6574ef9d4bbad8f01",
+    "src/deskfront/annie-assets/packages/core/src/annie.js": "5a232494887d45f2310b0ced55f2ce0c4a693eaa103c87becdfc8cff5c54494f",
+    "src/deskfront/annie-assets/packages/core/src/body-collide.js": "7b47dbf05cabbccce3f818a46395c789303bff6d065abc228087de9b322ffe4a",
+    "src/deskfront/annie-assets/packages/core/src/bus.js": "c3e387ea65ff5e16b6288eb9c5115dddd7d18224d2cc33f1192f70f812231bfb",
+    "src/deskfront/annie-assets/packages/core/src/character.js": "c6e60432355000e9917b22dc23219c73210282b5558808b52403848642611bf0",
+    "src/deskfront/annie-assets/packages/core/src/clips.js": "c1f4be425be9d18645b90571c025ba1b0e9c95225d836e1da5c2aa515bf6b1b7",
+    "src/deskfront/annie-assets/packages/core/src/cloth.js": "0dab5aedd11810d44d13d676a253904e46bbda4fc4cd70dedf54f519410c8071",
+    "src/deskfront/annie-assets/packages/core/src/decide.js": "a5f5b73cc0e190d4e225e914e241a20aff15d2dc6f408547c32076916c277f34",
+    "src/deskfront/annie-assets/packages/core/src/faces.js": "f352324dca298ce5e14dcff2699f23ba453ccd364711dca4976670be9c176ee2",
+    "src/deskfront/annie-assets/packages/core/src/floor.js": "1dbcda366501c6c28e0ae9dbdf780a4c9506c617b5debd18192ebc64c54d0257",
+    "src/deskfront/annie-assets/packages/core/src/gestures.js": "68a83f5a8e43871a6cb2aa79f1dcf3b3b9786c0cd1635758b54a635a3da5aec6",
+    "src/deskfront/annie-assets/packages/core/src/inertia.js": "5e37eb9c8b3d68f3f4c8142e710aa23b65ec0606a8795a88c75b9887dced6021",
+    "src/deskfront/annie-assets/packages/core/src/instinct.js": "a5493cd112f1993ae6912ca7062a3f71c8cde4a71f4e90e257104dd5970dcf92",
+    "src/deskfront/annie-assets/packages/core/src/lipsync.js": "a63180208c5e2348dea09e08822b9f78b5a450b959cf4980f71b7b5297ce3c33",
+    "src/deskfront/annie-assets/packages/core/src/motion.js": "c12f4c16bf67bd6b73c008fb9d273e534096c2bfd7641ebfb4f9f0d680d02d4a",
+    "src/deskfront/annie-assets/packages/core/src/mouth.js": "aa111d43d61795696413dbed4cb45ebe9651a6f97ec2eb0964eab92c1575b163",
+    "src/deskfront/annie-assets/packages/core/src/voice-gptlive.js": "8ac000e72f723a109b0c5f21bb91f6cd0c9c9b1fd6192851d8523788f016c8ae",
+    "src/deskfront/annie-assets/packages/core/src/voice-mock.js": "c80848f18a580f7cb4aced7efa08c9b23a35ff72c4774dea18288101c290c851",
+    "src/deskfront/annie-assets/packages/core/src/voice-replay.js": "d1315ea89d7bed2249dd4339d183e205d865efa21790d0ba850e51e4285ca60a",
+    "src/deskfront/annie-assets/presenter.js": "082b0520e9d894a8ed7f1030bfe2bbf01798545d921e4b59eb7aaaced7e914e8",
+    "src/deskfront/annie-native.ts": "b0d665b59a154c8a94f595be09a7380d2afbde414f741395c9c5e58da8754098",
+    "src/deskfront/annie-page.ts": "8d94eb48460e23fe823c6c759823ea395c15ff3c5792c1cff4653941806c6cda",
+    "src/deskfront/annie.ts": "5861da83da83977e19607675a754b993eb8c2d69dc1dbb269368b69ca1e3b3e9",
+    "src/deskfront/assignment_fire_review.py": "3f107d3a24f2f5b40cff7e83c24f41d4ee65253ad9ba42f764573cd3f108edb1",
+    "src/deskfront/attached_display.py": "661335687531c590f5adf04e2f649a49f5533a00b784c0c918b31593b19c91a0",
+    "src/deskfront/attached_entry.py": "928ed58946185034290fdbf2483ffafe1f68ac3a1756961e958a0a9fb835083c",
+    "src/deskfront/attached_host.py": "1db2a078b9d8f64d87c610dd8b77c6a9e1ce1627c1f33fb82d261b7354ae83e2",
+    "src/deskfront/attached_runtime.ts": "e56b496f310f8b0369ad9923f3a0d419ecc85a3d91a3bfd5ba48dbcf4aee16cb",
+    "src/deskfront/attached_state.py": "5e55f7463361bb2fbfef4f40f3a8a9a441b22b94f050ac25b9ca4a39a7d09a48",
+    "src/deskfront/auto_regions.py": "b22161daee308edb6b96922eac76f2158799c62d4e455967aac0b7b4842853fb",
+    "src/deskfront/background_query.py": "2c146855a2b2b052a69f329adc29266f779981a94c1e9fd96c5ed8bc276ee312",
+    "src/deskfront/battle-lab/LICENSE.txt": "696adf3959beb83fb601ac6f14ed0ff3829045e68c0cdbac67030ce7fa9d39a1",
+    "src/deskfront/battle-lab/combat-chain.js": "3330696f5bf51a81182acf66a224d69a2bb0db4cfb77c1d118f5deefb347c54e",
+    "src/deskfront/battle-lab/generation-game.js": "db0e289604678ef336da40cbca9b4016321dd6ad4d760dabfc72c8b30a3e27ba",
+    "src/deskfront/battle-lab/generation-model.js": "59aa91a2e633f63838d8482dad39d276c959c3464707d7d71aab57cd8da00043",
+    "src/deskfront/battle-lab/generation-motion.js": "16518b0c6e66275760add6273e32d0da4c670e412a1b7bcd2fb3bd0496a01b39",
+    "src/deskfront/battle-lab/generation-scene.js": "9642a7bfb16b78651192257f7b9b592edc572395c13e215fd6d69cc8d0e2d468",
+    "src/deskfront/battle-lab/generation.css": "ab0eff96d724f7b735c6de410cf7d97fe72b042626f16ea5ae8b9ca801611dac",
+    "src/deskfront/battle-lab/generation.js": "33884e4719168764f9a46af149b25944e9acd1300cf0a549244281d0283ce457",
+    "src/deskfront/battle-lab/lab-map.js": "1ffb795c5473608c5bc9596af7cd3c18fda05c1c7fd6353fa0630b3560fcc3a9",
+    "src/deskfront/battle-lab/lab-model.js": "74b33d5cc2aafb1421fb499c421ab414f3b7d8723c1f83b8d82e5655a9e6dce2",
+    "src/deskfront/battle-lab/lab.css": "54005cd830eac9291de889fc8ac45b44180bef3d86bcbb937035c2f0cb5076a4",
+    "src/deskfront/battle-lab/lab.js": "ba5806e328871fbbe8e564d908fd4384c34c4c631f67e6b86b59d9b2a2403dc5",
+    "src/deskfront/battle-lab/original-index.html": "ce4816befdc3e7b81f152970f75dd1f7b42959605230e191ac0d1c2ad1b75fe5",
+    "src/deskfront/battle-lab/overview-map.js": "873c1f3e92d7fdb0abe27c73544e255fa15e664833e6c89508556a800b26ad97",
+    "src/deskfront/battle-lab/planning.js": "b1113983b1a1ebd787c8c19617d5ddd2728036428c548b2519ff8f2ab6529af6",
+    "src/deskfront/battle-lab/style.css": "ca943044234adb2db02d85fd63b503b1ce880063b51b02b7b9005cfd7bf936e9",
+    "src/deskfront/battle-lab/tactical-orders.js": "2603268a02f9b965d864d0d87f99bd158d6c95cec55171c5f3733074f6460118",
+    "src/deskfront/battle_map_recording.py": "1d51ba32fa5f40741bd3a8b45776cbcdee3f5bfa648c04f3211229435bdf22a0",
+    "src/deskfront/battlefield_equipment.py": "ecc87204e3ffc1ade1ed6f5b6e3e91c8c85579843e6ff437abebbd5307b136cf",
+    "src/deskfront/battlefield_map.py": "e2a3059706a0f2e1c485799003d95983d79a03cee00c7890d22319552ced49ed",
+    "src/deskfront/choice_contract.py": "9a917c930d72c2c342d182208fdd9cbce7d31e66dec7d2298c4063d37c3450d3",
+    "src/deskfront/close_engagement.py": "59624e8ef7051dac70a846ffe0685752d805c8e9165a03eadf64c087c5df718d",
+    "src/deskfront/combat_command_validation.py": "c6ceb375a9ddc07d912a06897edf937af3b38ffd21271f6fa529373c6ff7539b",
+    "src/deskfront/combat_coordination_candidates.py": "9bf596227841520a5bfb601800427951a4384a397b3439bbf4077e891d76056d",
+    "src/deskfront/combat_prompt.py": "45c7ebdbd8e6eba20e8483d97a06e8ff0b69feb52837ad4a0e28217c5f584a64",
+    "src/deskfront/command_presentation.py": "cbe7fd39c5ac6aa28f07753b0b0344d52dd29dcae9e8d4edbe184bef5ad1018d",
+    "src/deskfront/commander_tactical_brief.py": "04c304280fef649a2f3bd93a350af313a572c1e40fc54f8f0ca5f3ea9f1d92a5",
+    "src/deskfront/commentary-director.ts": "bdd0c98b618a0aa4f367ce1ad47948e012f183fd4d4983d5bb34ba59c6144ac5",
+    "src/deskfront/commentary-style.ts": "59ed748ee2430bc395a75ac762a1c706d017370b53a1ccafd4b956f060c69988",
+    "src/deskfront/commentary-ui.ts": "f9e1756eeb39d862b2d8e17f4142b428be0bc721b285515ded55a0d9d804d066",
+    "src/deskfront/commentary.ts": "182d4e4d936f230f599c9181784f18cfcd687f3d3ee81dc663c24071387feb1f",
+    "src/deskfront/contact_memory.py": "7c513af200da3ac0a01158609de4ceae9069e53120f7b12c91430b1718454bf5",
+    "src/deskfront/cooperation_frontier.py": "5a789a880f495fc978034a20aa90edab2e3c85bbe716284a361a279985d4bc8a",
+    "src/deskfront/cooperation_prompt.py": "0616892f5d0b51e81bf4eedf258530093e6371f9bde23241af0d9b70089bc53c",
+    "src/deskfront/cooperation_value.py": "35d04c4a0450149ac9b841f5d8aa97e2759f8c701c9a955109193051ba2687cd",
+    "src/deskfront/coordinate_prompt.py": "9e2831676788460465823e2f7ca77cf307f568fbf45d672a9e4a754a281b4966",
+    "src/deskfront/coordination_handover.py": "a04d95bddf28b7d36300f56d87aedd5a02731bc0485067e5da96f96c45c8ffb3",
+    "src/deskfront/danmaku-facts.ts": "5757096a69866a8581c93c98ec05861e3faabaca0b6da134dc85c88edd7bed41",
+    "src/deskfront/danmaku.ts": "e869c3861f24c73d840dfc04dba9892eb757b0ced6df099d965f687863be0082",
+    "src/deskfront/data/engagement_profiles.json": "b39f27d24d31129c7f1404f4c3cebfbe3b79e55d4374bb187d629c24da2d9c52",
+    "src/deskfront/director-assembly-console.ts": "b9711d088581236c14e9a7a3de928570f3a2730ad94ad9b69bd15809d6c6a25f",
+    "src/deskfront/director-assets/assembly-100fc605-0708-409d-859d-1e3d9c140c45.json": "28a94281f568a2f6ee6f3f0077ff03425aad942f2184863f9238223325c52434",
+    "src/deskfront/director-assets/assembly-100fc605-0708-409d-859d-1e3d9c140c45.mp4": "7d6aa1a1fd2042a7afa7b6d09be374ed706b8afe7907c07a20fb61d606644281",
+    "src/deskfront/director-assets/assembly-100fc605-0708-409d-859d-1e3d9c140c45.png": "8fe9abeb39da2b340f7eb3d28aa2de504343d9b13cf43253c418f8751179492d",
+    "src/deskfront/director-assets/assembly-93340699-e29e-460b-ae06-7455000fe80d.json": "b5abb05c341b361d3f4f12c3f4b81011c0dc4312901e303114bec2ef420c65ea",
+    "src/deskfront/director-assets/assembly-93340699-e29e-460b-ae06-7455000fe80d.mp4": "790a5547bc893e46a417426ed206e93d47444e7c2e73068f7fbd6880a208adf2",
+    "src/deskfront/director-assets/assembly-93340699-e29e-460b-ae06-7455000fe80d.png": "bad4e3f34b3475a4b6cbcf54551425327ae0609a43bbf05656fb36b89f130b4d",
+    "src/deskfront/director-assets/assembly-history-cache.json": "ef7ec4d8968218c6bbd29cb9639f9ca9ec69f38a5b0f967c75fbaad7ca39f3ad",
+    "src/deskfront/director-authorship.ts": "429d4e00e387aef34331d22928b37846037c95b842e7b097ac619f8374a951be",
+    "src/deskfront/director-console.ts": "c9514175fd144d79fde81a510459fc228293d02a20132891b590691b87a9904a",
+    "src/deskfront/director-replay.ts": "c08c9250d748a5e9989dd91f68b3638f140fb89657e69c47fbfa931991efff6f",
+    "src/deskfront/director-ui.ts": "689715d20df21c0bc26e7ab66351a5b591e7f46cea64e4cc589eb76a09eee259",
+    "src/deskfront/director-view.ts": "c714425f1078070554cb8ec4486106beff73a71569ecbbfc9cf96b89945ffd5c",
+    "src/deskfront/director_display.py": "95972ffe6792febb934d13fd3fb0083abdda7b5237fda9a7708b243cc02177cb",
+    "src/deskfront/engagement.py": "49819e5b7de69c0ff76052d540b93e97c9805a41a58d5bb3c3e8984664879e0c",
+    "src/deskfront/engagement_feedback.py": "4675d2a3a6d8bcaab64af878791849f76c3ca9069e8eaafbbeffb7b4112e9970",
+    "src/deskfront/equipment_assignment.py": "5311ff37e567410d0903c33486ffbaa58bacba4c19edcadf141b40d72708e6ce",
+    "src/deskfront/equipment_review.py": "24ab9a6743a4f7970a5850d0f2c7cd03acc0be34ea904f2c41f3f52c7684aa1f",
+    "src/deskfront/execution_feedback.py": "d63e46dddf7a00a539c9a2ae0464ebe8eebc7872d27ffdeaa5496d033e68f241",
+    "src/deskfront/fire_effectiveness.py": "58a363627e23823b46f271d13d469f2a01fc786d585f34f6f60d63f23b90bd8d",
+    "src/deskfront/firing_position_contract.py": "3f40570742ee94b87ae28cd076c5f7b8bfde186d0928f547c4641dcd317b19c4",
+    "src/deskfront/generation-tags.ts": "74b46693848cf6c04e742d626967fdc6c6d6f658e659801b1ef786aaf5c3ca9f",
+    "src/deskfront/generation.html": "b8af13d586d9cf15ad0dfc1b9f5656e5e867b44b483ce005205e4befd48a8467",
+    "src/deskfront/human_squad.py": "7f1e9671b6e9a29601a152b0ec7878eed242c87cc11a85b4206a19721a9d2048",
+    "src/deskfront/human_squad_autonomy.py": "ae722c970eaca63259295be7103600755ea24e60a3a82eded0a0dbb237d76ee3",
+    "src/deskfront/human_squad_context.py": "2abfca7d2ed942f67db9d5a8f35505384a28fd206f38758f07bdf326806250f7",
+    "src/deskfront/human_squad_contract.py": "c8a0f2e2f4641ab37eda457d03a2e48f6b213f72555914999727a5873632fa5b",
+    "src/deskfront/human_squad_model.py": "535224f9961146e7981a54adccae34aec2cf8f39de204ce10d2cc1e76f98d968",
+    "src/deskfront/human_squad_orders.py": "35b73c5bea0995dbc2171aef2ebd55d70492f7e856e4ebef9bbfd6e21a64b30f",
+    "src/deskfront/human_squad_receipts.py": "fa74625050c14f878de55c51927169a386c1d68c79d4ea52454ca041ec319df0",
+    "src/deskfront/human_squad_records.py": "0eda9a67ab6c7024b167770a852e9ea0be7a6d2e89dc45062b373d82b97d4d76",
+    "src/deskfront/human_squad_snapshot.py": "d221b509a86640eb437f8c226f72fb9e10690862fdbe3bfaaffccd777d93ae99",
+    "src/deskfront/human_squad_support.py": "192c4fe798f35c3dd1958ed81c0bb63875cfd594d0547677bb1a4ae299d4e554",
+    "src/deskfront/human_squad_validation.py": "b3f91e701e87547098238cd02dcc43516eb17e3d7398ff95c167c939f05b6175",
+    "src/deskfront/lab.html": "d4aad226d41622a3b00d898b080313e440fa4c20929fe37966611ad28acb6022",
+    "src/deskfront/lease_keepalive.py": "22a8bee82c3b9c2061a135ee9e55dfbd079ca6e9a95b2acff3c5345f6e286657",
+    "src/deskfront/level_provider.py": "a59e1d4538b39693d2602417ec3f573ba15342ebe471473e4294be3c8b9d20eb",
+    "src/deskfront/local_behavior.py": "3c150fe62885fea95eec3967290c1ef48339f99339c5f8509d4a9e15ae7319d7",
+    "src/deskfront/map_packet.py": "013f3a120d4a885609df6b6348e1ca1707c30708e1285a781299745caff72ac9",
+    "src/deskfront/merged_map.py": "317a77a7f3a265f8ebbca9401d3067b926e5936adf5b145ffa93e87d03299d9b",
+    "src/deskfront/movement_stall_episode.py": "ea93f6a78c81dd2615238bd3558db0e983b1deec3e39100f391cb9297a184fed",
+    "src/deskfront/navigation_access.py": "5346e4dae1c83efb4595ce4942496813efd1caad92bc80b30eccbeabbb9f3ef6",
+    "src/deskfront/overview-map.ts": "3e124fef64ad154df96ece06cb715b848a4566249b46b2c00830bee7c2047a60",
+    "src/deskfront/overview-obs.ts": "5bcde598b0de9b60335ef29d79b1ebc6507789d1edd3859f8bf8b4afe2d187c0",
+    "src/deskfront/overview-view.ts": "3e74e10e7b306f5ccaca18449e7e380230f4e582335841e5586fda778ab4550d",
+    "src/deskfront/overview.html": "a7437a562937d8879f8448ff20936f764f5e3c0890a44a9ca65e2e75e85dda19",
+    "src/deskfront/page.ts": "7aa7420d5ddc0cfcb2235b4c2b1e2166a1e9693e6f3c38362eb50e312e4f12d1",
+    "src/deskfront/perception_view.py": "0158f7486d5c6fdb48ddd518905c5591a431c65dc944c8815291ef952c9fe3f3",
+    "src/deskfront/planning-calls.ts": "8f2a09087980f614944a912439e373dfc38895628adf39958782d2369a5315ce",
+    "src/deskfront/presenter-arrangements.ts": "f5b5abba2a49fbd1e9ceb9f8af430b835b2c678a56a88484f3ec7b715a6aa15c",
+    "src/deskfront/presenter-context.ts": "0ca760a9b7457c87312d162e674830d0a71f5321ea9dbb57e8eeaee4367431a2",
+    "src/deskfront/presenter-experience.ts": "f5c68ec3cba72d3fe500ef271c58be8e813d9b70155070f16abaeb3c15492901",
+    "src/deskfront/presenter-intro.ts": "22fa3f2844fd7ea03d700a31d23ae8cc655d7c6663154c88869d357cdfd5d366",
+    "src/deskfront/presenter-introduction-reasons.ts": "53672bb2accc985ceeb3dac55ab735976051950e0450a59bdf78437379db4a2d",
+    "src/deskfront/presenter-narration.ts": "e6716826b06d7c1efc7b61bf842dbb2517a81d22b416416e5d0ecf557f003db7",
+    "src/deskfront/presenter-novelty.ts": "8bc503986c419b0efa614bf3b883befa456b6c789b7c6476e57b8a6f9545ed19",
+    "src/deskfront/presenter-voice-card.ts": "ce846e14311629f5266d0e6d6d253df6ed31e060d9c45b1bdb7b3365c607d908",
+    "src/deskfront/prompt-page.html": "adcc3fb5a70bdd3619f8c2959bc76e9b1a54fb111f57d39d8239fcdf5676c255",
+    "src/deskfront/prompt-page.ts": "d117565d9dba3e045023df9cc7f98147d7439b407c0687a7564a2afd6662c495",
+    "src/deskfront/prompt_cases.py": "85a13c307c07dac5772b18759fe85dd168d172bf632df5177f34bac4450b7d96",
+    "src/deskfront/prompt_inspect.py": "431b505b2abc39f9ed90e0767f401d6620394681f31809d048068a7f146fc182",
+    "src/deskfront/release-launch.ts": "e94d7e82a3a9f53c132e7c2029e2aab23bf8d0f1ef26715692836d5b1a9852fe",
+    "src/deskfront/route_choice_evidence.py": "2fb581d26b88829f459e98c70bedfa7700a0b55dfefd98c10f535ae9fc744c4b",
+    "src/deskfront/sdk_spectator.ts": "1de9cae96eac6b6d0493e3797c0f5d0b23654a63a64f8554199cd938df6b8350",
+    "src/deskfront/session-launch.ts": "ed25b1d6e4e03ecb7922fcdede4dabaab91138556d5a934497c1a388069047de",
+    "src/deskfront/session-status.ts": "bd3165c7a2ffd6c8b6547e7e75efbbff4a2ec4f079289577d0171d9b95823bf5",
+    "src/deskfront/soldier_agents.py": "67ec3f08b1d716a4e324d4a0b3e5ca04d2c5366a8204760036da1ffb3b87127c",
+    "src/deskfront/soldier_candidate_query.py": "c45e88b6711fed71346b9e385ea382f210fb7d63a41cd15dadd3234711c83f7a",
+    "src/deskfront/soldier_emotion_scheduler.py": "a657b9602a64748da5856527390605191e8920e479e497f02c6cdc2fe604057d",
+    "src/deskfront/soldier_emotions.py": "64eb4adf054c9a746bdddc5e89e8d24bb7166ffec0a85f8e8cc9996f506fd976",
+    "src/deskfront/spectator-history.ts": "8fec4c014dc8343eed4e4a165e4cfd30944925685af0565f6ece7ede4efe2605",
+    "src/deskfront/spectator-observation.ts": "9a70bdc908b5ffa81c9be2de7c8e21b8687493b6de8c8c5d97c3661960519afe",
+    "src/deskfront/spectator-story.ts": "aef177e011a1d270c6bff9d24b8984ff7f3ce012fb88524de8af15a5eaf75604",
+    "src/deskfront/spectator-voice.ts": "9437cced9f434d6ef95eab142032c158be4e98569b10c536954a79e33c9c14a6",
+    "src/deskfront/squad_cooperation.py": "2d1142beedfff5ff80f6f4aa36235246247f07e51a4a81a7fe60d6ab895d97d3",
+    "src/deskfront/squad_region_choices.py": "ebc09069b64f0ec3b602c78c4b41fcd8fde4fefbf7a12df2e7fc0edf87544499",
+    "src/deskfront/squad_task_contract.py": "6bee286ea9cd93cec5b33b4f14965a27f7ce7f2c3e7b4892b6150afa97f240a7",
+    "src/deskfront/story-config.ts": "2b61381b25952584595da99143d9e7d24214324c94310aaa05f8b43263fb1446",
+    "src/deskfront/story-preset.json": "13c7e9ad57953529dc92a5084d5fe4610cddcdb83b3e8b054a64db1f842ca214",
+    "src/deskfront/story_prompt.py": "8d4637b1c914207c3d5ccfe3e86e50f9cabdffd737562d154e08ee60cedc594e",
+    "src/deskfront/strategic_regions.py": "2f471091ad5e12f583baa0bd6b3ade536d5781cdfcf39ac0a4641366b8683b2e",
+    "src/deskfront/survival_review.py": "7b2fe31379907700d9e514b2d38bb626aa53cc84f5cf2edde16876064e01e0d8",
+    "src/deskfront/symbol-map-guide.html": "f0c84085411541a221f5f17b499ae1b96287af75d78608373b41b8bbb270d967",
+    "src/deskfront/tactical_map_view.py": "b04834fed1100c92401211e8b9e635b2470f77576f055936b3cad1bcd20c7944",
+    "src/deskfront/task_modes.py": "a349379fb0969fd046396b9f774b7db50dce82513f4b2b662630a9f3c0abad07",
+    "src/deskfront/vehicle_agents.py": "624d33c523333f1bef3fe14fb17b7a54d23ea189e02e890722b896f042bc0b7e",
+    "src/deskfront/wall_bypass_routes.py": "dbcab074ff9917d081bcce9106975b8a199eb52f2b4b7fc38c8ab00c215705de",
+    "src/deskfront/weapon_affordance.py": "2c9fae8e7dc5151a38af621769d6643ce39b8ecbd8763be970dd4378d6c92d8a",
+    "src/deskfront/weapon_behavior.py": "9fa6ffd4779b2cfdb66f07d700c9453dd9f8c846e7459e05bfb74ea921614e92",
+    "src/external/protocol.ts": "89989cfb073ede97ef4beadfe660b372cc616b8142ca9c579194b3a078cc2cca",
+    "src/external/runtime.ts": "49afcd3a0a69ae22d81266f85496d72bc82efb20afdb417057dc3ac337c16176",
+    "src/games/runtimes.ts": "9166a38b7890ab301c8c73081b5d0fd6805c7eb1484308d70fb276499c6cff3a",
+    "src/systemone/deepseek.ts": "fedc1a6ae4f95fbf58d5af49715b95780658777aece97767d5d9beef0ee322a5",
+    "src/systemone/http.ts": "5a1cfa9b8150dba6b98f119e7391707a4ef4382104166404f76f29fa6af22c80",
+    "src/systemone/index.ts": "f833f98a0b1b3f75cd89bcd021908b4b772667b98952ebd7b093890b3a01fa59",
+    "src/systemone/jev.ts": "113ecdbee006a8ba4a0a9aefd4cf71ccadfc7929895ac6cae8b84bd1addb63f7",
+    "src/systemone/mock.ts": "37da8b0da2f36bce98d7fa74904917aa85d836bf0dc3962d5036202b61c90e4b",
+    "src/systemone/openrouter.ts": "181d12a1405bb008d7a199fd8ca907c4ea0d922a8a0c7b79509a78a58a6954ba",
+    "src/systemone/planner.ts": "dd30faf6638b50a935815df03fb1d25342b16b7a1c1971dd1f5ba4fe5d0159f6",
+    "src/systemone/request.ts": "faaa94e52da7f3424b6a374599161cbe1ca7e9b862971fc21bc16054b35b3c82",
+    "src/systemone/strict-report-schema.ts": "622b7ed11c2113849132a896529da949fd1ece88abccc3183540860adb58c77f",
+    "src/systemone/types.ts": "fe844db32e9b81db49b3db0c99c95c0c3936935991621004a31c3e60c164c63a",
+    "src/systemone/validation.ts": "a4a423a51aa70c63170d451ce9f80039f17c062bbd725783930b388e47e67949",
+    "src/viewer/annie-routes.ts": "9376567ebce3943f42fe18b6754c48ab3512772ad30f193448494c6f9b46d9ca",
+    "src/viewer/config-routes.ts": "14783e4187e52fcf6c61a628fb55e1528c0506de4b209b7b3e23a9c9e27cc988",
+    "src/viewer/deskfront-prompt-routes.ts": "dfc3d8706ede31f9111449d8b5e5ebcc1816a9de3d2b4f0aace139e53222a738",
+    "src/viewer/deskfront-routes.ts": "1fe88c1df26730686814c5947d83af87708933349eeb6f9c49f06f28bec864aa",
+    "src/viewer/director-routes.ts": "8e73b3b2da12274b521f013bbd59552f84691f7aa3faeebc0f2ad56de6034da3",
+    "src/viewer/game-page.ts": "249f9a867884b5c7e1bbb82f5ad917958a979807229936ff5254c279f81c226f",
+    "src/viewer/home-page.ts": "1d37e01b4280e9caf4e04723bc3d9571a49cd292a28b150da46fda3cc2b35e7d",
+    "src/viewer/http.ts": "d81f03700dd8fa7527f3604a7c90b2d1d10458ee7d8670378d419b8f2ad6bbcf",
+    "src/viewer/match-routes.ts": "dde78d50d57ac967a1d4c64d1596f7f190f4a154c091a05152b94d5faaf7aaf7",
+    "src/viewer/overview-routes.ts": "36ba495c7154d47352f46dea11bc77c6e490b8b376594361585dd13a9f79745c",
+    "src/viewer/page-templates.ts": "2f60188dc8c422f6d08356464ab6a8f8c073e1c69a934dbc5c69b01b3b780a31",
+    "src/viewer/replay-page.ts": "0f539972b35670cc08881308486418162efcb5626894bda215f0917252334c1e",
+    "src/viewer/runtime-page.ts": "c6871fb32126ed274f1071ab4a40da0e8007f217ff5194005fdff635eeef2839",
+    "src/viewer/server.ts": "2c07227133873483425f9b1f5cbf64a00e065e98800f9b16e69d687082a617eb",
+    "src/viewer/static-routes.ts": "edcda500532f8e86e22dc0cd34346563ed6b8f3c374d77d4d64929b761168608",
+    "src/viewer/template-types.ts": "aec95410350fd944d406b89f7d11c9c6ad218245f15004893f32e155c9f86bce",
+    "src/viewer/theme.ts": "8865bdaa4ab9644779e2f1fdbee88a1a059f5908c67eddfcf1e49696f03de458",
+    "test/deskfront_equipment_context_checks.py": "b49b4f3a4d78b2e2b6dda233f22590aef5f726bb18171a1b0e963a4b33d67a3e",
+    "test/deskfront_equipment_intelligence_checks.py": "2d90e3e9c78424b7d1ce25b03d1ed51f2383cedccb3e3128008c7ac72e9e87e8",
+    "test/deskfront_equipment_opportunity_checks.py": "7e563f61e29f82913a539a09ffe18ecd71b62e655971fa51378c7cfa65525fb2",
+    "test/deskfront_equipment_review_checks.py": "dae667bcff530c80482458eda9b26c22abe049c86a3bdca1809e6b9ba049534d",
+    "test/fixtures/deskfront-mortar-defer-63e6336c.json": "0a3887e1af52db34ae7ddafc8a84ab20848a18d9da50e722fadfaf8ca9ce86a7",
+    "test/friendly_support_checks.py": "898d23613a0ab78318530a1463f531b619bf0dc903b2c9bfe3aa95dcce0cabee",
+    "test/infinite_ammo_checks.py": "f139df01cd55f87776b9ba522919c9067850fe60b97fa3c39a9e21d1816e75ee",
+    "test/joint_support.test.ts": "8d2230aca64f5132195b666593d87868ce35ff45713f8e7d4a7e3e90fc98d02a",
+    "test/joint_support_native.test.ts": "ed9c09454c2aa30ad7647c82fd2efa253faaf201717240f99fc49974a4880987",
+    "test/model_led_coordination_checks.py": "9443f6b77a67a13bce2837c3883d73e118e458125c10544a4e22e7b9abbe10d3",
+    "test/route_handoff_checks.py": "efaec35d2bca2f7b4f4d72ed0c46257304f6d0e35884751d70542bb1cc034260",
+    "test/squad_task_coherence_checks.py": "49e25667bfbf1491b1a8a5d71f37c8263fb7e659cc010e9abbca58b9172a7104",
+    "test/survival_recovery_checks.py": "39124200b26c12b79c017b9552a9b9bc5a940cbaaedc0c8002c0f7606c6ae944",
+    "test/weapon_behavior_checks.py": "f5613dc6fe4434ba82c512a4d3ef0ea2ad0663406d42da6b5cfb3d319a42e661",
+    "tools/deskfront-attach.ts": "b28776afb5c4c27bdb0fde15989b8c892ef588dfad9d81cb29cdb65854e53f19",
+    "tools/deskfront-presenter/AnnieHost.cs": "3efeb5dffab1d5bf7bfd733dc4d2be88b8a05544a6e1ce7fac5d6d695b7f7357",
+    "tools/deskfront-presenter/DESIGN.md": "536f22a7ca734b01f84cc50ee4687b885d927d5a3b135a7f531a96faa844b4cf",
+    "tools/deskfront-presenter/PRODUCT.md": "63fcab28b32faa41094b2c64df9c0c125bad9119a3bba9c5480b4d61fc94c21a",
+    "tools/deskfront-presenter/app.manifest": "d358226c08e0bac4e93abb6b14dfdcb9c8100fbf31297dbcf37a22526e37a87e",
+    "tools/deskfront-presenter/bin/DeskfrontAnnieHost.exe": "722fa0cba658d74e9072ad12d0bdb1ea62b4de380eb0d736356e7409cf8c59fa",
+    "tools/deskfront-presenter/bin/Microsoft.Web.WebView2.Core.dll": "8219a3135436c147f8eb02fb831e99596103eebc18b6d7b794ca93f4c67018a2",
+    "tools/deskfront-presenter/bin/Microsoft.Web.WebView2.WinForms.dll": "c48f8d729dc531288d2c53a6241effe7922ed1b947850b2442008a945c098c48",
+    "tools/deskfront-presenter/bin/WEBVIEW2-LICENSE.txt": "0af8f1b807512aae39c2ac1aa4d0cae65cabecb6fd554b8439a5162a0d6eca55",
+    "tools/deskfront-presenter/bin/WebView2Loader.dll": "eb5335edeaa6f2122c044e82aab2351dc8c9b4e0fe5e578c71922fb61be285e7",
+    "tools/deskfront-presenter/bin/build.json": "b06568078dc6ab2822bd765a931526b5bc4df4404f4d5d5ab598d9a68b2091ec",
+    "tsconfig.json": "bee3834fbe1e5cc9564ac306a756019f90bf20043a192f62628a0b3a243b53ce",
+    "src/deskfront/beginner.html": "ff64467dd8b32823e6297300048da1812acfc80ef36102f08e3183b75f31066b"
+  },
+  "baseExport": "output/module-exports/deskfront-pace-grenade-20261014/deskfront-sdk-harness",
+  "identityCompatibilityPatch": "src/deskfront/generation-tags.ts",
+  "paceGrenadePatch": [
+    "soldier_agents.py",
+    "combat_command_validation.py",
+    "combat_prompt.py",
+    "human_squad.py",
+    "human_squad_context.py",
+    "human_squad_model.py",
+    "human_squad_snapshot.py",
+    "engagement_feedback.py",
+    "squad_cooperation.py"
+  ],
+  "paceDispatchPatch": [
+    "attached_state.py",
+    "soldier_agents.py",
+    "attached_host.py",
+    "attached_display.py",
+    "human_squad_snapshot.py",
+    "human_squad_context.py"
+  ],
+  "targetStabilityUpdate": {
+    "createdAt": "2026-10-15T04:25:32.702408+00:00",
+    "sourceBundle": "output/module-exports/deskfront-pace-dispatch-20261015/deskfront-sdk-harness",
+    "changedFiles": [
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/soldier_agents.py"
+    ],
+    "scope": "Personal action explanations only; no scheduling, choices, routes, or numeric changes"
+  },
+  "wallStandoffUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-target-stability-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-wall-standoff-r3"
+  },
+  "commandHierarchyUpdate": {
+    "nativeBuild": "deskfront-2026.10.15-command-hierarchy",
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-wall-standoff-20261015-r3/deskfront-sdk-harness",
+    "defaultFreeAiBase": "build-provenance/quickplay-harness/output/module-exports/deskfront-demo-default-off-20261015/deskfront-sdk-harness",
+    "inheritedModules": [
+      "human_squad_support",
+      "assignment_fire_review",
+      "commander_tactical_brief"
+    ],
+    "changedModules": [
+      "equipment_review",
+      "human_squad_context",
+      "soldier_agents",
+      "combat_prompt"
+    ],
+    "newPrivateDependencies": false
+  },
+  "balanceUpdate": {
+    "base": "output/module-exports/deskfront-command-hierarchy-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-balance",
+    "scope": "Explicit infantry breach opportunities, command validation and prompt; grenade danger gate consistency",
+    "operations": "build-provenance/quickplay-harness/output/balance-upgrade-20261015/breach-sdk-operations.json"
+  },
+  "rocketObstructionUpdate": {
+    "base": "output/module-exports/deskfront-balance-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-rocket-obstruction",
+    "scope": "Read-only own native rocket facts and conditional firing-role explanation; no additional action selection"
+  },
+  "wallFireContractUpdate": {
+    "updated": "2026-10-15T08:37:44.408325+00:00",
+    "baseline": "output/module-exports/deskfront-rocket-obstruction-20261015/deskfront-sdk-harness",
+    "gamePreserved": "output/releases/Deskfront-Windows-20261015-rocket-obstruction/Deskfront.exe",
+    "privateGeneratorPreserved": "output/module-exports/deskfront-demo-default-off-20261015/deskfront-level-generator-private/provider.py",
+    "changedFiles": [
+      "src/deskfront/assignment_fire_review.py",
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/human_squad_context.py",
+      "src/deskfront/human_squad_model.py",
+      "src/deskfront/human_squad_orders.py",
+      "src/deskfront/squad_region_choices.py",
+      "src/deskfront/wall_bypass_routes.py"
+    ],
+    "newFiles": [
+      "src/deskfront/firing_position_contract.py"
+    ],
+    "scope": "Arrived native-blocked firing positions require review; same failed endpoint cannot be recommitted as fire; long connected region routes use native waypoint prefixes; no tactical replacement selection or model requests.",
+    "finalHelperPatch": "Keep native-blocked firing_review admission guard across plan_changed precedence"
+  },
+  "routeReasonablenessUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-wall-fire-contract-20261015/deskfront-sdk-harness",
+    "gameUnchanged": "output/releases/Deskfront-Windows-20261015-rocket-obstruction/Deskfront.exe",
+    "privateGeneratorUnchanged": "output/module-exports/deskfront-demo-default-off-20261015/deskfront-level-generator-private/provider.py",
+    "modules": [
+      "human_squad_context",
+      "human_squad_model",
+      "human_squad_receipts",
+      "squad_region_choices",
+      "wall_bypass_routes",
+      "route_choice_evidence",
+      "combat_prompt"
+    ],
+    "scope": "Bounded distance candidates, explicit cost/evidence context and accepted-order continuity; model keeps decisions"
+  },
+  "rocketStabilityUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-route-reasonableness-merged-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-rocket-stability",
+    "reviewedFiles": "build-provenance/quickplay-harness/output/rocket-stability-20261015/reviewed-sdk-files.json"
+  },
+  "smgBehaviorUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-intro-deadline-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-smg-behavior",
+    "reviewedFiles": "build-provenance/quickplay-harness/output/smg-behavior-20261015/reviewed-sdk-files.json",
+    "scope": "approved files only; inherited latest registered module"
+  },
+  "naturalDirectorUpdate": {
+    "baselinePublicHarness": "output/module-exports/deskfront-smg-behavior-20261015/deskfront-sdk-harness",
+    "sourceFiles": [
+      "src/deskfront/spectator-voice.ts",
+      "src/deskfront/commentary.ts",
+      "src/deskfront/presenter-context.ts",
+      "src/deskfront/presenter-intro.ts",
+      "src/deskfront/presenter-narration.ts"
+    ],
+    "gameUnchanged": "output/releases/Deskfront-Windows-20261015-live-assembly/Deskfront.exe",
+    "privateGeneratorUnchanged": "output/module-exports/deskfront-experience-loop-20261015/deskfront-level-generator-private/provider.py",
+    "scope": "Natural built-stage narration and deployment composition; existing introduction deadline preserved"
+  },
+  "regroupIntentExplanationUpdate": {
+    "sourceHandoff": "output/rocket-rear-audit-20261015/handoff.json",
+    "sourceHandoffSha256": "13c1651c36e203daa1e9160532ac21b26510183e3264650bd65b90f1c3dc7456",
+    "sourceFiles": [
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/human_squad_contract.py"
+    ],
+    "scope": "Explain existing regroup semantics and preserve all legal choices; no scheduler, execution or request-count changes"
+  },
+  "temporaryBoardSettingsEvidence": "output/temp-roster-launch-20261015/package-verification.json",
+  "commandChainUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-temp-roster-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-command-chain-repair",
+    "reviewedFiles": "output/command-chain-repair-20261015/reviewed-sdk-files.json",
+    "evidence": "output/command-chain-repair-20261015/evidence.json"
+  },
+  "smgMobileFireUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-command-chain-repair-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-smg-mobile-fire",
+    "reviewedFiles": "build-provenance/quickplay-harness/output/smg-mobile-fire-20261015/reviewed-sdk-files.json"
+  },
+  "presenterAnchorUpdate": {
+    "createdAt": "2026-10-15T13:24:30.972522+00:00",
+    "basePublicHarness": "output/module-exports/deskfront-smg-mobile-fire-20261015/deskfront-sdk-harness",
+    "baselineManifestSha256": "9a033f1e9ec84c8f093ceb661c59f7cd99c137daa05e4484b72ed858fda02377",
+    "changedFiles": [
+      "src/deskfront/annie-assets/presenter.js",
+      "src/deskfront/annie.ts",
+      "tools/deskfront-presenter/AnnieHost.cs",
+      "tools/deskfront-presenter/DESIGN.md",
+      "tools/deskfront-presenter/bin/DeskfrontAnnieHost.exe"
+    ],
+    "nativeHostSha256": "722fa0cba658d74e9072ad12d0bdb1ea62b4de380eb0d736356e7409cf8c59fa",
+    "evidence": "output/presenter-anchor-20261015/sdk-final-verification.json",
+    "scope": "Current native anchor before intro; first-frame identity and physical-pixel layout-revision gate across DPI changes; all SMG mobile fire and command-chain capabilities inherited."
+  },
+  "worldBuilderUpdate": {
+    "baselinePublicHarness": "output/module-exports/deskfront-presenter-anchor-final-20261015/deskfront-sdk-harness",
+    "sourceFiles": [
+      "src/deskfront/commentary.ts",
+      "src/deskfront/spectator-voice.ts",
+      "src/deskfront/presenter-experience.ts",
+      "src/deskfront/presenter-narration.ts",
+      "src/deskfront/presenter-intro.ts"
+    ],
+    "gameUnchanged": "output/releases/Deskfront-Windows-20261015-presenter-anchor-final/Deskfront.exe",
+    "privateGeneratorUnchanged": "output/module-exports/deskfront-experience-loop-20261015/deskfront-level-generator-private/provider.py",
+    "scope": "Evidence-grounded world-builder voice, selected future-plan narration and inherited introduction deadline"
+  },
+  "fireReactionStabilityUpdate": {
+    "base": "build-provenance/quickplay-harness/output/module-exports/deskfront-world-builder-20261015/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.15-fire-reaction-stability",
+    "changedFiles": [
+      "src/deskfront/assignment_fire_review.py",
+      "src/deskfront/soldier_agents.py"
+    ],
+    "scope": "Read native decision_blocked fact; malformed or missing keeps legacy gate. No request cadence or route changes."
+  },
+  "directorAuthorshipUpdate": {
+    "baseline": "output/module-exports/deskfront-fire-reaction-stability-20261015/deskfront-sdk-harness",
+    "evidence": "output/director-authorship-20261016/evidence.json"
+  },
+  "modelLedCoordinationUpdate": {
+    "baseline": "output/module-exports/deskfront-director-authorship-20261016/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.16-model-led-coordination",
+    "evidence": "output/model-led-coordination-20261016/evidence.json",
+    "changedFiles": [
+      "docs/model-led-coordination.md",
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/equipment_assignment.py",
+      "src/deskfront/human_squad_context.py",
+      "src/deskfront/human_squad_contract.py",
+      "src/deskfront/human_squad_model.py",
+      "src/deskfront/squad_cooperation.py",
+      "test/model_led_coordination_checks.py"
+    ],
+    "scope": "Weapon/support facts no longer authorize movement; shared isolated-question contract and explicit unused branch handling"
+  },
+  "analysisCadenceUpdate": {
+    "baseline": "output/module-exports/deskfront-model-led-coordination-20261016/deskfront-sdk-harness",
+    "changedFiles": [
+      "src/deskfront/page.ts"
+    ],
+    "note": "Display only: describe approximate analysis initiation cadence; actual scheduler lives in matching private generator."
+  },
+  "closeEngagementUpdate": {
+    "baseline": "output/module-exports/deskfront-analysis-cadence-20261016/deskfront-sdk-harness",
+    "evidence": "output/smg-close-engagement-20261016/evidence.json",
+    "scope": "Read-only offered-route and native-site comparisons; JEV retains tactical selection; no added movement permission gates"
+  },
+  "analystRealtimeUpdate": {
+    "baseline": "output/module-exports/deskfront-close-engagement-20261016/deskfront-sdk-harness",
+    "thinking": "disabled",
+    "generatedPresentationLabels": false,
+    "evidence": "output/analyst-realtime-20261016/evidence.json"
+  },
+  "squadTaskCoherenceUpdate": {
+    "baseline": "output/module-exports/deskfront-analyst-realtime-20261016/deskfront-sdk-harness",
+    "nativeBuild": "deskfront-2026.10.16-squad-task-coherence",
+    "evidence": "output/squad-task-coherence-20261016/evidence.json",
+    "changedFiles": [
+      "docs/squad-task-coherence.md",
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/coordinate_prompt.py",
+      "src/deskfront/human_squad_context.py",
+      "src/deskfront/human_squad_contract.py",
+      "src/deskfront/human_squad_model.py",
+      "src/deskfront/human_squad_orders.py",
+      "src/deskfront/soldier_agents.py",
+      "src/deskfront/squad_cooperation.py",
+      "src/deskfront/squad_task_contract.py",
+      "test/model_led_coordination_checks.py",
+      "test/squad_task_coherence_checks.py"
+    ],
+    "scope": "Model-selected member role and route composed in supported JEV Choice; explicit hold task review; accepted native routes and consistent display layers"
+  },
+  "infiniteAmmo": {
+    "nativeFlag": "ammo_infinite",
+    "legacyMissingFlag": "preserve_magazine_reload_semantics",
+    "grenadeInventory": "finite",
+    "evidence": "output/infinite-ammo-sdk-20261016/verification.json",
+    "modelCalls": 0,
+    "nativeGameplay": "verified separately by EXE package checks"
+  },
+  "lunaMigration": {
+    "baseline": "output/module-exports/deskfront-infinite-ammo-20261016/deskfront-sdk-harness",
+    "evidence": "output/luna-migration-20261016/evidence.json",
+    "changedFiles": [
+      "src/config.ts",
+      "src/deskfront/director-assembly-console.ts",
+      "src/deskfront/director-console.ts",
+      "src/deskfront/page.ts",
+      "src/systemone/deepseek.ts",
+      "src/viewer/home-page.ts"
+    ],
+    "scope": "All previous DeepSeek JSON roles use saved OpenRouter Luna profile; preserve JEV native Decisions, source identifiers and gameplay behavior. Neutral role labels keep historical records accurate."
+  },
+  "rocketCaptureUpdate": {
+    "createdAtUtc": "2026-10-16T08:04:46.083954+00:00",
+    "basePublicHarness": "output/module-exports/deskfront-luna-20261016/deskfront-sdk-harness",
+    "baselineManifestSha256": "c0ba8acd6dbc1c8e3e5f953a2348bb08f37f603c7a1c09884169fe1858f4c96b",
+    "changedFiles": [
+      "src/deskfront/battlefield_equipment.py",
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/equipment_assignment.py"
+    ],
+    "hashChanges": {
+      "src/deskfront/battlefield_equipment.py": {
+        "before": "84a8bba2d099c53aa8d187674bc1a655448f240e6b0b6e3b9ae4a0cd1c4c069e",
+        "after": "b082f2298707700f82ac3b45620151ca0b104797653a596949c03794cb450fba"
+      },
+      "src/deskfront/combat_prompt.py": {
+        "before": "eee82b2895299b0b51575c6aea9d1c49951aa42563f8676a8b3b23fa3ae2c834",
+        "after": "b572a16ed637b43871a5af554e55c4c4894348f555e338a47d8dad389501673b"
+      },
+      "src/deskfront/equipment_assignment.py": {
+        "before": "0cbc67260f83a29a946233375afa1d63ea880aff8c0d69fb27f01225aa6e9508",
+        "after": "7bcc5572e60e025e0e5c5bc17f0a64f431dd5320a1ce6147c36ea9e90c9b2440"
+      }
+    },
+    "scope": "Native capture_rules and actual candidate facts own rocket admission; old exclusion and unknown facts remain explicit. JEV still selects personnel/routes; no model cadence or command execution changes.",
+    "evidence": [
+      "output/opening-fairness-20261016/native-work/sdk-r5-export-verification.json"
+    ],
+    "inheritedFiles": 280,
+    "inheritedInfiniteAmmunition": true,
+    "threeWayAncestor": "output/module-exports/deskfront-infinite-ammo-20261016/deskfront-sdk-harness",
+    "priorCaptureCandidate": "output/module-exports/deskfront-encounter-buffer-20261016/deskfront-sdk-harness",
+    "inheritedLunaMigration": true
+  },
+  "tacticalNoWaitUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-encounter-buffer-20261016-r5/deskfront-sdk-harness",
+    "changedFiles": [
+      "docs/tactical-no-wait.md",
+      "src/deskfront/human_squad.py",
+      "src/deskfront/human_squad_autonomy.py",
+      "src/deskfront/human_squad_context.py",
+      "src/deskfront/human_squad_model.py",
+      "src/deskfront/human_squad_snapshot.py",
+      "test/model_led_coordination_checks.py",
+      "test/squad_task_coherence_checks.py"
+    ],
+    "evidence": "output/tactical-no-wait-20261016/evidence.json",
+    "scope": "Real JEV autonomous finite goal choices without waiting for commander; preserve accepted routes until reviewed decisions and native receipts; retain Luna adapter and encounter-buffer r5"
+  },
+  "revision": "display-clarity-20261020",
+  "baseModule": "output/module-exports/deskfront-candidate-completed-display-20261020/deskfront-sdk-harness",
+  "futurePlansEvidence": "output/future-plans-20261016/evidence.json",
+  "introReasonsEvidence": "output/intro-reasons-20261016/evidence.json",
+  "danmakuGroundedEvidence": "output/danmaku-fix-20261016/evidence.json",
+  "weaponBehaviorUpdate": {
+    "schema": "weapon-behavior/v1",
+    "combatPrompt": "deskfront-combat/v18",
+    "createdAt": "2026-10-16T12:35:40.928581+00:00",
+    "baselineManifestSha256": "97cb6262b53008873dd9b2afca93acd47b62d8698d05b96fed56c5bd154cd9ac",
+    "changedFiles": [
+      "MODULES.md",
+      "src/deskfront/combat_command_validation.py",
+      "src/deskfront/combat_prompt.py",
+      "src/deskfront/human_squad_context.py",
+      "src/deskfront/human_squad_model.py",
+      "src/deskfront/page.ts",
+      "src/deskfront/soldier_agents.py"
+    ],
+    "addedFiles": [
+      "src/deskfront/weapon_behavior.py",
+      "test/weapon_behavior_checks.py"
+    ],
+    "evidence": "output/weapon-habits-20261016/sdk-checks.json",
+    "providerEvidence": "output/weapon-habits-20261016/provider-results-final.json",
+    "scope": "Per-current-weapon advisory slots, explicit native-capability-gated hold_fire_position, current-weapon stale-response rejection and one change review; no weapon stats, candidate removal, automatic tactical assignment, or additional per-decision requests"
+  },
+  "officialDeepseekUpdate": {
+    "packagingEvidence": "output/deepseek-official-20261018/packaging/sealed.json",
+    "changedFiles": [
+      ".env.example",
+      "config.local.example.json",
+      "src/config.ts",
+      "src/systemone/index.ts",
+      "src/viewer/config-routes.ts",
+      "src/viewer/home-page.ts"
+    ],
+    "scopeReason": "2026-10-18 parent-task authorization added the two credential-free examples to the four approved source files; new users must receive DeepSeek official deepseek-flash defaults instead of Ark or the retired deepseek-chat example. The JEV example and accepted module-feature contract stay unchanged.",
+    "modelRequestsFromPackaging": 0
+  },
+  "survivalRecoveryUpdate": {
+    "evidence": "output/survival-recovery-20261017/evidence.json",
+    "boundary": "Scoped native shelter-failure handoff; coalesced personal/squad review. Actual execution still validates token, physics and immediate hazards."
+  },
+  "headlessEvidence": "output/headless-20261018/evidence.json",
+  "headlessLaunch": true,
+  "combatCoordinationUpdate": {
+    "evidence": "output/combat-coordination-20261018/evidence.json",
+    "boundary": "Whole-plan choice, bounded personal behaviors, asynchronous candidate queries; native authority and actual results."
+  },
+  "combatProgressRecoveryUpdate": {
+    "evidence": "output/combat-progress-recovery-20261018/evidence.json",
+    "boundary": "Progress and survival handoff repair, bounded useful alternatives, strict analyst diagnostics; unchanged native authority."
+  },
+  "coordinationV2Update": {
+    "evidence": "output/combat-coordination-v2-20261018/evidence.json",
+    "boundary": "Bounded same-episode review, per-member safe handoff, explicit support relations and physical candidate matching; native authority retained."
+  },
+  "jointForceUpdate": {
+    "evidence": "output/joint-force-20261018/evidence.json",
+    "boundary": "Joint support/hostile roster search, explicit reinforcement permission, same-side owned mortar crews and fixed encounter support lifecycle; no battle simulation or defeat revival."
+  },
+  "combatChoiceFactsUpdate": {
+    "evidence": "output/combat-choice-facts-20261018/evidence.json",
+    "boundary": "Role and target-specific evidence, compact whole-plan input, conservative candidate diversity; raw JEV choice and native authority unchanged"
+  },
+  "directorProgressionUpdate": {
+    "evidence": "output/director-progression-20261019/evidence.json",
+    "boundary": "Native clears linear rhythm baseline, applied intervention facts, single strict report; model choices and generation nonblocking authority preserved."
+  },
+  "backgroundQueryUpdate": {
+    "evidence": "output/combat-background-query-20261019/evidence.json",
+    "boundary": "Frozen-value background candidate computation, deadline propagation, bounded fair retries and unknown command reconciliation; native authority preserved"
+  },
+  "explosiveReadabilityUpdate": {
+    "evidence": "output/explosive-readability-20261019/evidence.json",
+    "boundary": "Native small-arms tank target capability mirrored; armour coefficients and tactical authority preserved"
+  },
+  "battleLabOverviewUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-explosive-readability-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-overview-20261019/report.html",
+    "scope": "Original Battle Lab layout and MIT styles reused; read-only current Harness projection, history media and explicitly bound OBS sampling; no game or private changes"
+  },
+  "battleLabRestoreUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-restored-20261019/report.html",
+    "scope": "Restore original upper-left map and lower-right debug command cards; preserve additions and original stylesheet/license. Display-only native/live or explicitly sampled request history."
+  },
+  "battleLabPlanningUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-restored-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-planning-20261019/report.html",
+    "scope": "User canceled control-page integration. Read-only planning display: preserve map/debug cards; connect observation/reason/adopted composition/future intent; on-demand saved call input/response/explicit acknowledgement. Original style/license unchanged."
+  },
+  "battleLabLegendUpdate": {
+    "date": "2026-10-19",
+    "scope": "Correct leftover legacy blue-faction legend and selector. Current match has green/red only; blue dashed line means accepted squad plan. No data or route changes.",
+    "evidence": "output/battle-lab-legend-20261019/evidence.json"
+  },
+  "battleLabReadabilityUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-legend-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-readable-20261019/report.html",
+    "scope": "Presentation hierarchy and legibility only. Adopted level and actual composition first; future proposal and per-unit details expandable. Preserve all data sources, original stylesheet, map, video, command cards and MIT attribution."
+  },
+  "battleLabRealChainUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-readable-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-real-chain-20261019/evidence.json",
+    "scope": "Read-only real combat role diagram and actual selected-faction model/control status. Inherits latest readable page. No tactical/AI requests, commands, permissions or native changes."
+  },
+  "tankLocalControl": {
+    "version": "vehicle-local/v1",
+    "base": "output/module-exports/deskfront-battle-lab-real-chain-20261019/deskfront-sdk-harness",
+    "eventDriven": true,
+    "cooldownSeconds": 1,
+    "evidence": "output/tank-local-control-20261019"
+  },
+  "battleLabCompactFlowUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-tank-local-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-compact-flow-20261019/evidence.json",
+    "scope": "User reference layout: horizontal circular nodes, compact selectors, six real read-only navigation actions; model/control details collapsed."
+  },
+  "battleLabTacticalOrdersUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-routes-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-tactical-orders-20261019/evidence.json",
+    "scope": "Real DeepSeek/JEV tactical command vocabulary and selected-faction, current-stage, time-bounded recorded choices. Replaces generic navigation tiles. No new tactical/model commands."
+  },
+  "battleLabDensityUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-team-routes-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-density-20261019/evidence.json",
+    "scope": "Layout only: compact sections, responsive side-by-side tactical groups, reduced native video preview, expandable reasons. DOM IDs and scripts unchanged."
+  },
+  "battleLabColumnBalanceUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-next-routes-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-column-balance-20261019/evidence.json",
+    "scope": "CSS-only left/center wide, right video narrow; preserve current route display and all interactions."
+  },
+  "battleLabEqualColumnsUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-route-capture-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-equal-columns-20261019/evidence.json",
+    "scope": "CSS-only equal content columns; map and video separately limited to 360px. Preserve current route display and all interactions."
+  },
+  "battleLabSquadTacticsUpdate": {
+    "base": "output/module-exports/deskfront-battle-lab-equal-columns-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-squad-tactics-20261019/publication.json",
+    "scope": "Read-only accepted squad tactic, separate proposals and accepted per-member roles; no tactical decisions or native changes"
+  },
+  "largeVideoUpdate": {
+    "base": "output/module-exports/deskfront-battle-lab-squad-tactics-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-large-video-20261019/evidence.json",
+    "scope": "Video sizing CSS; prefer same-stage native map snapshots over model-request diagrams; retain squad tactics UI"
+  },
+  "battleLabOrganizedUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-large-video-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-organized-20261019/evidence.json",
+    "scope": "Reorganize existing overview markup and CSS only; preserve current full-column video and accepted squad-tactic display."
+  },
+  "factionShapesUpdate": {
+    "base": "output/module-exports/deskfront-battle-lab-organized-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-faction-shapes-20261019/evidence.json",
+    "scope": "Read-only faction marker shape/color and legend"
+  },
+  "battleLabMapFillUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-faction-shapes-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-map-fill-20261019/evidence.json",
+    "scope": "Remove fixed map-card maximum widths only."
+  },
+  "battleLabMapRosterUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-map-fill-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-map-roster-20261019/evidence.json",
+    "scope": "Move current roster beside left-aligned map; responsive layout only."
+  },
+  "throwContract": {
+    "schema": "throw-rules/v1",
+    "base": "output/module-exports/deskfront-battle-lab-map-roster-20261019/deskfront-sdk-harness",
+    "evidence": "output/throw-contract-20261019/evidence.json"
+  },
+  "battleLabRosterAlignUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-throw-contract-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-roster-align-20261019/evidence.json",
+    "scope": "Stretch roster panel to map height and distribute title, both teams and provenance vertically; layout only."
+  },
+  "battleLabRosterLinesUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-roster-align-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-roster-lines-20261019/evidence.json",
+    "scope": "Split the saved roster count and health percentage across two lines; text formatting only."
+  },
+  "factionOnlyShapesUpdate": {
+    "base": "output/module-exports/deskfront-battle-lab-member-actions-20261019/deskfront-sdk-harness",
+    "evidence": "output/battle-lab-faction-only-shapes-20261019/evidence.json",
+    "scope": "Faction-only markers, including tanks; no kind override"
+  },
+  "battleLabRosterBarsUpdate": {
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-faction-only-shapes-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-roster-bars-20261019/evidence.json",
+    "scope": "132px roster with percent meters from recorded health or complete current native health values; no AI or game changes."
+  },
+  "commanderFiveStagesUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-events-center-20261019/deskfront-sdk-harness",
+    "evidence": "output/commander-stage-scope-20261019/report.html",
+    "scope": "User explicitly removed probe and observe from webpage and model stage menu. Five-stage prompt/validator/admission/autonomy contract. Preserve observation telemetry, equipment tasks, existing maneuvers, personal actions and all history."
+  },
+  "recoveryFactsUpdate": {
+    "date": "2026-10-19",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-frontend-unified-20261019/deskfront-sdk-harness",
+    "evidence": "output/commander-recovery-root-20261019/report.html",
+    "scope": "Preserve native regeneration facts and damage-received age in commander, squad and personal inputs. Clarify phase purpose versus final mission objective; no automatic withdrawal, action gates or forced phase diversity. Prompt v23."
+  },
+  "battleLabCleanStage": {
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-member-roles-20261019/deskfront-sdk-harness",
+    "date": "2026-10-19",
+    "evidence": "output/battle-lab-clean-stage-20261019/evidence.json",
+    "scope": "Display and operator playback controls only; real live/recorded provenance retained"
+  },
+  "replayControls": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-battle-lab-clean-stage-20261019/deskfront-sdk-harness",
+    "evidence": "output/replay-controls-20261020/evidence.json"
+  },
+  "routeHandoff": {
+    "date": "2026-10-20",
+    "evidence": "output/route-handoff-fix-20261020/evidence.json",
+    "scope": "Transport selected suffix unchanged; compare persistent route signatures without rewriting commands."
+  },
+  "snapshotPerformanceUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/performance-fix-20261020/evidence.json",
+    "scope": "Copy each published controller view once; export append-only records by cursor; retain all wakeups, deadlines and authoritative checks"
+  },
+  "generationTimelineSyncUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-timeline-sync-20261020/browser-checks.json",
+    "scope": "Video playback and seeking select same recorded stage without seeking video back; standalone assembly replay retained."
+  },
+  "generatedAt": "2026-10-20T13:04:08.078835+00:00",
+  "generationAlgorithmStepUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-algorithm-step-20261020/publication.json",
+    "scope": "Explicit force-recommendation responsibility node; distinguish planned/confirmed counts, no algorithm menu fabrication."
+  },
+  "generationKindsSummaryUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-kinds-summary-20261020/publication.json"
+  },
+  "abstractCalculationLabel": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-abstract-calculation-20261020/publication.json"
+  },
+  "combatLabelsUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/combat-labels-coordinates-20261020/publication.json"
+  },
+  "combatDefaultUnitUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/combat-default-unit-20261020/publication.json"
+  },
+  "generationGridMotionUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-grid-motion-20261020/publication.json"
+  },
+  "candidateThreeColumnsUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-generation-grid-motion-20261020/deskfront-sdk-harness",
+    "scope": "Candidate cards use three equal columns; preserve content, selection, typography, scrolling and all model/game behavior."
+  },
+  "latestRecordingAccessUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/latest-recording-access-20261020/publication.json"
+  },
+  "candidateReadableUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-lab-readable-type-v2-20261020/deskfront-sdk-harness",
+    "scope": "Read-only candidate cards: distinct SVG tactical icons, exact member roles and destinations, purpose; raw plan IDs retained in detail, identity and selection unchanged."
+  },
+  "generationModuleComposeUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-module-compose-20261020/publication.json"
+  },
+  "generationAutoReplayUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/generation-auto-replay-20261020/publication.json"
+  },
+  "candidateFourColumnsUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-flow-raised-20261020/deskfront-sdk-harness",
+    "scope": "Candidate cards use four equal columns; preserve content, selection, typography, scrolling and all model/game behavior."
+  },
+  "displayRemoveNativeWordUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-generation-15s-20261020/deskfront-sdk-harness",
+    "scope": "Remove 鍘熺敓 from Battle Lab visible copy only; data schemas, actual records, model prompts, execution, four-column cards and other layout unchanged."
+  },
+  "annieSpokenEvidence": "output/annie-spoken-voice-20261020/evidence.json",
+  "taskPointCirclesUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/combat-five-circles-20261020/publication.json"
+  },
+  "twoPageLayoutUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-model-grid-20261020/deskfront-sdk-harness",
+    "scope": "Preserve all controls/data. Shared toolbar rhythm, observation/decision/game columns, wide four-column choices, evidence below. Embedded generation content height with origin/window/session-checked messaging. No game/model changes."
+  },
+  "preserveDesignedLayoutUpdate": {
+    "date": "2026-10-20",
+    "restoredFrom": "output/module-exports/deskfront-model-grid-20261020/deskfront-sdk-harness",
+    "scope": "User rejected structural rearrangement. Restore original HTML, JS, CSS layout and embedding; only refine control gaps, alignment, line wrapping and minimum button heights. Preserve four-column cards and all prior features."
+  },
+  "beginnerLiveUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/beginner-live-smooth-20261020/evidence.json",
+    "scope": "Opt-in beginner launcher; actual native viewport and same-session live proxy. Existing historical replay retained."
+  },
+  "beginnerRifleUpdate": {
+    "date": "2026-10-20",
+    "basePublicHarness": "output/module-exports/deskfront-beginner-live-smooth-20261020/deskfront-sdk-harness",
+    "scope": "Opening selector mortar replaced with rifle. Preserve existing layout, IDs, dashboard and remaining gameplay; schema2 real rifle roster."
+  },
+  "beginnerTwoSmgDefaultUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/beginner-two-smg-default-20261020/publication.json"
+  },
+  "personalLastSelectionUpdate": {
+    "date": "2026-10-20",
+    "evidence": "output/personal-last-selection-20261020/publication.json"
+  },
+  "publicationNote": "2026-10-20 portable Web runtime snapshot; metadata normalized, no credentials or recordings"
+}

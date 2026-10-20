@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>桌面前线 · Godot Web</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b140e;color:#edeedd;font-family:system-ui}#web-stage{position:absolute;inset:0;transform-origin:center;overflow:hidden}canvas{display:block;width:100%;height:100%}#status{position:absolute;inset:0;display:grid;place-content:center;text-align:center;background:#0b140e}#status[hidden]{display:none}#annie{position:absolute;border:0;left:20%;bottom:8%;width:18%;height:38%;pointer-events:none;background:transparent}</style>
+<div id="web-stage"><canvas id="canvas" tabindex="0" aria-label="桌面前线实时游戏"></canvas><div id="status" role="status">正在载入最新版游戏…</div></div>
+<button id="exit-fullscreen" hidden style="position:fixed;right:12px;top:12px;z-index:5;padding:10px 16px;background:#18251c;color:#edeedd;border:1px solid #6a785e;border-radius:4px;font:inherit;cursor:pointer">返回看板</button>
+<script>window.__deskfrontLaunch=__CONFIG__;window.__deskfrontBoot=crypto.randomUUID();</script>
+<script src="game.js"></script><script>
+const status=document.getElementById('status');
+const exitFullscreen=document.getElementById('exit-fullscreen');
+const syncFullscreen=()=>{exitFullscreen.hidden=!parent.document.fullscreenElement?.contains(window.frameElement);};
+parent.document.addEventListener('fullscreenchange',syncFullscreen);syncFullscreen();
+exitFullscreen.onclick=()=>parent.document.exitFullscreen().catch(()=>{});
+window.__deskfrontPublishFrame=frame=>{
+ const jobId=location.pathname.split('/')[2];
+ const value={...frame,jobId,boot:window.__deskfrontBoot};
+ document.getElementById('canvas').dataset.renderedTick=String(frame.tick);
+ document.getElementById('canvas').dataset.renderedTime=String(frame.time);
+ status.hidden=frame.linked===true;
+ if(!frame.linked)status.textContent=frame.failure==='instance_conflict'?'这局已在另一个页面运行，请返回原游戏页。':'正在同步本局游戏连接…';
+ parent.postMessage({type:'deskfront-web-render',frame:value},location.origin);
+ try{window.__deskfrontReplay?.observe(frame);}catch{/* Recording must never interrupt gameplay. */}
+};
+window.addEventListener('message',event=>{if(event.source!==parent||event.origin!==location.origin||event.data?.type!=='deskfront-web-view')return;const transform=event.data.transform;if(typeof transform==='string'&&transform.length<200&&/^(none|translate\([-\d.]+px,\s*[-\d.]+px\) scale\([\d.]+\))$/.test(transform))document.getElementById('web-stage').style.transform=transform;});
+const engine=new Engine({canvas:document.getElementById('canvas'),executable:'game',canvasResizePolicy:2,focusCanvas:true,
+ onPrintError:(...args)=>console.error(...args),onProgress:(current,total)=>{status.textContent=total?'正在载入游戏 '+Math.round(current/total*100)+'%':'正在启动游戏…';}});
+engine.startGame().then(()=>{status.hidden=true;document.getElementById('canvas').focus();},error=>{status.textContent='游戏启动失败：'+error.message;console.error(error);});
+let avatarSession='';setInterval(async()=>{try{const {job}=await(await fetch('/api/deskfront/web')).json();if(!job?.session||job.session===avatarSession)return;avatarSession=job.session;let frame=document.getElementById('annie');if(!frame){frame=document.createElement('iframe');frame.id='annie';frame.title='安妮 · 导演兼解说';document.getElementById('web-stage').append(frame);}frame.src='/runtime/deskfront/annie?session='+encodeURIComponent(job.session)+'&embedded=1';}catch{}},2000);
+</script><script type="module" crossorigin="anonymous" src="http://127.0.0.1:50206/recorder.js"></script></html>

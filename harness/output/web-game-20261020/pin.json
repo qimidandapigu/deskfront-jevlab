@@ -1,0 +1,12 @@
+{
+  "game": "runtime/browser-only/Deskfront.exe",
+  "publicHarness": "output/web-game-20261020/sdk",
+  "privateGenerator": "output/web-game-20261020/level-runtime/provider.pyc",
+  "mode": "godot-web",
+  "pythonVersion": "3.13",
+  "sourceComponents": {
+    "game": "output/releases/Deskfront-Windows-20261020-scene-design/Deskfront.exe",
+    "publicHarness": "output/module-exports/deskfront-annie-child-character-20261020/deskfront-sdk-harness",
+    "privateGenerator": "output/module-exports/deskfront-scene-design-20261020/deskfront-level-generator-private/provider.py"
+  }
+}

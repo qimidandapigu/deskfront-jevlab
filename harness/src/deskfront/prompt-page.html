@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deskfront 提示词查看器</title>
+<style>
+:root{color-scheme:light;--paper:#f3f5f2;--ink:#172b28;--muted:#526961;--line:#d6dfd9;--green:#126958;--wash:#e6f1ec}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 "Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1280px;margin:auto;padding:26px 32px 60px}a{color:var(--green)}h1{font-size:30px;line-height:1.3;margin:14px 0 8px}h2{font-size:19px;margin:0}p{margin:6px 0}.muted{color:var(--muted)}button,select,textarea{font:inherit;color:inherit}button,select{background:white;border:1px solid var(--line);border-radius:6px;padding:8px 14px}button{cursor:pointer}button[aria-pressed=true]{background:var(--green);color:white;border-color:var(--green)}button:disabled{opacity:.5;cursor:default}:focus-visible{outline:3px solid #277faf;outline-offset:3px}.roles{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 18px}.roles button{min-width:155px;text-align:left}.roles small{display:block;font-size:13px;opacity:.85}.controls{display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}label{display:flex;align-items:center;gap:8px}input[type=checkbox]{width:18px;height:18px;accent-color:var(--green)}#template-options,#log-options{display:flex;gap:14px;align-items:center;flex-wrap:wrap}#sessions{max-width:340px}#story-editor{padding:16px 0}textarea{width:100%;margin-top:8px;border:1px solid var(--line);border-radius:6px;background:white;padding:12px;resize:vertical}#notice{margin:18px 0;padding:10px 14px;border-left:3px solid var(--green);background:var(--wash);font-size:14px}#notice.error{background:#fff2de;border-color:#a2670e}.workspace{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;margin-top:20px}aside{min-width:0}#outline{display:grid;gap:4px;margin-top:12px}#outline button{border:0;background:transparent;text-align:left;padding:8px 12px;border-radius:4px;overflow-wrap:anywhere}#outline button[aria-pressed=true]{background:var(--wash);color:var(--green);font-weight:600}aside small{display:block;color:var(--muted);margin:18px 12px}.reader{background:white;border:1px solid var(--line);border-radius:8px;min-width:0;padding:24px 28px}.reader-toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--line)}.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{font-size:14px}.read-heading{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:24px}#count{font-size:13px;color:var(--muted);white-space:nowrap}pre{font:15px/1.85 "Segoe UI","Microsoft YaHei",sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;margin:18px 0 12px;max-width:78ch}pre.json{font:13px/1.7 Consolas,"Microsoft YaHei",monospace;max-width:none}#section-hint{font-size:14px;color:var(--muted)}#question-control{margin:16px 0}#questions{max-width:100%}details{margin-top:18px;font-size:14px;border-top:1px solid var(--line);padding-top:14px}summary{cursor:pointer;color:var(--muted)}details pre{font-size:13px}#status{font-size:13px;min-height:24px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:760px){main{padding:20px 16px}.workspace{grid-template-columns:1fr;gap:14px}#outline{display:flex;flex-wrap:wrap}#outline button{font-size:14px}aside small{margin:8px 0}.reader{padding:18px}.roles button{min-width:0;flex:1;padding:8px}.roles small{font-size:12px}h1{font-size:26px}#sessions{max-width:100%}.controls label{flex-wrap:wrap}pre{font-size:14px}.read-heading{align-items:start}#count{white-space:normal}}
+</style>
+<style>
+.case-intro{max-width:65ch;margin:14px 0 24px}.case-badge{display:inline-block;color:var(--green);font-size:14px;margin:4px 0}.case-block{margin-top:24px}.case-block h3{font-size:17px;margin:0 0 12px}.case-row{border-top:1px solid var(--line);padding:14px 0}.case-row strong{display:block;font-size:15px;margin-bottom:4px}.case-row p{max-width:66ch}.case-row details{margin:6px 0 0;border:0;padding:0}.case-row pre{background:var(--paper);padding:10px;font:13px/1.65 Consolas,"Microsoft YaHei",monospace;max-width:none}.case-decision{border-left:3px solid var(--green);padding:0 0 0 16px}.case-footer{font-size:14px;color:var(--muted);margin-top:26px;max-width:68ch}
+#navigation-content svg{display:block;width:100%;max-width:690px;margin:20px 0}#navigation-content p{max-width:68ch}#navigation-content ol{padding-left:24px}#navigation-content li{margin:12px 0;max-width:65ch}.nav-mapping{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}.nav-mapping th,.nav-mapping td{padding:10px 6px;text-align:left;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.map-scroll{overflow:auto;max-width:100%;background:#f6f8f4;border:1px solid var(--line);border-radius:6px;padding:12px}.map-scroll pre{white-space:pre;overflow-wrap:normal;font:13px/1.7 Consolas,"Microsoft YaHei",monospace;max-width:none;margin:0}.map-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:14px;margin:16px 0}.map-stat{font-size:15px;margin:16px 0}.map-scene{width:100%;height:auto;display:block;background:#f6f8f4;border:1px solid var(--line);border-radius:6px}.map-note{font-size:14px;color:var(--muted);margin-top:12px}
+</style>
+</head>
+<body><main>
+<a href="/runtime/deskfront">返回战术观察台</a>
+<a href="/runtime/deskfront/maps" style="margin-left:18px">符号地图与任务合并示例</a>
+<h1>模型到底收到什么</h1>
+<p class="muted">先看一条具体案例：发生了什么、模型看到什么、它实际选了什么。原始提示词和参数也可以展开查看。</p>
+<nav class="roles" aria-label="模型角色">
+<button data-role="commander" aria-pressed="false">指挥模型<small>选择阶段与目标坐标</small></button>
+<button data-role="executor" aria-pressed="false">小队 JEV<small>安排意图、职责和通路</small></button>
+<button data-role="personal" aria-pressed="true">个人 JEV<small>选择自己的局部动作</small></button>
+</nav>
+<div class="controls">
+<label>内容来源 <select id="source"><option value="log" selected>真实对局案例</option><option value="template">教学案例与当前模板</option></select></label>
+<div id="template-options">
+<label>模式 <select id="mode"><option value="clear_exit">无尽推进</option><option value="flag">占旗</option></select></label>
+<label><input id="equipment" type="checkbox" checked>有炮位情报</label>
+<label id="armor-control"><input id="armor" type="checkbox" checked>有反坦克机会</label>
+<label><input id="story" type="checkbox">剧情引导</label>
+</div>
+<div id="log-options" hidden>
+<label>对局 <select id="sessions" aria-label="对局日志"></select></label>
+<label>阵营 <select id="faction"><option value="green">绿队</option><option value="red">红队</option></select></label>
+<label>请求 <select id="sample"><option value="answered">最近有回答的一次</option><option value="latest">最近一次（可能未回答）</option></select></label>
+<button id="refresh">刷新最近请求</button>
+</div>
+</div>
+<div id="story-editor" hidden><label for="script">预览剧本（只影响本页）</label><textarea id="script" rows="4" maxlength="4000"></textarea><button id="apply-story">更新预览</button></div>
+<p id="notice" role="status">正在读取当前提示词…</p>
+<div class="workspace">
+<aside><h2 id="outline-heading">提示词结构</h2><div id="outline" aria-label="内容分段"></div><small id="version"></small></aside>
+<section class="reader" aria-label="提示词原文">
+<div class="reader-toolbar"><div class="tabs" aria-label="查看方式">
+<button data-view="case" aria-pressed="true">案例讲解</button>
+<button data-view="map" aria-pressed="false">这次的战场地图</button>
+<button data-view="navigation" aria-pressed="false">地图与导航怎么对应</button>
+<button data-view="sections" aria-pressed="true">分段原文</button>
+<button data-view="instructions" aria-pressed="false">完整指令</button>
+<button data-view="request" aria-pressed="false">完整请求 JSON</button>
+</div><button id="copy" disabled>复制当前内容</button></div>
+<label id="question-control" hidden>查看问题 <select id="questions"></select></label>
+<div class="read-heading"><h2 id="heading">正在加载</h2><span id="count"></span></div>
+<p id="section-hint"></p><div id="case-content"></div><pre id="content" hidden></pre><p id="status" aria-live="polite"></p>
+<section id="map-content" hidden></section>
+<section id="navigation-content" hidden>
+<h3>模型用地图坐标，导航在后台验证</h3>
+<pre>指挥：目标 (24,12)，清除炮手
+小队：1号去 (24,10)/via1，2号去 (21,12)/via2
+个人：rush_to_site:(22,11)
+后台：查找本次绑定 → 复验路径与射界 → 执行与回执</pre>
+<p>所有坐标都指符号地图的 (列,行)。新对局固定原点和格宽，地图扩展、不同角色和局部显示不会重新编号。小数标明格内精确落点。</p>
+<p>模型选择的是本次提供的合法坐标。后台保留原生区域图及每条路径，自动翻译回精确落点；不会把模型随意写的点吸附到最近候选。</p>
+<p>同一终点可能从墙北侧或南侧到达，所以 /via1、/via2 保留路线区别。R1/R2、N编号和C/P候选编号不再用于模型选点。</p>
+<p>“可达”“到位可开火”“已经命中”分别检查。## 表示硬障碍占地，:: 表示混合边界，?? 表示缺少通行证据；窄入口和射界以原生检查为准。</p>
+</section>
+<details><summary>来源与读取边界</summary><p>模板由实际 Python 提示词组合器生成，条件开关只控制预览。对局请求直接读取日志；不会调用模型、启动游戏或修改设置。</p><p>完整请求包含 Harness 的 state 和所有 questions。服务商最终网络报文还由 SDK 封装，本页不把两者混为一谈。</p><pre id="provenance"></pre></details>
+</section></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);let role='personal',view=['map','navigation'].includes(new URLSearchParams(location.search).get('view'))?'map':'case',section=0,data=null,serial=0,questionKey='',displayText='',mapZoom=true;
+const blockNames=['身份与时间','当前任务与阶段','地图、敌情与装备','执行结果与受阻历史','候选位置与动作'];
+function split(text){const parts=text.split(/^# /m).slice(1).map(part=>({title:part.split('\n')[0],text:'# '+part.trimEnd()}));return parts.length?parts:[{title:'问题指令',text}];}
+function button(text,click,active){const b=document.createElement('button');b.textContent=text;b.setAttribute('aria-pressed',String(active));b.onclick=click;return b;}
+function pieces(){if(!data)return [];const result=data.kind==='log'?split(data.request.questions[questionKey]?.instructions||'未保存这条问题的 instructions。'):data.sections.slice();if(data.kind==='template'&&data.storyReference)result.push({title:'剧情引导',text:'引用指令：\n'+data.instructions.split('\n').at(-1)+'\n\nstate.story_reference：\n'+JSON.stringify(data.storyReference,null,2)});return result;}
+function node(tag,text,cls){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;}
+function tableRows(value){if(!value)return [];if(value.columns&&value.rows)return value.rows.map((r,i)=>Object.fromEntries(value.columns.flatMap((key,j)=>(value.missing?.[i]||[]).includes(j)?[]:[[key,r[j]]])));return Array.isArray(value)?value:Object.values(value);}
+function tableKeys(value){return value?.keys||Object.keys(value||{});}
+function showCoordinates(p){
+ const host=$('map-content');host.replaceChildren();const state=p.state,map=state.tactical_map;
+ host.append(node('h3','直接看坐标，直接选落点'));
+ host.append(node('p',p.recorded?'这是本局模型实际收到的坐标地图。':'这是同一条历史战况转换后的坐标版预览；没有冒充当时模型实际收到的请求。'));
+ host.append(node('p',`完整战况＋问题：${p.beforeChars.toLocaleString()} → ${p.afterChars.toLocaleString()} 字符。字符数不是服务商 token。`,'map-stat'));
+ host.append(node('p','(x,y)＝(列,行)，右为+x，下为+y。整数是格边界，小数是格内精确落点。'+(map.legacy_frame?'这条旧记录的网格只对应当次快照；新对局使用固定全局网格。':'这局使用固定全局网格，地图扩展不会重编号。')));
+ const scroll=node('div',undefined,'map-scroll'),pre=node('pre');pre.id='coordinate-symbol-map';
+ const lines=map.diagram.split('\n'),head=lines.shift().trim().split(/\s+/),cellWidth=Math.max(4,...lines.flatMap(l=>(l.split('|')[1]||'').trim().split(/\s+/).map(x=>x.length+1)));
+ pre.append(document.createTextNode('    '+head.map(x=>x.padEnd(cellWidth)).join('')+'\n'));
+ for(const line of lines){const [row,body]=line.split('|');pre.append(document.createTextNode(row.trim().padStart(2,'0')+'  '));
+  for(const cell of (body||'').trim().split(/\s+/)){const span=node('span',cell.padEnd(cellWidth));span.style.color=cell.includes('ME')?'#087b63':cell.startsWith('E')?'#b84431':cell.startsWith('U')?'#216797':'#64746c';pre.append(span);}pre.append(document.createTextNode('\n'));}
+ scroll.append(pre);host.append(scroll,node('p','ME 我 · U 队友 · E 敌人 · ## 硬障碍 · :: 混合边界 · ?? 未知。人物覆盖的底图记录在 under_units。这里不再放 R1/R2、C1/C2 或 P1/P2。','map-note'));
+ const plan=state.current_plan||{},assignment=state.assignment||{};
+ if(plan.position)host.append(node('p','当前指挥落点 ('+plan.position.join(',')+')：'+(plan.objective||'')));
+ if(assignment.goal)host.append(node('p','本兵分配落点 ('+assignment.goal.join(',')+')'));
+ const facts=state.shared_facts||[];const resolve=v=>v&&Object.keys(v).length===1&&v.ref!==undefined?resolve(facts[v.ref]):Array.isArray(v)?v.map(resolve):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,resolve(x)])):v;
+ const section=node('section',undefined,'case-block');section.append(node('h3','模型这次可以选哪些坐标'));
+ for(const [name,q] of Object.entries(p.questions||{})){
+  if(!(name.startsWith('route_')||name==='action'||name==='plan'))continue;
+  section.append(node('strong',name==='plan'?'指挥目标坐标':name==='action'?'个人动作与坐标':name.slice(6)+' 的落点 / 通路'));
+  if(name==='plan')section.append(node('p',tableKeys(state.regions).join('  ')));
+  else section.append(node('pre',Object.keys(q.criteria||{}).join('\n')));
+ }
+ host.append(section);
+ const sites=tableRows(state.candidate_sites);if(sites.length){const t=node('table'),tr=node('tr');['落点坐标','原生可射击目标','原生受阻原因'].forEach(x=>tr.append(node('th',x)));t.append(tr);
+  for(const site0 of sites){const site=resolve(site0),r=node('tr');const checks=resolve(site.fire_checks)||[];[site.id,site.fire_targets===undefined?'未知':JSON.stringify(site.fire_targets),Array.isArray(checks)?checks.filter(c=>c.clear===false).map(c=>c.target_id+': '+c.reason).join('；'):'见完整事实'].forEach(x=>r.append(node('td',String(x))));t.append(r);}host.append(t);}
+ const full=node('details');full.append(node('summary','完整坐标版请求（包含连通、路线与射界检查）'),node('pre',JSON.stringify({state:p.state,questions:p.questions},null,2)));host.append(full);
+ return JSON.stringify({state:p.state,questions:p.questions},null,2);
+}
+function showMap(){
+ if(data.coordinatePreview?.state?.tactical_map?.format==='deskfront-coordinates/v1')return showCoordinates(data.coordinatePreview);
+ const host=$('map-content');host.replaceChildren();const p=data.mapPreview;
+ if(!p?.diagram){host.append(node('p','这条记录没有可绘制的战场地图。请选择其他角色或请求。'));return '';}
+ const state=p.state,map=state.tactical_map,g=map.overview,merged=map.merged||{},markers=merged.markers||{};
+ const nearby=Boolean(mapZoom&&state.self?.position);
+ const zoom=node('div',undefined,'tabs');zoom.append(button('全图',()=>{mapZoom=false;render()},!nearby),button('当前士兵附近',()=>{mapZoom=true;render()},nearby));zoom.lastChild.disabled=!state.self?.position;host.append(zoom);
+ host.append(node('p','墙、区域标签、敌我、候选与分配落点已合并。每个区域标签只放一次；同格的多个标记都保留。'));
+ host.append(node('p',`这条记录按当前格式排版：${p.beforeChars.toLocaleString()} → ${p.afterChars.toLocaleString()} 战况字符，${p.savedPercent>=0?'减少':'增加'} ${Math.abs(p.savedPercent)}%。未包含指令，不是token。`,'map-stat'));
+ const lines=(p.displayDiagram||p.diagram).split('\n').map(line=>line.split('|')[1].trim().split(/\s+/));
+ let r0=0,r1=lines.length-1,c0=0,c1=g.cols-1;
+ if(nearby){
+  const points=[state.self.position,state.assignment?.goal,...tableRows(state.candidate_sites).map(c=>c.position),...(state.contacts||state.teammate_reports||[]).filter(c=>c.visible).map(c=>c.position)].filter(Array.isArray);
+  const cells=points.map(pt=>[Math.floor((pt[1]-g.bounds[1])/g.cell_size_world),Math.floor((pt[0]-g.bounds[0])/g.cell_size_world)]);
+  r0=Math.max(0,Math.min(...cells.map(c=>c[0]))-3);r1=Math.min(r1,Math.max(...cells.map(c=>c[0]))+3);c0=Math.max(0,Math.min(...cells.map(c=>c[1]))-3);c1=Math.min(c1,Math.max(...cells.map(c=>c[1]))+3);
+ }
+ const scroll=node('div',undefined,'map-scroll'),pre=node('pre');pre.id='merged-symbol-map';
+ const unitTags=['ME','TT','ST'];const priority=tag=>unitTags.includes(tag)?unitTags.indexOf(tag):tag.startsWith('C')?3:tag.startsWith('E')||tag.startsWith('U')?4:tag.startsWith('G')?5:tag.startsWith('P')?6:7;
+ const extras=[];let shown='    '+Array.from({length:c1-c0+1},(_,i)=>String(i+c0).padStart(2,'0').padEnd(6)).join('')+'\n';pre.append(document.createTextNode(shown));
+ for(let r=r0;r<=r1;r++){
+  const prefix=String(r).padStart(2,'0')+'  ';pre.append(document.createTextNode(prefix));shown+=prefix;
+  for(let c=c0;c<=c1;c++){
+   const token=lines[r]?.[c]||'?',tags=(token.match(/\[([^\]]+)\]/)?.[1]||'').split('/').filter(Boolean).sort((a,b)=>priority(a)-priority(b));
+   let label=tags[0]||(token[0]==='#'?'##':token[0]==='?'?'??':token[0]==='.'?'..':token[0]);
+   if(tags.length>1){label+='+'+(tags.length-1);extras.push(`(${r},${c}) ${label} = ${tags.join('、')}`);}
+   const printed=label.padEnd(6),span=node('span',printed);span.title=`行${r}列${c}；完整格：${token}`;
+   span.style.color=tags.includes('ME')?'#126958':tags.some(t=>t.startsWith('C'))?'#216797':tags.some(t=>t.startsWith('E'))?'#aa422d':'#526961';
+   pre.append(span);shown+=printed;
+  }
+  pre.append(document.createTextNode('\n'));shown+='\n';
+ }
+ scroll.append(pre);host.append(scroll,node('p','ME=我，E/U=已知敌人/队友，R=区域标签，C=候选，TT=分配落点，ST=队级目标，P=逐兵路线终点，G=已验证跨区连接，W=硬障碍，M=炮位。##=硬障碍相交，:=混合边界，??=证据不足。','map-note'));
+ if(nearby)host.append(node('p','这里只放大显示附近；模型输入仍保留完整地图和全图已知敌情。','map-note'));
+ if(extras.length){const d=node('details');d.open=true;d.append(node('summary','+数字表示同格还有其他标记（粗格不等于精确坐标相同）'),node('pre',extras.join('\n')));host.append(d);}
+ const links=merged.task_links||{},task=node('section',undefined,'case-block');task.append(node('h3','指挥、分配落点与候选怎样对应'));
+ for(const [key,row] of Object.entries(links))task.append(node('p',key==='personal_assignment'?`我的分配：目标区域 ${row.region||'未知'}，落点 ${row.marker||'未提供'}；区域通路 ${(row.route||[]).join(' → ')||'未提供'}；职责 ${row.role||row.intent||'未提供'}。`:`指挥目标：${row.region||'未知'}，标记 ${row.marker||'未提供'}；${row.objective||'目的未提供'}。`));
+ if(!Object.keys(links).length)task.append(node('p','这条记录没有可关联的当前指挥/个人任务；不根据地图补造任务。'));
+ const displayId=id=>Object.entries(markers).find(([tag,value])=>value===id||(value&&typeof value==='object'&&value.id===id))?.[0]||id;
+ const reasonName=value=>({muzzle_cover:'枪口被挡',target_occluded:'目标被挡',out_of_range:'超出射程'}[value]||value);
+ const sites=tableRows(state.candidate_sites),rows=node('table',undefined,'nav-mapping');rows.id='merged-candidate-checks';
+ const head=node('tr');['候选','区域','采样姿态可攻击','原生受阻原因'].forEach(v=>head.append(node('th',v)));rows.append(head);
+ for(const site of sites){const tr=node('tr'),m=markers[site.id],region=m?.region||site.region_id||'未知',targets=site.fire_targets===undefined?'未提供':site.fire_targets.length?site.fire_targets.map(displayId).join('、'):'无';[site.id,region,targets,(site.fire_checks||[]).filter(c=>c.clear===false).map(c=>displayId(c.target_id)+': '+reasonName(c.reason||'未提供')+(c.blocker_id?'（'+displayId(c.blocker_id)+'）':'')).join('；')||'未提供失败记录'].forEach(v=>tr.append(node('td',String(v))));rows.append(tr);}
+ if(sites.length)task.append(rows);host.append(task);
+ const ids=node('details');ids.append(node('summary','标记与原始ID的对应表（选择仍使用原合法ID）'),node('pre',JSON.stringify(markers,null,2)));host.append(ids);
+ const fullMap=node('details');fullMap.append(node('summary','模型收到的完整合并地图：一格的完整同格标记保留在[]中'));const box=node('div',undefined,'map-scroll');box.append(node('pre',p.displayDiagram||p.diagram));fullMap.append(box);host.append(fullMap);
+ if(p.terrainReconstructed)host.append(node('p','旧日志没有跨区连边记录时不画G。这里墙形依据同次记录尺寸重画；历史原文在“完整请求JSON”。','map-note'));
+ const full=node('details');full.append(node('summary','当前格式的完整战况输入'),node('pre',JSON.stringify(state,null,2)));host.append(full,node('p',p.note,'map-note'));
+ return p.displayDiagram||p.diagram;
+}
+function caseRow(row){const box=node('div',undefined,'case-row');box.append(node('strong',row.label),node('p',row.text));if(row.raw!=null){const detail=node('details');detail.append(node('summary','对照原始字段'),node('pre',JSON.stringify(row.raw,null,2)));box.append(detail);}return box;}
+function showCase(){const c=data.readableCase,host=$('case-content');host.replaceChildren();host.append(node('span',c.badge,'case-badge'),node('p',c.intro,'case-intro'));const facts=node('section',undefined,'case-block');facts.id='case-facts';facts.append(node('h3','模型看到的具体情况'),...c.facts.map(caseRow));host.append(facts);if(c.candidates.length){const candidates=node('section',undefined,'case-block');candidates.id='case-options';candidates.append(node('h3','这次给它哪些选择'),...c.candidates.map(caseRow));if(c.candidateCount>4)candidates.append(node('p','这里只展示前4个位置用于讲解；全部 '+c.candidateCount+' 个位置在“完整请求 JSON”里。','muted'));host.append(candidates);}const answer=node('section',undefined,'case-block case-decision');answer.id='case-answer';answer.append(node('h3',data.kind==='log'?'模型这次实际怎么选':'这层模型可以怎样安排'),node('p',c.decision.text));if(c.decision.raw!=null){const d=node('details');d.append(node('summary','查看模型回答原文'),node('pre',JSON.stringify(c.decision.raw,null,2)));answer.append(d);}host.append(answer,node('p',c.takeaway,'case-footer'));return [c.title,c.intro,...c.facts.map(x=>x.label+'：'+x.text),...c.candidates.map(x=>x.label+'：'+x.text),c.decision.text,c.takeaway].join('\n\n');}
+function render(){
+ const all=pieces();if(section>=all.length)section=0;
+ document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===view)));
+ document.querySelector('[data-view=request]').textContent=data?.kind==='log'?'完整请求 JSON':'请求结构 JSON';
+ $('outline').replaceChildren(...all.map((p,i)=>button(p.title,()=>{section=i;view='sections';render()},i===section&&view==='sections')));
+ $('outline-heading').textContent=['map','navigation'].includes(view)?'地图与导航':view==='case'?'案例怎么读':'提示词结构';
+ if(view==='map')$('outline').replaceChildren(button('实际战场地图',()=>$('map-content').scrollIntoView({block:'start'}),true),button('地图与导航怎么对应',()=>{view='navigation';render()},false),button('完整请求原文',()=>{view='request';render()},false));
+ if(view==='navigation'){$('outline').replaceChildren(button('看同一个绕墙例子',()=>$('navigation-content').scrollIntoView({block:'start'}),false),button('区分士兵、区块、路线、落点',()=>$('nav-identifiers').scrollIntoView({block:'start'}),false),button('为什么有问号和井号',()=>{$('nav-symbols').open=true;$('nav-symbols').scrollIntoView({block:'start'})},false));}
+ if(view==='case'){$('outline').replaceChildren(...[['当时的具体情况','case-facts'],['这次有哪些选择','case-options'],['实际选择与执行边界','case-answer']].map(([title,id])=>button(title,()=>$(id)?.scrollIntoView({block:'start'}),false)),button('查看完整提示词',()=>{view='instructions';render()},false));}
+ $('question-control').hidden=!(data?.kind==='log'&&view!=='request'&&view!=='case');
+ $('question-control').hidden=$('question-control').hidden||['map','navigation'].includes(view);
+ $('content').hidden=['case','navigation','map'].includes(view);$('case-content').hidden=view!=='case';$('navigation-content').hidden=view!=='navigation';$('map-content').hidden=view!=='map';
+ $('content').classList.toggle('json',view==='request');$('section-hint').textContent='';
+ if(data){$('notice').textContent=view==='case'?(data.kind==='log'?'真实日志案例。中文说明用于读懂输入；原始字段、模型回答和完整提示词可以展开查看。':'教学示例，用来解释当前提示词，示例中的安排不是真实模型回答。'):data.note;if(data.metadata)$('notice').textContent+=' 显示'+(data.sample==='answered'?'最近有回答的一次请求。':'最近一次请求。');}
+ if(view==='navigation')$('notice').textContent='教学示意：用同一个绕墙例子解释地图、区块、路线和落点的关系，不是当前战场实况。';
+ if(view==='map')$('notice').textContent=data.coordinatePreview?.recorded?'实际模型请求：坐标地图、可选落点和完整提示词来自本局日志。':'历史战况按坐标格式预览；历史请求原文保留，没有冒充实测。';
+ if(!data){displayText='';$('heading').textContent='暂无内容';}
+ else if(view==='map'){$('heading').textContent='先看地图，再看通路与射界';displayText=showMap();}
+ else if(view==='navigation'){$('heading').textContent='同一个位置，地图、区块、路线与落点怎么关联';displayText=$('navigation-content').innerText;}
+ else if(view==='case'){$('heading').textContent=data.readableCase.title;displayText=showCase();}
+ else if(view==='sections'){const p=all[section];$('heading').textContent=p?.title||'提示词';displayText=p?.text||'';}
+ else if(view==='instructions'){$('heading').textContent='完整指令原文';displayText=data.kind==='log'?(data.request.questions[questionKey]?.instructions||'该日志未保存这条问题的 instructions。'):data.instructions;if(data.storyReference)$('section-hint').textContent='剧情正文存放在 state.story_reference；可在左侧“剧情引导”查看。';}
+ else if(data.kind==='log'){$('heading').textContent=data.missingInstructions?'请求记录（旧日志不完整）':'完整 Harness 请求';displayText=JSON.stringify(data.request,null,2);$('section-hint').textContent='包含全部 state 字段和 '+Object.keys(data.request.questions).length+' 个问题，未截断。剧情包装之前的日志原文。';}
+ else{$('heading').textContent='每次请求由三部分组成';displayText=JSON.stringify({state_fields:Object.fromEntries(data.stateBlocks.map((keys,i)=>[blockNames[i],keys])),...(data.storyReference?{story_reference:data.storyReference}:{}),questions:'问题类型 + instructions（完整指令）+ criteria（本次合法选项）'},null,2);$('section-hint').textContent='这是字段结构，不是已发送请求。具体战况、地图和选项请在“内容来源”选择“对局日志请求”。';}
+ $('content').textContent=displayText;$('count').textContent=['case','navigation','map'].includes(view)?'':displayText.length.toLocaleString()+' 字符（非 token）';$('copy').textContent=view==='map'?'复制模型地图':['case','navigation'].includes(view)?'复制讲解':'复制当前内容';$('copy').disabled=!data;$('status').textContent='';
+}
+async function load(){
+ const turn=++serial;$('copy').disabled=true;$('notice').className='';$('notice').textContent='正在读取…';
+ const kind=$('source').value;$('template-options').hidden=kind!=='template';$('log-options').hidden=kind!=='log';$('armor-control').hidden=role!=='personal';$('story-editor').hidden=kind!=='template'||!$('story').checked;
+ try{
+ const body={role,kind,mode:$('mode').value,equipment:$('equipment').checked,antiArmor:$('armor').checked,story:$('story').checked,script:$('script').value,session:$('sessions').value,faction:$('faction').value,sample:$('sample').value};
+ const r=await fetch('/api/deskfront/prompts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const result=await r.json();if(!r.ok)throw Error(result.error||'读取失败');if(turn!==serial)return;
+ data=result;if(!questionKey||!data.request?.questions[questionKey])questionKey=Object.keys(data.request?.questions||{})[0]||'';
+ $('questions').replaceChildren(...Object.keys(data.request?.questions||{}).map(key=>{const o=document.createElement('option');o.value=key;o.textContent=key;o.selected=key===questionKey;return o;}));
+ if(data.preset&&!$('script').value)$('script').value=data.preset;
+ $('notice').textContent=view==='case'?(data.kind==='log'?'真实日志案例。中文说明用于读懂输入；原始字段、模型回答和完整提示词可以展开查看。':'教学示例，用来解释当前提示词，示例中的安排不是真实模型回答。'):data.note;
+ if(data.metadata)$('notice').textContent+=' 显示'+(data.sample==='answered'?'最近有回答的一次请求。':'最近一次请求。');
+ $('version').textContent=data.version;$('provenance').textContent=data.sourceFiles.join('\n')+(data.storyConfig?'\n\n该局剧情配置（与请求原文分开）：\n'+JSON.stringify(data.storyConfig,null,2):'');render();
+ }catch(error){if(turn!==serial)return;data=null;$('notice').className='error';$('notice').textContent=error.message+'。可切换到当前代码模板继续查看。';render();}
+}
+document.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{role=b.dataset.role;section=0;questionKey='';document.querySelectorAll('[data-role]').forEach(el=>el.setAttribute('aria-pressed',String(el===b)));load();});
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;render();});
+for(const id of ['source','mode','equipment','armor','story','sessions','faction','sample'])$(id).onchange=()=>{section=0;load();};
+$('questions').onchange=()=>{questionKey=$('questions').value;section=0;render();};$('apply-story').onclick=load;$('refresh').onclick=load;
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(displayText);$('status').textContent='已复制当前内容。';}catch{$('status').textContent='浏览器未允许剪贴板，请直接选中原文复制。';}};
+async function init(){try{const r=await fetch('/api/deskfront/prompts/sessions');if(!r.ok)throw Error('日志列表读取失败');const d=await r.json();$('sessions').replaceChildren(...d.sessions.map(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=new Date(s.updated).toLocaleString('zh-CN')+' / '+s.id.slice(-8);return o;}));const wanted=new URLSearchParams(location.search).get('session');if(wanted&&d.sessions.some(s=>s.id===wanted))$('sessions').value=wanted;if(!d.sessions.length){$('source').value='template';}}catch{$('source').value='template';}await load();}init();
+</script></body></html>

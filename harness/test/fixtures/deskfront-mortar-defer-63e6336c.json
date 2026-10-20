@@ -1,0 +1,793 @@
+{
+  "provenance": {
+    "session": "deskfront-63e6336c-4a55-4395-bf89-1268e8146fc6",
+    "source": "state-first.json latest.observation; commander plan records from original session JSONL",
+    "native_time": 257.4
+  },
+  "world": {
+    "run_id": "1792046301.351-266099687",
+    "time": 257.4,
+    "navigation_revision": 4,
+    "units": [
+      {
+        "combat": {
+          "engageable_targets": [],
+          "fire_block_reason": ""
+        },
+        "faction": "green",
+        "hp": 0,
+        "id": "green-1",
+        "last_shot_at": 143.466666666673,
+        "last_shot_target": "red-mortar-crew-9",
+        "max_hp": 50,
+        "position": [
+          4.31481075286865,
+          1.79522264003754
+        ],
+        "suppression": 0.29,
+        "survival_reason": "",
+        "weapon": "rifle"
+      },
+      {
+        "combat": {
+          "engageable_targets": [],
+          "fire_block_reason": "target_occluded"
+        },
+        "faction": "green",
+        "hp": 0,
+        "id": "green-2",
+        "last_shot_at": 38.0999999999991,
+        "last_shot_target": "red-101",
+        "max_hp": 50,
+        "position": [
+          3.4142017364502,
+          1.86742317676544
+        ],
+        "suppression": 0.61,
+        "survival_reason": "",
+        "weapon": "smg"
+      },
+      {
+        "combat": {
+          "engageable_targets": [],
+          "fire_block_reason": ""
+        },
+        "faction": "green",
+        "hp": 50,
+        "id": "green-3",
+        "last_shot_at": 174.383333333364,
+        "last_shot_target": "red-mortar-crew-8",
+        "max_hp": 50,
+        "position": [
+          3.52777981758118,
+          2.6437509059906
+        ],
+        "suppression": 0,
+        "survival_reason": "",
+        "weapon": "rocket"
+      },
+      {
+        "combat": {
+          "engageable_targets": [],
+          "fire_block_reason": ""
+        },
+        "faction": "green",
+        "hp": 50,
+        "id": "green-900",
+        "last_shot_at": 142.516666666672,
+        "last_shot_target": "red-mortar-crew-9",
+        "max_hp": 50,
+        "position": [
+          3.10737347602844,
+          2.72142386436462
+        ],
+        "suppression": 0,
+        "survival_reason": "",
+        "weapon": "rifle"
+      }
+    ],
+    "at_guns": [
+      {
+        "capabilities": {
+          "accuracy": 0.448,
+          "armor_multiplier": 0.55,
+          "cooldown": 10,
+          "cover_damage": 60,
+          "damage": 72,
+          "dispersion_model": "artillery_disk_v2",
+          "fire_mode": "single_operator",
+          "minimum_range": 0.4,
+          "pressure": 0.8,
+          "projectile_speed": 0.66,
+          "range": 3.2,
+          "setup_seconds": 4,
+          "single_crew": {
+            "accuracy": 0.448,
+            "armor_multiplier": 0.55,
+            "cooldown": 14,
+            "damage": 72,
+            "setup_seconds": 5.5,
+            "splash": 0.25,
+            "tank_damage_multiplier": 3,
+            "top_attack": false
+          },
+          "single_crew_cooldown": 14,
+          "single_setup_seconds": 5.5,
+          "splash": 0.25,
+          "tank_damage_multiplier": 3,
+          "top_attack": false
+        },
+        "capturable": true,
+        "capture_candidates": [
+          {
+            "block_reasons": [
+              "dead",
+              "outside_radius"
+            ],
+            "blocking_conditions": [
+              "dead",
+              "outside_radius"
+            ],
+            "contested": false,
+            "distance": 0.441183596849442,
+            "eligibility_without_distance": false,
+            "eligible": false,
+            "faction": "green",
+            "position": [
+              4.31481075286865,
+              1.79522264003754
+            ],
+            "reason": "dead,outside_radius",
+            "unit_eligible": false,
+            "unit_id": "green-1",
+            "within_radius": false
+          },
+          {
+            "block_reasons": [
+              "dead",
+              "suppressed",
+              "outside_radius"
+            ],
+            "blocking_conditions": [
+              "dead",
+              "suppressed",
+              "outside_radius"
+            ],
+            "contested": false,
+            "distance": 0.462315380573273,
+            "eligibility_without_distance": false,
+            "eligible": false,
+            "faction": "green",
+            "position": [
+              3.4142017364502,
+              1.86742317676544
+            ],
+            "reason": "dead,suppressed,outside_radius",
+            "unit_eligible": false,
+            "unit_id": "green-2",
+            "within_radius": false
+          },
+          {
+            "block_reasons": [
+              "rocket",
+              "outside_radius"
+            ],
+            "blocking_conditions": [
+              "rocket",
+              "outside_radius"
+            ],
+            "contested": false,
+            "distance": 0.884732902050018,
+            "eligibility_without_distance": false,
+            "eligible": false,
+            "faction": "green",
+            "position": [
+              3.52777981758118,
+              2.6437509059906
+            ],
+            "reason": "rocket,outside_radius",
+            "unit_eligible": false,
+            "unit_id": "green-3",
+            "within_radius": false
+          },
+          {
+            "block_reasons": [
+              "outside_radius"
+            ],
+            "blocking_conditions": [
+              "outside_radius"
+            ],
+            "contested": false,
+            "distance": 1.17638719081879,
+            "eligibility_without_distance": true,
+            "eligible": false,
+            "faction": "green",
+            "position": [
+              3.10737347602844,
+              2.72142386436462
+            ],
+            "reason": "outside_radius",
+            "unit_eligible": false,
+            "unit_id": "green-900",
+            "within_radius": false
+          }
+        ],
+        "capture_progress": 0,
+        "capture_radius": 0.24,
+        "capture_seconds": 3,
+        "capture_team": "",
+        "faction": "neutral",
+        "hp": 85,
+        "id": "battlefield-mortar-1",
+        "kind": "mortar",
+        "minimum_range": 0.4,
+        "position": [
+          3.875,
+          1.83000004291534
+        ],
+        "range": 3.2,
+        "seen_by": [
+          "green",
+          "red"
+        ]
+      }
+    ],
+    "weapons": {
+      "at_cannon": {
+        "armor_multiplier": 2.8,
+        "damage": 75,
+        "range": 2.05
+      },
+      "bayonet": {
+        "armor_multiplier": 0,
+        "damage": 29,
+        "range": 0.075
+      },
+      "cannon": {
+        "armor_multiplier": 1,
+        "damage": 60,
+        "range": 0.98
+      },
+      "grenade": {
+        "armor_multiplier": 0.25,
+        "damage": 60,
+        "range": 0.65
+      },
+      "pistol": {
+        "armor_multiplier": 0.1,
+        "damage": 8,
+        "range": 0.42
+      },
+      "rifle": {
+        "armor_multiplier": 0.1,
+        "damage": 13,
+        "range": 0.7
+      },
+      "rocket": {
+        "armor_multiplier": 2.1,
+        "damage": 60,
+        "range": 0.92
+      },
+      "smg": {
+        "armor_multiplier": 0.04,
+        "damage": 5,
+        "range": 0.6
+      }
+    },
+    "world_growth": {
+      "mission": {
+        "index": 2,
+        "operation_id": "29162890-cc19-488c-a4f8-d65af058e842"
+      }
+    }
+  },
+  "contacts": [
+    {
+      "faction": "red",
+      "hp": 240,
+      "id": "red-tank-1",
+      "kind": "tank",
+      "last_seen": 257.200000000095,
+      "position": [
+        1.99798190593719,
+        3.05499792098999
+      ],
+      "visible": true,
+      "weapon": "cannon"
+    }
+  ],
+  "accepted_defer_plans": [
+    {
+      "time": 188,
+      "line": 1723,
+      "plan": {
+        "region_id": "N57,16",
+        "objective": "向目标区域推进，寻找可压制红方坦克的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          4.27500009536743,
+          1.5
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N57,16",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N57,16"
+            },
+            {
+              "action": "attack",
+              "target_ids": [
+                "red-tank-1"
+              ],
+              "targets": [
+                {
+                  "id": "red-tank-1",
+                  "kind": "tank",
+                  "label": "坦克",
+                  "knowledge": "visible_at_decision",
+                  "affiliation": "opponent"
+                }
+              ]
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内且直线距离约0.44，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "95f7e900-61ac-48b1-959e-de6b18108678"
+      }
+    },
+    {
+      "time": 193.2,
+      "line": 1771,
+      "plan": {
+        "region_id": "N52,21",
+        "objective": "向目标区域推进并建立可压制红方坦克的射位，当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          4.05000019073486,
+          1.64999997615814
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N52,21",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N52,21"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "8cfddbc3-e8bf-4548-a8c3-d427c95a7790"
+      }
+    },
+    {
+      "time": 198,
+      "line": 1806,
+      "plan": {
+        "region_id": "N52,30",
+        "objective": "向红方坦克所在方向推进至新区域，建立可对坦克形成射界的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          4.05000019073486,
+          2.32500004768372
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N52,30",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N52,30"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "9a21bc47-6264-4faa-94e4-9d31d39d3c3c"
+      }
+    },
+    {
+      "time": 211.1,
+      "line": 1868,
+      "plan": {
+        "region_id": "N40,34",
+        "objective": "向红方坦克所在方向推进至新区域，建立可对坦克形成射界的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          3.29999995231628,
+          2.54999995231628
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,34",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,34"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "8847061a-672a-4a34-86a9-0b31fe34c828"
+      }
+    },
+    {
+      "time": 216.6,
+      "line": 1916,
+      "plan": {
+        "region_id": "N40,34",
+        "objective": "向红方坦克所在方向推进至新区域，建立可对坦克形成射界的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          3.29999995231628,
+          2.54999995231628
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,34",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,34"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "9fbabe0c-f52c-42b2-94e1-e0a3b7f35e1e"
+      }
+    },
+    {
+      "time": 241,
+      "line": 1991,
+      "plan": {
+        "region_id": "N40,34",
+        "objective": "继续向红方坦克方向推进，进入能对其形成射界的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          3.29999995231628,
+          2.54999995231628
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,34",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,34"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "2f6c8533-d104-45b4-9016-58888b7c46b5"
+      }
+    },
+    {
+      "time": 244.7,
+      "line": 2022,
+      "plan": {
+        "region_id": "N40,34",
+        "objective": "继续向红方坦克方向推进，进入能对其形成射界的射位；当小队成员进入对坦克的有效射界或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；推进路线可能被硬掩体遮挡，射界需引擎复验。",
+        "position": [
+          3.29999995231628,
+          2.54999995231628
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,34",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,34"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "b5aa5d2e-02c0-4603-9da5-24e2197af533"
+      }
+    },
+    {
+      "time": 255.7,
+      "line": 2074,
+      "plan": {
+        "region_id": "N40,41",
+        "objective": "向红方坦克方向推进到南侧新射位，争取进入对坦克的有效射界；当小队成员能对坦克开火或确认坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；新射位射界需引擎复验，途中可能被硬掩体遮挡。",
+        "position": [
+          3.29999995231628,
+          3.07500004768372
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,41",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,41"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "b27f5c1d-a041-44b4-bf94-2e31212985aa"
+      }
+    },
+    {
+      "time": 257.4,
+      "line": 2096,
+      "plan": {
+        "region_id": "N40,41",
+        "objective": "向南推进到红方坦克西侧的新射位，争取让火箭兵进入对坦克的有效射界；当成员能对坦克开火或坦克被清除时完成。",
+        "risk": "红方坦克仍在活动，当前所有可见接触均超出武器射程；新射位射界需引擎复验，途中可能被硬掩体遮挡。",
+        "position": [
+          3.29999995231628,
+          3.07500004768372
+        ],
+        "radius": 0.1,
+        "stage": "approach",
+        "review_after_s": 20,
+        "wait_for": "",
+        "tactical_brief": {
+          "maneuver": "advance",
+          "steps": [
+            {
+              "action": "move",
+              "target_ids": [],
+              "targets": [
+                {
+                  "id": "N40,41",
+                  "kind": "region",
+                  "label": "目标区域",
+                  "knowledge": "native_offered_region"
+                }
+              ],
+              "region_id": "N40,41"
+            }
+          ],
+          "source": "commander_declared_plan",
+          "status": "planned"
+        },
+        "equipment_goal": {
+          "equipment_id": "battlefield-mortar-1",
+          "phase": "defer",
+          "actor_id": null,
+          "support_ids": [],
+          "reason": "当前唯一威胁是红方坦克，迫击炮对坦克有加成但两名成员均不在接管半径内，先推进接敌；若坦克持续压制或小队需要间接火力再重评夺炮。",
+          "source": "model_intent_not_execution",
+          "state_basis": {
+            "faction": "neutral",
+            "capturable": true,
+            "gunner_id": "",
+            "guard_id": ""
+          }
+        },
+        "source": "deepseek_commander",
+        "request_id": "71438077-5b6c-43b7-a3ef-64c0743fd6dd"
+      }
+    }
+  ]
+}

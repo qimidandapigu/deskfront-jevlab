@@ -1,0 +1,195 @@
+{
+  "operationId": "100fc605-0708-409d-859d-1e3d9c140c45",
+  "coversDigest": "1cc1746e0857",
+  "inputDigest": "9be6111c3d88:1cc1746e0857:1cc1746e0857:88b35d81c3aa",
+  "duration": 30,
+  "fps": 30,
+  "video": "assembly-100fc605-0708-409d-859d-1e3d9c140c45.mp4",
+  "poster": "assembly-100fc605-0708-409d-859d-1e3d9c140c45.png",
+  "chapters": [
+    {
+      "at": 0,
+      "title": "接上九张桌子",
+      "text": "桌面依次升起，组成这一关的空间。"
+    },
+    {
+      "at": 3.1,
+      "title": "放入初稿物件",
+      "text": "按保存的初稿布局，将电脑、书本和文具分组放到桌上。"
+    },
+    {
+      "at": 11.1,
+      "title": "查看桌间封口",
+      "text": "查看初稿保留的桌间封口位置；这里显示已有布局，不新增通行结论。"
+    },
+    {
+      "at": 14.2,
+      "title": "调整桌间封口",
+      "text": "移除 3 处原封口，在另 3 处加上封口墙；其余 18 件物件保留。"
+    },
+    {
+      "at": 18.4,
+      "title": "核对最终回执",
+      "text": "修改后布局与引擎完成回执一致；核对 21 件物件，没有新增、移除或移动。"
+    },
+    {
+      "at": 21,
+      "title": "展开规划路线",
+      "text": "绿色是主路，金色是侧路。本关主侧路重合，只展示一条。这是规划，不是实战轨迹。"
+    },
+    {
+      "at": 24.5,
+      "title": "放入小兵与支援",
+      "text": "红绿单位按记录落位。坦克与炮组采用建成后的早期观测。"
+    },
+    {
+      "at": 28,
+      "title": "关卡部署全貌",
+      "text": "看清物件、规划路线和兵力的关系。其余绿队仍在上一关，不把他们移到入口。"
+    }
+  ],
+  "provenance": {
+    "final": "Recorded completed engine receipt, verified covers digest.",
+    "intermediate": "Includes legacy offline reconstructions from recorded operations with current assets; these are not historical exact geometry snapshots.",
+    "batches": [
+      {
+        "id": "40317990-0dc5-44d9-b1dd-fad62338cb0c",
+        "source": "offline_reconstruction_cache",
+        "coversDigest": "9be6111c3d88"
+      },
+      {
+        "id": "f45e23a9-d79c-400c-aa43-ad4fead9bb5a",
+        "source": "offline_reconstruction_cache",
+        "coversDigest": "1cc1746e0857"
+      }
+    ],
+    "timing": "Deterministic presentation timings; not original AI thinking or object construction timestamps.",
+    "displayedGeometry": "First saved layout batch, last saved revision batch, final engine receipt.",
+    "sourceLog": "deskfront-bc7f433f-d880-40aa-a6ea-89465b718377.jsonl",
+    "readOnly": true,
+    "modelCalls": 0,
+    "navigationCalls": 0,
+    "geometryCache": "output/director-level-render/jobs.json",
+    "routes": "Final completed design geometry only; no inferred draft routes, new navigation or battle movement.",
+    "deployment": "小兵原地落位展示；支援单位使用建成后的首份已保存观测，不是出生瞬间或实战走位回放。"
+  },
+  "rendererHash": "b5691165fbfc1283413103b17dc193ff8e3f148d96dd0290ec1b475d6cb8c45a",
+  "width": 1000,
+  "height": 960,
+  "routes": {
+    "source": "completed_design_geometry",
+    "shared": true,
+    "mainPoints": 15,
+    "flankPoints": 0,
+    "meaning": "规划通路，不是小兵实战行走轨迹"
+  },
+  "deployment": {
+    "source": "completed_deployment_and_first_saved_observation",
+    "observation": 87.3,
+    "omitted": [
+      {
+        "id": "green-1",
+        "faction": "green",
+        "reason": "outside_generated_stage",
+        "position": [
+          -0.77295,
+          -0.07095
+        ]
+      },
+      {
+        "id": "green-2",
+        "faction": "green",
+        "reason": "outside_generated_stage",
+        "position": [
+          -0.54795,
+          -0.09
+        ]
+      },
+      {
+        "id": "green-3",
+        "faction": "green",
+        "reason": "outside_generated_stage",
+        "position": [
+          -0.64095,
+          -0.249
+        ]
+      },
+      {
+        "id": "green-900",
+        "faction": "green",
+        "reason": "outside_generated_stage",
+        "position": [
+          -0.19995,
+          0.0
+        ]
+      }
+    ],
+    "note": "小兵原地落位展示；支援单位使用建成后的首份已保存观测，不是出生瞬间或实战走位回放。",
+    "coordinateFrame": {
+      "kind": "stage_local_xz",
+      "worldOrigin": [
+        3.1800000000000006,
+        2.13
+      ]
+    },
+    "missingSpawned": [],
+    "units": [
+      {
+        "id": "red-tank-1",
+        "faction": "red",
+        "kind": "tank",
+        "weapon": "cannon",
+        "posture": "stand",
+        "position": [
+          1.30005,
+          0.19995
+        ],
+        "source": "early_engine_observation",
+        "observedAt": 87.3,
+        "start": 24.5
+      },
+      {
+        "id": "red-mortar-crew-8",
+        "faction": "red",
+        "kind": "infantry",
+        "weapon": "rifle",
+        "posture": "stand",
+        "position": [
+          0.93405,
+          -0.57495
+        ],
+        "source": "early_engine_observation",
+        "observedAt": 87.3,
+        "start": 24.76
+      },
+      {
+        "id": "red-mortar-crew-9",
+        "faction": "red",
+        "kind": "infantry",
+        "weapon": "rifle",
+        "posture": "stand",
+        "position": [
+          0.945,
+          -0.675
+        ],
+        "source": "early_engine_observation",
+        "observedAt": 87.3,
+        "start": 25.02
+      },
+      {
+        "id": "battlefield-mortar-1",
+        "faction": "red",
+        "kind": "mortar",
+        "weapon": "rifle",
+        "posture": "stand",
+        "position": [
+          0.89505,
+          -0.6
+        ],
+        "source": "early_engine_observation",
+        "observedAt": 87.3,
+        "start": 25.28
+      }
+    ]
+  }
+}

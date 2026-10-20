@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>一张文本地图，看全任务</title>
+<style>
+:root{color-scheme:light;--paper:#f3f5f2;--ink:#172b28;--muted:#526961;--line:#d6dfd9;--green:#126958;--blue:#216797;--enemy:#aa422d;--wash:#e6f1ec}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 "Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1120px;margin:auto;padding:26px 28px 55px}a{color:var(--green)}h1{font-size:31px;line-height:1.3;margin:18px 0 10px}h2{font-size:20px;margin:0 0 10px}h3{font-size:16px;margin:20px 0 8px}p{max-width:70ch;margin:8px 0}.muted{color:var(--muted)}.notice{border-left:3px solid var(--green);padding:8px 14px;background:var(--wash);font-size:14px;margin:16px 0}.controls{display:flex;gap:12px 24px;align-items:center;flex-wrap:wrap;margin:20px 0}.controls label{display:flex;align-items:center;gap:8px}input{width:18px;height:18px;accent-color:var(--green)}button{font:inherit;background:white;border:1px solid var(--line);padding:7px 12px;color:var(--ink);border-radius:5px;cursor:pointer}button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:white}:focus-visible{outline:3px solid #277faf;outline-offset:3px}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,1fr);gap:28px;background:white;border:1px solid var(--line);border-radius:8px;padding:24px}.layout>*{min-width:0}.map-box{overflow:auto;max-width:100%;background:#f8faf7;border:1px solid var(--line);border-radius:5px;padding:16px;margin:16px 0}.axis{font-size:13px;color:var(--muted);margin-bottom:10px}pre{font:19px/1.8 Consolas,"Cascadia Mono",monospace;white-space:pre;margin:0}.wall{color:#64756d}.me{color:var(--green);font-weight:bold}.enemy{color:var(--enemy);font-weight:bold}.site{color:var(--blue);font-weight:bold}.gate{color:#986a14;font-weight:bold}.region{color:#536787;font-weight:bold}.floor{color:#87978f}.selected{background:#ffe29d;outline:1px solid #ad7a08}.legend,.selectors{display:flex;gap:8px 14px;flex-wrap:wrap;font-size:14px;margin:14px 0}.selectors{gap:6px}.selectors button{font-size:14px;padding:5px 9px}.selection{font-size:14px;color:var(--muted);min-height:48px}.relation,.task{font-size:15px;padding:10px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.task{border-left:3px solid var(--green);padding-left:12px;margin-bottom:12px}.task strong{display:block}.check-table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}.check-table th,.check-table td{text-align:left;padding:9px 5px;border-bottom:1px solid var(--line)}.check-table tr.current{background:#fff3cf}.copy-row{display:flex;gap:12px;align-items:center;margin-top:16px}.copy-row span{font-size:13px;color:var(--muted)}details{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);font-size:14px}summary{cursor:pointer;color:var(--muted)}details p{max-width:80ch}.old-layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.old-layers section{min-width:0}.old-layers pre{font-size:12px}.old-layers h3{margin-top:0}.input-note{font-size:14px;color:var(--muted);margin:18px 0}[hidden]{display:none!important}@media(max-width:800px){main{padding:20px 16px}h1{font-size:27px}.layout{grid-template-columns:1fr;padding:18px;gap:20px}pre{font-size:17px}.map-box{padding:12px}.old-layers{grid-template-columns:1fr}.old-layers pre{font-size:15px}.check-table{font-size:13px}}
+</style></head><body><div id="teaching" hidden><main>
+<a href="/runtime/deskfront/maps?merged=1">返回真实对局地图</a>
+<h1>一张文本地图，看全任务</h1>
+<p>墙、入口、敌我、候选点和落点放在同一张图里。直接用 (x,y) 指定位置；通路与射界用短句补充。</p>
+<p class="notice">教学预览：用同一个示例展示合并格式。检查结果来自本页简化格网，不是真实游戏或模型结果。</p>
+<div class="controls"><label><input id="gate-open" type="checkbox" checked>入口 G1 打开</label><label><input id="enemy-near" type="checkbox">敌人移到入口右侧</label></div>
+<div class="layout"><section>
+<h2>地图与标记</h2>
+<div class="map-box"><div class="axis">行列从0开始；右为+x，下为+y。每个标记占一格。</div><pre id="map" aria-label="合并后的文本地图"></pre></div>
+<div class="legend"><span>ME 我</span><span>E1 敌人</span><span>+ 可选落点（用坐标选择）</span><span>TT 实际落点</span><span>G1 入口</span><span>W1 中间墙</span><span>## 墙</span><span>.. 空地</span></div>
+<p class="muted" style="font-size:14px">(x,y)＝(列,行)。例如入口是 (4,3)，目标 TT 是 (6,3)。点击候选坐标查看能否到达、能否射击。</p>
+<div class="selectors" aria-label="选择地图标记"></div>
+<p id="selection" class="selection" aria-live="polite"></p>
+<div class="copy-row"><button id="copy">复制完整文本输入</button><span id="status" aria-live="polite"></span></div>
+</section><section>
+<h2>任务、连接与检查</h2>
+<div class="task"><strong>指挥任务</strong>经过入口 (4,3)，到 (6,3) 建立对 E1 的火力。</div>
+<div id="ownership" class="relation"></div>
+<div id="connection" class="relation"></div>
+<p id="constraint" style="font-size:14px"></p>
+<h3>候选点检查（本例）</h3>
+<table class="check-table"><thead><tr><th>落点坐标</th><th>位置关系</th><th>从我处可达</th><th>对 E1 射线</th></tr></thead><tbody id="checks"></tbody></table>
+<p id="result" style="font-size:14px"></p>
+<p class="muted" style="font-size:13px">可达、到位射线通畅、实际开火是不同结果。真实游戏还需要原生枪口、姿态、射程与执行检查。</p>
+</section></div>
+<p id="density" class="input-note"></p>
+<details id="compare"><summary>查看原来的三层：为什么合并更紧凑</summary><p>三层适合内部组织数据。同样的行列、墙和空地反复画三次，输入会变长。合并图保留空间布局，区域归属与检查保留一次。</p><div id="old-layers" class="old-layers"></div></details>
+<details><summary>来源与本页的边界</summary><p>此图采用固定宽度符号表达，并用区域连接与检查补充。它是针对项目的教学格式，不是下面方案的官方输出样例，教学图不是真实关卡；实际坐标协议和真实模型请求可从页面顶部链接查看。</p><p><a href="https://www.nethack.org/v500/Guidebook.html" target="_blank" rel="noopener">NetHack 字符地图</a> · <a href="https://minigrid.farama.org/api/wrappers/#symbolic-obs" target="_blank" rel="noopener">MiniGrid 语义编码</a> · <a href="https://docs.ogc.org/is/22-045r5/22-045r5.html" target="_blank" rel="noopener">IndoorGML 空间与连接</a></p><p>本页四方向搜索和二维射线仅用于展示信息变化；不模拟真实武器、不选择战术、不调用模型。字符数是文本长度，不是服务商token。</p></details>
+</main></div><script>
+const $=id=>document.getElementById(id);
+let selected='C3',copyText='';
+const locations={ME:[1,1],C1:[2,2],C2:[3,2],G1:[3,4],C3:[3,5],TT:[3,6],E1:[1,7]};
+const regionLabels={R1:[5,2],R2:[5,6]};
+function coord(id){const [r,c]=point(id);return '('+c+','+r+')';}
+function point(id){return id==='E1'&&$('enemy-near').checked?[3,7]:locations[id];}
+function wall(r,c){return r===0||r===6||c===0||c===8||(c===4&&r!==3)||(r===3&&c===4&&!$('gate-open').checked);}
+function entityAt(r,c){return Object.keys(locations).find(id=>point(id)[0]===r&&point(id)[1]===c);}
+function pathTo(goal){
+ const queue=[point('ME')],seen=new Set([queue[0].join(',')]);
+ for(let i=0;i<queue.length;i++){
+  const [r,c]=queue[i];if(r===goal[0]&&c===goal[1])return true;
+  for(const [dr,dc] of [[-1,0],[1,0],[0,-1],[0,1]]){
+   const a=r+dr,b=c+dc,key=a+','+b;
+   if(a<0||a>6||b<0||b>8||wall(a,b)||seen.has(key))continue;
+   seen.add(key);queue.push([a,b]);
+  }
+ }
+ return false;
+}
+function rayBlock(from,to){
+ for(let i=0;i<=100;i++){
+  const r=Math.round(from[0]+(to[0]-from[0])*i/100),c=Math.round(from[1]+(to[1]-from[1])*i/100);
+  if(wall(r,c))return r===3&&c===4?'G1':'W1';
+ }
+ return null;
+}
+function glyph(layer,r,c){
+ const id=entityAt(r,c);
+ if(layer==='task')return id||'--';
+ if(layer==='merged'){
+  if(id)return id.startsWith('C')?'+':id;
+  if(r===2&&c===4)return 'W1';
+  const label=Object.keys(regionLabels).find(k=>regionLabels[k][0]===r&&regionLabels[k][1]===c);
+  return wall(r,c)?'##':'..';
+ }
+ if(r===3&&c===4)return 'G1';
+ if(wall(r,c))return '##';
+ return layer==='regions'?(c<4?'R1':'R2'):'..';
+}
+function node(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;}
+function draw(host,layer){
+ host.replaceChildren();const header='    '+Array.from({length:9},(_,c)=>String(c).padStart(2,'0').padEnd(3)).join(' ');
+ host.append(document.createTextNode(header+'\n'));let plain=header+'\n';const [sr,sc]=point(selected);
+ for(let r=0;r<7;r++){
+  const prefix=String(r).padStart(2,'0')+'  ';host.append(document.createTextNode(prefix));plain+=prefix;
+  for(let c=0;c<9;c++){
+   const token=glyph(layer,r,c),printed=token.padEnd(3)+(c===8?'':' '),span=node('span',printed);
+   span.className=token==='ME'?'me':token==='E1'?'enemy':token==='G1'?'gate':token.startsWith('C')||token==='TT'?'site':token.startsWith('R')?'region':token==='##'||token==='W1'?'wall':'floor';
+   if(sr===r&&sc===c)span.classList.add('selected');span.title=`第${r}行，第${c}列：${token}`;
+   host.append(span);plain+=printed;
+  }
+  host.append(document.createTextNode('\n'));plain+='\n';
+ }
+ return plain;
+}
+function render(){
+ const plain=draw($('map'),'merged');
+ $('ownership').textContent='区域归属：R1 = ME、C1、C2；R2 = E1、C3、TT。';
+ const open=$('gate-open').checked;
+ $('connection').textContent=open?'通路：R1 — G1（打开）— R2。':'通路：R1 — G1（关闭）× R2。';
+ $('constraint').textContent=open?'W1分隔两区，本例唯一通路经过G1。':'G1已关闭，本例目前没有从R1到R2的可行通路；位置和任务仍保留。';
+ const rows=['C1','C2','C3'].map(id=>({id,region:point(id)[1]<4?'R1':'R2',reachable:pathTo(point(id)),blocker:rayBlock(point(id),point('E1'))}));
+ $('checks').replaceChildren(...rows.map(row=>{
+  const tr=node('tr');if(row.id===selected)tr.className='current';
+  tr.append(...[coord(row.id),point(row.id)[1]<4?'墙左侧':'墙右侧',row.reachable?'可达':'不可达',row.blocker?'被'+row.blocker+'挡住':'通畅'].map(t=>node('td',t)));return tr;
+ }));
+ document.querySelector('.selectors').replaceChildren(...Object.keys(locations).map(id=>{
+  const b=node('button',id==='ME'?'ME 我':id==='TT'?'TT 落点':id==='E1'?'E1 敌人':id.startsWith('C')?coord(id):id);
+  b.setAttribute('aria-pressed',String(id===selected));b.onclick=()=>{selected=id;render();};return b;
+ }));
+ const [r,c]=point(selected);const region=selected==='G1'?'R1/R2之间的入口':c<4?'R1':'R2';
+ $('selection').textContent=`${coord(selected)}：第${r}行、第${c}列；${c<4?'墙左侧':c>4?'墙右侧':'入口'}；`+(selected==='G1'?(open?'入口打开，可通行。':'入口关闭，阻塞。'):(pathTo([r,c])?'从我处可达。':'从我处不可达。'));
+ $('result').textContent=!open?'C3到位可以有通畅射线，但我过不去：不能用“到位能打”代替“现在能到”。':$('enemy-near').checked?'敌人来到入口右侧后，C2也能通过G1形成二维射线；检查应随当前状态更新。':'C1和C2能走到，却被墙挡住；C3在墙的另一边，二维射线通畅。';
+ const checkText=rows.map(row=>`${coord(row.id)}：${row.reachable?'可达':'不可达'}；对E1射线${row.blocker?'被'+row.blocker+'挡住':'通畅'}`).join('\n');
+ const facts=['我在(1,1)，敌人位置见E1；可选落点(2,2)、(2,3)、(5,3)。',`G1：第3行第4列，${open?'打开；墙两侧连通':'关闭；墙两侧不通'}。`,'W1：分隔墙。坐标可达与坐标能射击分别检查。','任务：经过(4,3)，到(6,3)建立对E1的火力。',checkText].join('\n');
+ const legend='ME=我 E1=敌人 +=可选落点 TT=落点 G1=入口 W1/##=墙 ..=空地';
+ copyText=['教学示例：非真实对局。行列从0开始，右+x，下+y。','合并地图',plain,legend,facts,'检查是本页简化格网/二维射线事实，不是Godot原生射击回执。'].join('\n\n');
+ const oldTexts=[];$('old-layers').replaceChildren();
+ for(const [layer,title] of [['terrain','地形层'],['regions','区域层'],['task','任务层']]){
+  const section=node('section'),box=node('div'),pre=node('pre');box.className='map-box';pre.dataset.layerMap=layer;
+  const text=draw(pre,layer);box.append(pre);section.append(node('h3',title),box);$('old-layers').append(section);oldTexts.push(title+'\n'+text);
+ }
+ const mergedChars=('合并地图\n'+plain+'\n'+legend+'\n'+facts).length;
+ const separateChars=(oldTexts.join('\n\n')+'\n'+legend+'\n'+facts).length;
+ $('density').textContent=`同一例子、同一组归属和检查：三张图加文字约${separateChars}字符，合并图加文字约${mergedChars}字符，减少${Math.round((1-mergedChars/separateChars)*100)}%。这是教学文本字符数，未测真实模型token。`;
+ $('ownership').textContent='我 (1,1) · 入口 (4,3) · 目标 (6,3)';$('connection').textContent=open?'经过 (4,3) 可到右侧':'(4,3) 关闭，当前不能穿过分隔墙';$('constraint').textContent=open?'用坐标指定落点，射界另外检查。':'入口关闭时，不把右侧的清晰射线误当作可达。';$('result').textContent= !open?'右侧落点有射线，但当前走不过去。':$('enemy-near').checked?'敌人来到入口右侧，(2,3) 的射线也通畅了。':'(2,2) 和 (2,3) 能走到，但被墙挡住；(5,3) 在另一侧，射线通畅。';$('status').textContent='';
+}
+$('gate-open').onchange=render;$('enemy-near').onchange=render;
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(copyText);$('status').textContent='已复制地图、图例、任务和检查。';}catch{$('status').textContent='请直接选择地图文本复制。';}};
+render();
+</script>
+<main id="real-case" hidden>
+<nav><a id="director-link" href="/runtime/deskfront/director">同局关卡导演台</a> · <a href="?demo=1">切换教学示例</a></nav>
+<h1>真实对局：地图、任务与模型选择</h1><p class="muted">选一条实际请求，看它当时看到了什么、有哪些位置可选，以及最后怎样回答。</p>
+<div class="controls"><label>对局 <select id="real-session"></select></label><label>阵营 <select id="real-faction"><option value="green">绿方</option><option value="red">红方</option></select></label><label>决策层 <select id="real-role"><option value="personal">单兵</option><option value="executor">小队</option><option value="commander">指挥官</option></select></label><label>采样 <select id="real-sample"><option value="answered">最近有回答</option><option value="latest">最新请求</option></select></label><button id="real-refresh">读取记录</button></div>
+<p id="real-status" role="status">正在读取对局列表…</p>
+<div id="real-content" hidden>
+<div class="layout"><section><h2>当时的地图</h2><p id="real-meta" class="muted"></p><p id="real-format-note" class="muted"></p><div class="map-box"><pre id="real-map" aria-label="真实对局合并地图"></pre></div><p class="muted">ME 当前士兵 · E 敌情标记 · U 友军 · ## 障碍 · :: 边缘 · ?? 未知；+ 候选点为本页叠加。坐标从图上的行列读，不代表米。</p><div class="selectors" id="real-sites"></div><p id="real-selection" class="selection"></p><div class="copy-row"><button id="real-copy">复制案例地图</button><span id="real-copy-status"></span></div></section>
+<section><h2>任务与实际选择</h2><div id="real-facts"></div><h3>模型实际回答</h3><p id="real-answer"></p><details><summary>回答原文</summary><pre id="real-answer-raw"></pre></details><h3>这个候选点能打谁</h3><div id="real-checks"></div><p class="muted">检查取自同次请求记录。未记录即未知；模型回答不等于引擎已执行。</p></section></div>
+<details><summary>地图格式与数据来源</summary><p id="real-provenance"></p><pre id="real-entities"></pre></details>
+<details><summary>这次完整请求与候选事实</summary><pre id="real-raw"></pre></details>
+<a id="real-prompt-link" href="/runtime/deskfront/prompts?view=map">打开完整提示词查看页</a>
+</div></main>
+<style>
+#real-case .controls label{white-space:nowrap}#real-case button:hover{border-color:var(--green)}
+#real-case{max-width:1480px}#real-case .layout{grid-template-columns:minmax(0,1.9fr) minmax(260px,1fr)}#real-case select{font:inherit;padding:8px;border:1px solid var(--line);border-radius:5px;background:white;max-width:100%}#real-session{max-width:360px}#real-map{font-size:14px;line-height:1.65}#real-case .map-box{max-height:650px}#real-case .relation{padding:10px 0}#real-case details pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}#real-status{padding:12px 0;color:var(--green)}#real-case button:disabled{opacity:.55;cursor:wait}#real-sites{max-height:150px;overflow:auto}#real-case .selected{color:#172b28}#real-case .controls label{min-width:0}#real-case .map-box{scrollbar-color:#849c90 #eef3ef}::selection{background:#ffe29d;color:#172b28}@media(max-width:900px){#real-case .layout{grid-template-columns:1fr}#real-case .controls label:first-child{width:100%}#real-session{width:100%;min-width:0}}
+</style>
+<script>
+(()=>{
+const q=new URLSearchParams(location.search),demo=q.get('demo')==='1';document.getElementById('teaching').hidden=!demo;document.getElementById('real-case').hidden=demo;if(demo)return;document.title='真实对局地图 · Deskfront';
+const el=id=>document.getElementById('real-'+id),make=(tag,text)=>{const e=document.createElement(tag);if(text!=null)e.textContent=String(text);return e};let record,state,sites=[],selected=0,serial=0,abort,diagram='';
+const rows=v=>Array.isArray(v)?v:v?.columns&&v.rows?v.rows.map(r=>Object.fromEntries(v.columns.map((k,i)=>[k,r[i]]))):[];
+const resolve=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.keys(v).length===1&&Number.isInteger(v.ref)?state.shared_facts?.[v.ref]:v;
+function showMap(){const map=state.tactical_map||{},lines=(map.diagram||'').split('\n');el('map').replaceChildren();let ordinal=0;for(const line of lines){const m=line.match(/^(\d+)\s*\|(.+)\|\s*$/);if(!m){el('map').append(document.createTextNode(line+'\n'));continue}const r=Number(m[1]),tokens=m[2].trim().split(/\s+/),origin=map.origin?.[0]??0;el('map').append(document.createTextNode(m[1].padStart(2,'0')+' |'));tokens.forEach((token,i)=>{const c=origin+i,candidates=sites.filter(x=>Array.isArray(x.position)&&Math.floor(x.position[0])===c&&Math.floor(x.position[1])===r),active=sites[selected]?.position;let shown=token;if(candidates.length&&token==='..')shown=' +';const span=make('span',shown.padStart(2,' ')+' ');span.className=token==='ME'?'me':/^E\d/.test(token)?'enemy':candidates.length?'site':token==='##'?'wall':'floor';if(active&&Math.floor(active[0])===c&&Math.floor(active[1])===r)span.classList.add('selected');span.title='('+c+','+r+') '+token+(candidates.length?'；候选 '+candidates.map(x=>x.id).join('、'):'');el('map').append(span)});el('map').append(document.createTextNode('|\n'));ordinal++}diagram=el('map').textContent;if(!ordinal)el('map').textContent=map.diagram||'本次记录没有地图';}
+function selectSite(index){selected=index;showMap();Array.from(el('sites').children).forEach((b,i)=>b.setAttribute('aria-pressed',String(index===i)));const site=sites[index];el('checks').replaceChildren();if(!site){el('selection').textContent='这条请求没有候选位置记录。';el('checks').textContent='未记录';return}el('selection').textContent='候选 '+site.id+' · 位置 '+JSON.stringify(site.position||'未记录')+' · 姿态 '+(site.fire_check_posture||'未记录');const targets=resolve(site.fire_targets),checks=resolve(site.fire_checks),reasons={muzzle_cover:'枪口被掩体挡住',target_occluded:'目标被遮挡',out_of_range:'超出射程',weapon_cannot_attack_armor:'武器不能攻击装甲'};el('checks').append(make('p',targets==null?'可攻击目标未记录':Array.isArray(targets)&&targets.length?'可攻击：'+targets.join('、'):'记录中的可攻击目标：无'));if(Array.isArray(checks))for(const c of checks){const row=make('p',c.target_id+'：'+(c.clear===true?'检查通过':c.clear===false?(reasons[c.reason]||c.reason||'受阻'):'结果未知')+(c.blocker_id?'；遮挡物 '+c.blocker_id:''));row.className='relation';el('checks').append(row)}else el('checks').append(make('p','没有逐目标射界检查记录'));}
+function render(){const p=record.coordinatePreview;state=p?.state||record.request.state;el('format-note').textContent=p?.recorded?'来自当次坐标请求记录':'旧日志按当前坐标格式重排，并非当时请求的原样排版。';sites=rows(state.candidate_sites);el('content').hidden=false;el('meta').textContent=(state.time==null?'时间未记录':'游戏 '+Number(state.time).toFixed(1)+' 秒')+' · '+(record.metadata.unit_id||state.self?.id||el('role').selectedOptions[0].text)+' · 匹配 '+record.matchingRequests+' 次请求';el('facts').replaceChildren();for(const row of record.readableCase?.facts||[]){const box=make('div');box.className='relation';box.append(make('strong',row.label),make('p',row.text));el('facts').append(box)}el('answer').textContent=record.readableCase?.decision?.text||'没有关联到模型回答';el('answer-raw').textContent=JSON.stringify(record.readableCase?.decision?.raw??null,null,2);el('sites').replaceChildren();sites.forEach((site,i)=>{const b=make('button',site.id||JSON.stringify(site.position));b.onclick=()=>selectSite(i);el('sites').append(b)});selectSite(0);el('provenance').textContent=(p?.recorded?'日志记录已使用坐标协议。':'旧日志按当前坐标格式重排，未声称模型当时收到此排版。')+' 地图与事实来自所选同一次请求；候选高亮是查看页叠加。这里不重算寻路，不调用模型。实际采样：'+(record.sample==='answered'?'最近有回答':'最新请求（可能尚未回答）');el('entities').textContent=JSON.stringify(state.tactical_map?.entities||{},null,2);el('raw').textContent=JSON.stringify(record.request,null,2);el('status').textContent='已载入真实日志 · '+record.session;document.getElementById('director-link').href='/runtime/deskfront/director?session='+encodeURIComponent(record.session);el('prompt-link').href='/runtime/deskfront/prompts?view=map&session='+encodeURIComponent(record.session);}
+async function load(){const mine=++serial;abort?.abort();abort=new AbortController();el('content').hidden=true;el('refresh').disabled=true;el('status').textContent='正在读取实际请求…';el('copy-status').textContent='';try{const response=await fetch('/api/deskfront/prompts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'log',session:el('session').value,faction:el('faction').value,role:el('role').value,sample:el('sample').value}),signal:abort.signal});const value=await response.json();if(mine!==serial)return;if(!response.ok)throw Error(value.error||'读取失败');record=value;render();const url=new URL(location.href);url.searchParams.set('session',record.session);history.replaceState(null,'',url)}catch(e){if(e.name!=='AbortError'&&mine===serial)el('status').textContent='无法读取：'+e.message+'。请选择其他阵营、决策层或对局。'}finally{if(mine===serial)el('refresh').disabled=false}}
+for(const id of ['session','faction','role','sample'])el(id).onchange=load;el('refresh').onclick=load;el('copy').onclick=async()=>{try{await navigator.clipboard.writeText('真实日志 '+record.session+'\n'+el('meta').textContent+'\n'+el('provenance').textContent+'\n'+diagram+'\n模型回答：'+el('answer').textContent);el('copy-status').textContent='已复制'}catch{el('copy-status').textContent='请选中地图文本复制'}};
+(async()=>{try{const r=await fetch('/api/deskfront/prompts/sessions');if(!r.ok)throw Error('对局列表不可用');const {sessions}=await r.json();for(const s of sessions){const o=make('option',new Date(s.updated).toLocaleString('zh-CN')+' · '+s.id.slice(-8));o.value=s.id;el('session').append(o)}if(!sessions.length){el('status').textContent='暂无真实对局记录，可切换教学示例。';el('refresh').disabled=true;return}if(sessions.some(x=>x.id===q.get('session')))el('session').value=q.get('session');await load()}catch(e){el('status').textContent='读取失败：'+e.message}})();
+})();
+</script>
+</body></html>

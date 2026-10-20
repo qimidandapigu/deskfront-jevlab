@@ -1,0 +1,75 @@
+{
+  "schema": "force-recommendation-tuning/v1",
+  "version": "2026.10.20-enemy-diversity-v1",
+  "enemy_diversity_weight": 0.03,
+  "progression_increment_per_clear": 0.1,
+  "difficulty_targets": {
+    "very_easy": 0.45,
+    "easy": 0.7,
+    "normal": 1.0,
+    "hard": 1.3,
+    "very_hard": 1.65
+  },
+  "reinforcement_ready_target": 3.0,
+  "health_endurance_exponent": 0.7,
+  "health_output_exponent": 0.25,
+  "unknown_health_range": [
+    0.0,
+    1.0
+  ],
+  "calculation_health_floor": 0.01,
+  "mortar_crew": 2,
+  "max_count_candidates": 128,
+  "history_window": 6,
+  "repeat_penalty": 0.03,
+  "role_endurance": {
+    "rifle": 1.0,
+    "smg": 2.0,
+    "rocket": 1.0,
+    "tank": 4.8,
+    "mortar": 2.0
+  },
+  "effectiveness": {
+    "rifle": {
+      "rifle": 1.0,
+      "smg": 1.0,
+      "rocket": 1.0,
+      "tank": 0.06,
+      "mortar": 1.0
+    },
+    "smg": {
+      "rifle": 0.8,
+      "smg": 0.8,
+      "rocket": 0.8,
+      "tank": 0.05,
+      "mortar": 0.8
+    },
+    "rocket": {
+      "rifle": 0.9,
+      "smg": 0.9,
+      "rocket": 0.9,
+      "tank": 3.2,
+      "mortar": 0.9
+    },
+    "tank": {
+      "rifle": 2.8,
+      "smg": 2.8,
+      "rocket": 2.8,
+      "tank": 1.7,
+      "mortar": 2.8
+    },
+    "mortar": {
+      "rifle": 2.3,
+      "smg": 2.3,
+      "rocket": 2.3,
+      "tank": 2.7,
+      "mortar": 2.3
+    }
+  },
+  "evidence_boundary": "Initial, tunable normalized composition heuristic; not measured DPS, victory probability, a battle simulator, or proof of human experience. Relative health only; no level, maximum-health growth, map, route, position or encounter-condition inputs.",
+  "max_reinforcement_candidates": 128,
+  "joint_readiness_weight": 1.0,
+  "joint_entity_cost": 0.03,
+  "joint_endurance_cost": 0.025,
+  "max_composition_candidates": 256
+}
