@@ -24,7 +24,7 @@
     "docs/open-source/deskfront-module-packaging.md": "18a30109617501820bf62d2e9588a96d22d235517a930a740bd03c9190f3bf5c",
     "docs/squad-task-coherence.md": "9a69ff1b6eb780e18f2b9ee9f2ab22325505f7c4afb7f4900aa733984f600613",
     "docs/tactical-no-wait.md": "41891762f27251f71d33c42b60b18ef1bdb90f2228bbefb1664cb2538a20d0eb",
-    "export-manifest.json": "aa5f1bc4235549ce42de1e7c8ea9db8f6e4aa99ebcf7776a455c1ab945bd8b60",
+    "export-manifest.json": "2ef529f7722b0a3727f3ff95395ec89d99a2285514c4e8688c37d4e48da95efe",
     "output/web-game-20261020/host-code/actor_roster.pyc": "f860d42b5ace57a6ee187762079a115234b17dcc52ce027512adcc446e004f13",
     "output/web-game-20261020/host-code/launch_settings.pyc": "b9882820df8c0c82d02e464707c0fc182f19d684373544b9cab85eb82fdd10af",
     "output/web-game-20261020/host-code/release_runtime.pyc": "42262baca540d3e9666895f1ecd8dea31f76c90d6da42f94c8308454255b2b65",
@@ -94,7 +94,7 @@
     "output/web-game-20261020/sdk/docs/open-source/deskfront-module-packaging.md": "18a30109617501820bf62d2e9588a96d22d235517a930a740bd03c9190f3bf5c",
     "output/web-game-20261020/sdk/docs/squad-task-coherence.md": "9a69ff1b6eb780e18f2b9ee9f2ab22325505f7c4afb7f4900aa733984f600613",
     "output/web-game-20261020/sdk/docs/tactical-no-wait.md": "41891762f27251f71d33c42b60b18ef1bdb90f2228bbefb1664cb2538a20d0eb",
-    "output/web-game-20261020/sdk/export-manifest.json": "ca35e5abfdde5fc534970f132455e65c2d66aff3f4843c4b044cc8c4e36a194a",
+    "output/web-game-20261020/sdk/export-manifest.json": "8488c42ff2e6a584d39c6ae044fc03caedd1a05dfdf860b5833981f1e37373fe",
     "output/web-game-20261020/sdk/package.json": "3d7f935cfc5bade77f6d5b84bd36e91a1ddd8f4df85c51da0d9e72004d7496c6",
     "output/web-game-20261020/sdk/packages/game-sdk/README.md": "6e67d201e2c1f5cfacddb0f84987c46db3a8e3388085be6a12eef9bfd90bb164",
     "output/web-game-20261020/sdk/packages/game-sdk/dist/client.d.ts": "3c5208f805fcf9ed75b8394ee5aaa30f3ef6b59dcc087b820bdddd589a2c257d",
@@ -778,7 +778,7 @@
     "tools/start-web.mjs": "ed6d2d849680def7ea1caa181859332b85a74f7fcf07d19bbd79c91c6778963d",
     "tsconfig.json": "bee3834fbe1e5cc9564ac306a756019f90bf20043a192f62628a0b3a243b53ce",
     "versions/current.json": "5a5c6140186cf93ddc768036d9751596a605d58bc6e8a857e146c409097cf898",
-    ".gitattributes": "fd8cc35e73234154f5d22ce50383c64db82ce8c844115939b59a516e2a7ad30c"
+    ".gitattributes": "0ee138aa4d95222bc45167369a01f15ea1f5d9fbaa357327be0ecdb869a22015"
   },
   "secretScan": {
     "passed": true,
