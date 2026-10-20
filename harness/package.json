@@ -4,14 +4,15 @@
   "version": "0.1.0",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.19.0"
   },
   "scripts": {
     "start": "tsx tools/deskfront-attach.ts",
     "typecheck": "tsc --noEmit",
     "sdk:build": "npm run build --prefix packages/game-sdk",
     "web": "node tools/start-web.mjs",
-    "web:check": "node tools/start-web.mjs --check"
+    "web:check": "node tools/start-web.mjs --check",
+    "web:smoke": "node tools/start-web.mjs --smoke"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

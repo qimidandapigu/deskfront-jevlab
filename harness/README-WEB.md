@@ -9,7 +9,7 @@ Node.js、Python、npm 依赖和真实模型密钥不进仓库，由使用者自
 1. 安装 Node.js 22.19+（推荐24 LTS）和 **Python 3.13**。宿主和关卡组件采用 CPython 3.13 字节码，因此不能换成3.12/3.14。浏览器需支持WebGL2。
 2. 在本目录执行 `npm ci`。
 3. 将 `config.local.example.json` 复制为 `config.local.json`，填写自己的密钥。JEV 使用 TypeSafe；DeepSeek 和 analyst 使用各自配置的服务与模型，可以共用同一枚 DeepSeek 密钥。配置模板中的 provider/model 是可编辑项，须与自己的账号权限匹配。
-4. `npm run web:check` 检查游戏文件、Python与宿主/关卡运行模块，不调用模型。
+4. `npm run web:check` 检查游戏文件、Python与宿主/关卡运行模块。`npm run web:smoke` 进一步在空闲端口启动并关闭看板/回放服务；两项均不需要密钥、不创建对局、不调用模型。
 5. `npm run web`，打开终端输出的 `http://127.0.0.1:50205/?view=beginner`。选队伍、开始游戏后才会请求模型，并产生相应服务费用。端口被占用时可设置 `VIEWER_PORT=0` 使用空闲端口。
 
 PowerShell示例：
@@ -23,7 +23,7 @@ npm run web:check
 npm run web
 ```
 
-需要语音时另按 `.env.example` 与解说组件说明填写自己的语音配置。未配置语音不会自动借用作者的账号。退出服务用 Ctrl+C。
+需要语音时，将 `.env.example` 复制为 `.env`，填写自己的 `DOUBAO_TTS_API_KEY`。模板保留音色、资源和语速等非密钥设置；所选音色须在自己的语音账号有使用权限。未配置语音时保留文字，不会借用作者账号。退出服务用 Ctrl+C。端口冲突或启动失败也会清理本次启动的子服务，不会结束其他人的进程。
 
 ## 回放
 

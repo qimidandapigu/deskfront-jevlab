@@ -1,11 +1,13 @@
 /** Portable entry for the prebuilt Web game. Never downloads game dependencies implicitly. */
-import {readFile,writeFile,copyFile,access,mkdir} from 'node:fs/promises';
+import {readFile,copyFile,access} from 'node:fs/promises';
 import {spawn,spawnSync} from 'node:child_process';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 process.chdir(root);
-const check=process.argv.includes('--check'),pythonCandidates=[process.env.PYTHON_BIN,'python','python3'].filter(Boolean);
+const check=process.argv.includes('--check'),smoke=process.argv.includes('--smoke'),pythonCandidates=[process.env.PYTHON_BIN,'python','python3'].filter(Boolean);
+const [major,minor]=process.versions.node.split('.').map(Number);
+if(major<22||major===22&&minor<19)throw Error('需要 Node.js 22.19 或更新版本，推荐24 LTS。');
 let python;
 for(const candidate of pythonCandidates){const r=spawnSync(candidate,['-c','import sys; print(sys.executable); print("%d.%d"%sys.version_info[:2])'],{encoding:'utf8',windowsHide:true});if(r.status===0&&r.stdout.trim().split(/\r?\n/).at(-1)==='3.13'){python=r.stdout.trim().split(/\r?\n/)[0];break;}}
 if(!python&&process.platform==='win32'){const r=spawnSync('py',['-3.13','-c','import sys;print(sys.executable)'],{encoding:'utf8',windowsHide:true});if(r.status===0)python=r.stdout.trim();}
@@ -21,14 +23,30 @@ const value=JSON.parse(await readFile(config,'utf8')),keys=Boolean(value.jev?.ap
 const ffmpeg=spawnSync('ffmpeg',['-version'],{windowsHide:true,stdio:'ignore'}).status===0;
 console.log(JSON.stringify({gameFiles:true,python:'3.13',hostImport:true,levelRuntimeImport:true,keysConfigured:keys,ffmpegAvailable:ffmpeg,networkModelCalls:0}));
 if(check)process.exit(0);
-if(!keys)throw Error('请先填写 config.local.json 中 jev / deepseek / analyst 的 apiKey；DeepSeek 和 analyst 可使用同一密钥。不会启动付费模型请求。');
+if(!keys&&!smoke)throw Error('请先填写 config.local.json 中 jev / deepseek / analyst 的 apiKey；DeepSeek 和 analyst 可使用同一密钥。不会启动付费模型请求。');
 if(!ffmpeg)console.warn('未安装 FFmpeg：游戏可运行，回放封装暂不可用。安装 FFmpeg 后重新启动即可。');
 const children=[];
-function start(file,port){return new Promise((ok,no)=>{const child=spawn(process.execPath,['--import','tsx',file,String(port)],{cwd:root,env:process.env,windowsHide:true,stdio:['inherit','pipe','inherit']});children.push(child);let text='';child.stdout.on('data',chunk=>{const s=chunk.toString();process.stdout.write(s);text+=s;const m=/http:\/\/127\.0\.0\.1:(\d+)/.exec(text);if(m)ok({child,port:Number(m[1])});});child.once('error',no);child.once('exit',code=>{if(!text.includes('http://'))no(Error(file+' 启动失败 '+code));});});}
-const replay=await start('tools/deskfront-replays.ts',Number(process.env.REPLAY_PORT??0));
-process.env.DESKFRONT_REPLAY_ORIGIN='http://127.0.0.1:'+replay.port;
-const viewer=await start('tools/deskfront-web.ts',Number(process.env.VIEWER_PORT??50205));
-console.log('打开 http://127.0.0.1:'+viewer.port+'/?view=beginner');
 function stop(){for(const child of children)if(child.exitCode===null)child.kill();}
+// Register cleanup before spawning anything: a failed viewer must not orphan replay.
+process.on('exit',stop);
 process.on('SIGINT',()=>{stop();process.exit(0);});process.on('SIGTERM',()=>{stop();process.exit(0);});
-viewer.child.once('exit',code=>{stop();process.exit(code??1);});
+function start(file,port){return new Promise((ok,no)=>{
+ const child=spawn(process.execPath,['--import','tsx',file,String(port)],{cwd:root,env:process.env,windowsHide:true,stdio:['inherit','pipe','inherit']});children.push(child);let text='',ready=false;
+ const timer=setTimeout(()=>{child.kill();no(Error(file+' 启动超过20秒，请检查端口及服务日志。'));},20000);
+ child.stdout.on('data',chunk=>{const s=chunk.toString();process.stdout.write(s);text=(text+s).slice(-8192);const m=/http:\/\/127\.0\.0\.1:(\d+)/.exec(text);if(m&&!ready){ready=true;clearTimeout(timer);ok({child,port:Number(m[1])});}});
+ child.once('error',e=>{clearTimeout(timer);no(e);});child.once('exit',code=>{clearTimeout(timer);if(!ready)no(Error(file+' 启动失败 '+code));});
+});}
+try{
+ const replay=await start('tools/deskfront-replays.ts',Number(process.env.REPLAY_PORT??0));
+ process.env.DESKFRONT_REPLAY_ORIGIN='http://127.0.0.1:'+replay.port;
+ const viewer=await start('tools/deskfront-web.ts',Number(process.env.VIEWER_PORT??(smoke?0:50205)));
+ const origin='http://127.0.0.1:'+viewer.port;
+ console.log('打开 '+origin+'/?view=beginner');
+ if(smoke){
+  const page=await(await fetch(origin+'/?view=beginner',{signal:AbortSignal.timeout(5000)})).text();
+  const health=await(await fetch(origin+'/web/health',{signal:AbortSignal.timeout(5000)})).json();
+  if(!page.includes('replay-list')||!page.includes(process.env.DESKFRONT_REPLAY_ORIGIN+'/replays.js')||health.job!==null)throw Error('启动自检未通过');
+  console.log(JSON.stringify({smoke:true,web:true,replay:true,credentialsRequired:false,modelCalls:0,pids:children.map(x=>x.pid),ports:[viewer.port,replay.port]}));
+  stop();
+ }else viewer.child.once('exit',code=>{stop();process.exit(code??1);});
+}catch(e){stop();console.error(e.message);process.exitCode=1;}

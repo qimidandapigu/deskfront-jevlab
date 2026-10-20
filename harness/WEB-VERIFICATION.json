@@ -18,5 +18,42 @@
     }
   },
   "beginnerReplayUI": true,
-  "modelCalls": 0
+  "modelCalls": 0,
+  "portabilityRecheck": {
+    "sourceCommit": "d84a7d1",
+    "cleanDirectoryWithSpaces": true,
+    "freshNpmCi": true,
+    "strictTypecheck": true,
+    "python313HostImport": true,
+    "compiledGeneratorModulesImported": 48,
+    "launcherCases": [
+      {
+        "case": "blank-keys",
+        "pass": true,
+        "portsClosed": true,
+        "modelCalls": 0
+      },
+      {
+        "case": "normal-smoke-1",
+        "pass": true,
+        "portsClosed": true,
+        "modelCalls": 0
+      },
+      {
+        "case": "normal-smoke-2",
+        "pass": true,
+        "portsClosed": true,
+        "modelCalls": 0
+      },
+      {
+        "case": "occupied-port",
+        "pass": true,
+        "ownedReplayClosed": true,
+        "existingListenerPreserved": true,
+        "modelCalls": 0
+      }
+    ],
+    "liveProviderRequests": 0,
+    "otherComputerOrWholeAiMatchVerified": false
+  }
 }

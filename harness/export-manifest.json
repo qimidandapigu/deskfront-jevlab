@@ -78,7 +78,7 @@
   ],
   "typescriptModules": 71,
   "files": {
-    ".env.example": "3fe5a5aba4f5ec4487033e265a45f0ab49e86d1275d4b73223c8e896c9e2f0d2",
+    ".env.example": "3334e3c2d6fb80cd49d1e0ef9de4e332b25092ba5b315aadb11d36906b4c4bab",
     ".gitignore": "817a306ac2b94a7888ffd3633cb0e199892b453e991157eb1f0cb8de55016216",
     "AGENTS.md": "13ed4af227d87e5f6f30f1a73f83b0092c0f2e1a9a337cf7b58f02e1daa122a2",
     "BATTLE_LAB.md": "bb4abe9b5ce66d9e0f4743af5c8a12e82e2eda089d34c85aa6c08a88df172823",
@@ -90,7 +90,7 @@
     "docs/open-source/deskfront-module-packaging.md": "18a30109617501820bf62d2e9588a96d22d235517a930a740bd03c9190f3bf5c",
     "docs/squad-task-coherence.md": "9a69ff1b6eb780e18f2b9ee9f2ab22325505f7c4afb7f4900aa733984f600613",
     "docs/tactical-no-wait.md": "41891762f27251f71d33c42b60b18ef1bdb90f2228bbefb1664cb2538a20d0eb",
-    "package.json": "67f5463c5e67bbbe98000a3a8d145aafaf614d39a740851b9e17562b16c5726e",
+    "package.json": "11b735295c6c1bd4a57f08a478c256f76b0635e4def2f86881f805916eb01a2a",
     "packages/game-sdk/README.md": "6e67d201e2c1f5cfacddb0f84987c46db3a8e3388085be6a12eef9bfd90bb164",
     "packages/game-sdk/dist/client.d.ts": "3c5208f805fcf9ed75b8394ee5aaa30f3ef6b59dcc087b820bdddd589a2c257d",
     "packages/game-sdk/dist/client.js": "af9d0b14a855b518c1b95fea127565401be385d09baa0cfbbded00edbdb8b305",
